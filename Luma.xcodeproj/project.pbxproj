@@ -1,0 +1,524 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2C2B21071CCAE275000F4CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21061CCAE275000F4CCE /* AppDelegate.swift */; };
+		2C2B21091CCAE275000F4CCE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21081CCAE275000F4CCE /* ViewController.swift */; };
+		2C2B210C1CCAE275000F4CCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B210A1CCAE275000F4CCE /* Main.storyboard */; };
+		2C2B210F1CCAE275000F4CCE /* Luma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B210D1CCAE275000F4CCE /* Luma.xcdatamodeld */; };
+		2C2B21111CCAE275000F4CCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B21101CCAE275000F4CCE /* Assets.xcassets */; };
+		2C2B21141CCAE275000F4CCE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B21121CCAE275000F4CCE /* LaunchScreen.storyboard */; };
+		2C2B211F1CCAE275000F4CCE /* LumaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B211E1CCAE275000F4CCE /* LumaTests.swift */; };
+		2C2B212A1CCAE275000F4CCE /* LumaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21291CCAE275000F4CCE /* LumaUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2C2B211B1CCAE275000F4CCE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C2B20FB1CCAE275000F4CCE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2C2B21021CCAE275000F4CCE;
+			remoteInfo = Luma;
+		};
+		2C2B21261CCAE275000F4CCE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C2B20FB1CCAE275000F4CCE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2C2B21021CCAE275000F4CCE;
+			remoteInfo = Luma;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2C2B21031CCAE275000F4CCE /* Luma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luma.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C2B21061CCAE275000F4CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2C2B21081CCAE275000F4CCE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2C2B210B1CCAE275000F4CCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2C2B210E1CCAE275000F4CCE /* Luma.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Luma.xcdatamodel; sourceTree = "<group>"; };
+		2C2B21101CCAE275000F4CCE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2C2B21131CCAE275000F4CCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2C2B21151CCAE275000F4CCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C2B211A1CCAE275000F4CCE /* LumaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LumaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C2B211E1CCAE275000F4CCE /* LumaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaTests.swift; sourceTree = "<group>"; };
+		2C2B21201CCAE275000F4CCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C2B21251CCAE275000F4CCE /* LumaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LumaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C2B21291CCAE275000F4CCE /* LumaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaUITests.swift; sourceTree = "<group>"; };
+		2C2B212B1CCAE275000F4CCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2C2B21001CCAE275000F4CCE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C2B21171CCAE275000F4CCE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C2B21221CCAE275000F4CCE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2C2B20FA1CCAE275000F4CCE = {
+			isa = PBXGroup;
+			children = (
+				2C2B21051CCAE275000F4CCE /* Luma */,
+				2C2B211D1CCAE275000F4CCE /* LumaTests */,
+				2C2B21281CCAE275000F4CCE /* LumaUITests */,
+				2C2B21041CCAE275000F4CCE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2C2B21041CCAE275000F4CCE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C2B21031CCAE275000F4CCE /* Luma.app */,
+				2C2B211A1CCAE275000F4CCE /* LumaTests.xctest */,
+				2C2B21251CCAE275000F4CCE /* LumaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2C2B21051CCAE275000F4CCE /* Luma */ = {
+			isa = PBXGroup;
+			children = (
+				2C2B21061CCAE275000F4CCE /* AppDelegate.swift */,
+				2C2B21081CCAE275000F4CCE /* ViewController.swift */,
+				2C2B210A1CCAE275000F4CCE /* Main.storyboard */,
+				2C2B21101CCAE275000F4CCE /* Assets.xcassets */,
+				2C2B21121CCAE275000F4CCE /* LaunchScreen.storyboard */,
+				2C2B21151CCAE275000F4CCE /* Info.plist */,
+				2C2B210D1CCAE275000F4CCE /* Luma.xcdatamodeld */,
+			);
+			path = Luma;
+			sourceTree = "<group>";
+		};
+		2C2B211D1CCAE275000F4CCE /* LumaTests */ = {
+			isa = PBXGroup;
+			children = (
+				2C2B211E1CCAE275000F4CCE /* LumaTests.swift */,
+				2C2B21201CCAE275000F4CCE /* Info.plist */,
+			);
+			path = LumaTests;
+			sourceTree = "<group>";
+		};
+		2C2B21281CCAE275000F4CCE /* LumaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2C2B21291CCAE275000F4CCE /* LumaUITests.swift */,
+				2C2B212B1CCAE275000F4CCE /* Info.plist */,
+			);
+			path = LumaUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C2B21021CCAE275000F4CCE /* Luma */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C2B212E1CCAE275000F4CCE /* Build configuration list for PBXNativeTarget "Luma" */;
+			buildPhases = (
+				2C2B20FF1CCAE275000F4CCE /* Sources */,
+				2C2B21001CCAE275000F4CCE /* Frameworks */,
+				2C2B21011CCAE275000F4CCE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Luma;
+			productName = Luma;
+			productReference = 2C2B21031CCAE275000F4CCE /* Luma.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2C2B21191CCAE275000F4CCE /* LumaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C2B21311CCAE275000F4CCE /* Build configuration list for PBXNativeTarget "LumaTests" */;
+			buildPhases = (
+				2C2B21161CCAE275000F4CCE /* Sources */,
+				2C2B21171CCAE275000F4CCE /* Frameworks */,
+				2C2B21181CCAE275000F4CCE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2C2B211C1CCAE275000F4CCE /* PBXTargetDependency */,
+			);
+			name = LumaTests;
+			productName = LumaTests;
+			productReference = 2C2B211A1CCAE275000F4CCE /* LumaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2C2B21241CCAE275000F4CCE /* LumaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C2B21341CCAE275000F4CCE /* Build configuration list for PBXNativeTarget "LumaUITests" */;
+			buildPhases = (
+				2C2B21211CCAE275000F4CCE /* Sources */,
+				2C2B21221CCAE275000F4CCE /* Frameworks */,
+				2C2B21231CCAE275000F4CCE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2C2B21271CCAE275000F4CCE /* PBXTargetDependency */,
+			);
+			name = LumaUITests;
+			productName = LumaUITests;
+			productReference = 2C2B21251CCAE275000F4CCE /* LumaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2C2B20FB1CCAE275000F4CCE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Luma Legacy";
+				TargetAttributes = {
+					2C2B21021CCAE275000F4CCE = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					2C2B21191CCAE275000F4CCE = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 2C2B21021CCAE275000F4CCE;
+					};
+					2C2B21241CCAE275000F4CCE = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 2C2B21021CCAE275000F4CCE;
+					};
+				};
+			};
+			buildConfigurationList = 2C2B20FE1CCAE275000F4CCE /* Build configuration list for PBXProject "Luma" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2C2B20FA1CCAE275000F4CCE;
+			productRefGroup = 2C2B21041CCAE275000F4CCE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2C2B21021CCAE275000F4CCE /* Luma */,
+				2C2B21191CCAE275000F4CCE /* LumaTests */,
+				2C2B21241CCAE275000F4CCE /* LumaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2C2B21011CCAE275000F4CCE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C2B21141CCAE275000F4CCE /* LaunchScreen.storyboard in Resources */,
+				2C2B21111CCAE275000F4CCE /* Assets.xcassets in Resources */,
+				2C2B210C1CCAE275000F4CCE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C2B21181CCAE275000F4CCE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C2B21231CCAE275000F4CCE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2C2B20FF1CCAE275000F4CCE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C2B21091CCAE275000F4CCE /* ViewController.swift in Sources */,
+				2C2B210F1CCAE275000F4CCE /* Luma.xcdatamodeld in Sources */,
+				2C2B21071CCAE275000F4CCE /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C2B21161CCAE275000F4CCE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C2B211F1CCAE275000F4CCE /* LumaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C2B21211CCAE275000F4CCE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C2B212A1CCAE275000F4CCE /* LumaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2C2B211C1CCAE275000F4CCE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2C2B21021CCAE275000F4CCE /* Luma */;
+			targetProxy = 2C2B211B1CCAE275000F4CCE /* PBXContainerItemProxy */;
+		};
+		2C2B21271CCAE275000F4CCE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2C2B21021CCAE275000F4CCE /* Luma */;
+			targetProxy = 2C2B21261CCAE275000F4CCE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2C2B210A1CCAE275000F4CCE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C2B210B1CCAE275000F4CCE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2C2B21121CCAE275000F4CCE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C2B21131CCAE275000F4CCE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2C2B212C1CCAE275000F4CCE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2C2B212D1CCAE275000F4CCE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2C2B212F1CCAE275000F4CCE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Luma/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lumalegacy.Luma;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2C2B21301CCAE275000F4CCE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Luma/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lumalegacy.Luma;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		2C2B21321CCAE275000F4CCE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LumaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lumalegacy.LumaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Luma.app/Luma";
+			};
+			name = Debug;
+		};
+		2C2B21331CCAE275000F4CCE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LumaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lumalegacy.LumaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Luma.app/Luma";
+			};
+			name = Release;
+		};
+		2C2B21351CCAE275000F4CCE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LumaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lumalegacy.LumaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Luma;
+			};
+			name = Debug;
+		};
+		2C2B21361CCAE275000F4CCE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LumaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lumalegacy.LumaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Luma;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2C2B20FE1CCAE275000F4CCE /* Build configuration list for PBXProject "Luma" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C2B212C1CCAE275000F4CCE /* Debug */,
+				2C2B212D1CCAE275000F4CCE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2C2B212E1CCAE275000F4CCE /* Build configuration list for PBXNativeTarget "Luma" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C2B212F1CCAE275000F4CCE /* Debug */,
+				2C2B21301CCAE275000F4CCE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2C2B21311CCAE275000F4CCE /* Build configuration list for PBXNativeTarget "LumaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C2B21321CCAE275000F4CCE /* Debug */,
+				2C2B21331CCAE275000F4CCE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2C2B21341CCAE275000F4CCE /* Build configuration list for PBXNativeTarget "LumaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C2B21351CCAE275000F4CCE /* Debug */,
+				2C2B21361CCAE275000F4CCE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2C2B210D1CCAE275000F4CCE /* Luma.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2C2B210E1CCAE275000F4CCE /* Luma.xcdatamodel */,
+			);
+			currentVersion = 2C2B210E1CCAE275000F4CCE /* Luma.xcdatamodel */;
+			path = Luma.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 2C2B20FB1CCAE275000F4CCE /* Project object */;
+}
