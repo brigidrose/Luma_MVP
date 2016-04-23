@@ -1,0 +1,6 @@
+framework module KDEDateLabel {
+  umbrella header "KDEDateLabel-umbrella.h"
+
+  export *
+  module * { export * }
+}

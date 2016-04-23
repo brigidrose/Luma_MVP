@@ -7,14 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0259441CCAF61000FA6D70 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0259431CCAF61000FA6D70 /* Colors.swift */; };
+		2C0259461CCAFE5900FA6D70 /* MomentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0259451CCAFE5900FA6D70 /* MomentTableViewCell.swift */; };
 		2C2B21071CCAE275000F4CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21061CCAE275000F4CCE /* AppDelegate.swift */; };
-		2C2B21091CCAE275000F4CCE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21081CCAE275000F4CCE /* ViewController.swift */; };
 		2C2B210C1CCAE275000F4CCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B210A1CCAE275000F4CCE /* Main.storyboard */; };
 		2C2B210F1CCAE275000F4CCE /* Luma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B210D1CCAE275000F4CCE /* Luma.xcdatamodeld */; };
 		2C2B21111CCAE275000F4CCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B21101CCAE275000F4CCE /* Assets.xcassets */; };
 		2C2B21141CCAE275000F4CCE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B21121CCAE275000F4CCE /* LaunchScreen.storyboard */; };
 		2C2B211F1CCAE275000F4CCE /* LumaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B211E1CCAE275000F4CCE /* LumaTests.swift */; };
 		2C2B212A1CCAE275000F4CCE /* LumaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21291CCAE275000F4CCE /* LumaUITests.swift */; };
+		2C2B21381CCAE64A000F4CCE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21371CCAE64A000F4CCE /* MainViewController.swift */; };
+		2C2B213B1CCAE676000F4CCE /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B213A1CCAE676000F4CCE /* Moment.swift */; };
+		2C2B213E1CCAE94F000F4CCE /* LumaUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B213D1CCAE94F000F4CCE /* LumaUser.swift */; };
+		2C2B21401CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B213F1CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift */; };
+		2C2B21421CCAF05B000F4CCE /* MomentStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21411CCAF05B000F4CCE /* MomentStream.swift */; };
+		2C2B21441CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21431CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift */; };
+		C7119DC08F6399989AE919BC /* Pods_Luma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB3CB8BF51957014C6DCE5D7 /* Pods_Luma.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,9 +43,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		092FDD1A9BB58F8A8493E224 /* Pods-Luma.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luma.release.xcconfig"; path = "Pods/Target Support Files/Pods-Luma/Pods-Luma.release.xcconfig"; sourceTree = "<group>"; };
+		2C0259431CCAF61000FA6D70 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Enums/Colors.swift; sourceTree = "<group>"; };
+		2C0259451CCAFE5900FA6D70 /* MomentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentTableViewCell.swift; path = View/MomentTableViewCell.swift; sourceTree = "<group>"; };
 		2C2B21031CCAE275000F4CCE /* Luma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2B21061CCAE275000F4CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2C2B21081CCAE275000F4CCE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2C2B210B1CCAE275000F4CCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C2B210E1CCAE275000F4CCE /* Luma.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Luma.xcdatamodel; sourceTree = "<group>"; };
 		2C2B21101CCAE275000F4CCE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +59,15 @@
 		2C2B21251CCAE275000F4CCE /* LumaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LumaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2B21291CCAE275000F4CCE /* LumaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaUITests.swift; sourceTree = "<group>"; };
 		2C2B212B1CCAE275000F4CCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C2B21371CCAE64A000F4CCE /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = "View Controllers/MainViewController.swift"; sourceTree = "<group>"; };
+		2C2B213A1CCAE676000F4CCE /* Moment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Moment.swift; path = Model/Moment.swift; sourceTree = "<group>"; };
+		2C2B213D1CCAE94F000F4CCE /* LumaUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LumaUser.swift; path = Model/LumaUser.swift; sourceTree = "<group>"; };
+		2C2B213F1CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamGalleryCollectionViewCell.swift; path = View/StreamGalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		2C2B21411CCAF05B000F4CCE /* MomentStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentStream.swift; path = Model/MomentStream.swift; sourceTree = "<group>"; };
+		2C2B21431CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LumaNavigationControllerTitleView.swift; path = View/LumaNavigationControllerTitleView.swift; sourceTree = "<group>"; };
+		2C2B21491CCAF494000F4CCE /* Luma-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Luma-Bridging-Header.h"; sourceTree = "<group>"; };
+		99715BF62822F2813EBEB7E6 /* Pods-Luma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Luma/Pods-Luma.debug.xcconfig"; sourceTree = "<group>"; };
+		CB3CB8BF51957014C6DCE5D7 /* Pods_Luma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Luma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7119DC08F6399989AE919BC /* Pods_Luma.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +103,8 @@
 				2C2B211D1CCAE275000F4CCE /* LumaTests */,
 				2C2B21281CCAE275000F4CCE /* LumaUITests */,
 				2C2B21041CCAE275000F4CCE /* Products */,
+				6177BDE375DE8914799C0548 /* Pods */,
+				EAED8E0ADCE11D26AD19EC4E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,8 +122,12 @@
 			isa = PBXGroup;
 			children = (
 				2C2B21061CCAE275000F4CCE /* AppDelegate.swift */,
-				2C2B21081CCAE275000F4CCE /* ViewController.swift */,
+				2C2B21491CCAF494000F4CCE /* Luma-Bridging-Header.h */,
 				2C2B210A1CCAE275000F4CCE /* Main.storyboard */,
+				2C2B213C1CCAE68F000F4CCE /* Model */,
+				2C2B21391CCAE654000F4CCE /* View Controllers */,
+				2C2B21451CCAF151000F4CCE /* Views */,
+				2C2B21481CCAF3DB000F4CCE /* Enums */,
 				2C2B21101CCAE275000F4CCE /* Assets.xcassets */,
 				2C2B21121CCAE275000F4CCE /* LaunchScreen.storyboard */,
 				2C2B21151CCAE275000F4CCE /* Info.plist */,
@@ -128,6 +154,59 @@
 			path = LumaUITests;
 			sourceTree = "<group>";
 		};
+		2C2B21391CCAE654000F4CCE /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2C2B21371CCAE64A000F4CCE /* MainViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		2C2B213C1CCAE68F000F4CCE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2C2B213A1CCAE676000F4CCE /* Moment.swift */,
+				2C2B21411CCAF05B000F4CCE /* MomentStream.swift */,
+				2C2B213D1CCAE94F000F4CCE /* LumaUser.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		2C2B21451CCAF151000F4CCE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2C2B21431CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift */,
+				2C2B213F1CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift */,
+				2C0259451CCAFE5900FA6D70 /* MomentTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		2C2B21481CCAF3DB000F4CCE /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				2C0259431CCAF61000FA6D70 /* Colors.swift */,
+			);
+			name = Enums;
+			sourceTree = "<group>";
+		};
+		6177BDE375DE8914799C0548 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				99715BF62822F2813EBEB7E6 /* Pods-Luma.debug.xcconfig */,
+				092FDD1A9BB58F8A8493E224 /* Pods-Luma.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EAED8E0ADCE11D26AD19EC4E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CB3CB8BF51957014C6DCE5D7 /* Pods_Luma.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +214,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C2B212E1CCAE275000F4CCE /* Build configuration list for PBXNativeTarget "Luma" */;
 			buildPhases = (
+				0B04F62D36361D808913FA8B /* Check Pods Manifest.lock */,
 				2C2B20FF1CCAE275000F4CCE /* Sources */,
 				2C2B21001CCAE275000F4CCE /* Frameworks */,
 				2C2B21011CCAE275000F4CCE /* Resources */,
+				39F70F7CDBCA9432CEB4BBA0 /* Embed Pods Frameworks */,
+				72D216507E7D88BDD6215CE8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -196,6 +278,7 @@
 				TargetAttributes = {
 					2C2B21021CCAE275000F4CCE = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = U45MJ5LU33;
 					};
 					2C2B21191CCAE275000F4CCE = {
 						CreatedOnToolsVersion = 7.3;
@@ -254,14 +337,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0B04F62D36361D808913FA8B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		39F70F7CDBCA9432CEB4BBA0 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Luma/Pods-Luma-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		72D216507E7D88BDD6215CE8 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Luma/Pods-Luma-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2C2B20FF1CCAE275000F4CCE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C2B21091CCAE275000F4CCE /* ViewController.swift in Sources */,
+				2C2B21421CCAF05B000F4CCE /* MomentStream.swift in Sources */,
+				2C0259441CCAF61000FA6D70 /* Colors.swift in Sources */,
+				2C2B21381CCAE64A000F4CCE /* MainViewController.swift in Sources */,
+				2C2B21441CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift in Sources */,
 				2C2B210F1CCAE275000F4CCE /* Luma.xcdatamodeld in Sources */,
+				2C0259461CCAFE5900FA6D70 /* MomentTableViewCell.swift in Sources */,
 				2C2B21071CCAE275000F4CCE /* AppDelegate.swift in Sources */,
+				2C2B21401CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift in Sources */,
+				2C2B213E1CCAE94F000F4CCE /* LumaUser.swift in Sources */,
+				2C2B213B1CCAE676000F4CCE /* Moment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,23 +541,29 @@
 		};
 		2C2B212F1CCAE275000F4CCE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99715BF62822F2813EBEB7E6 /* Pods-Luma.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Luma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lumalegacy.Luma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Luma/Luma-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		2C2B21301CCAE275000F4CCE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 092FDD1A9BB58F8A8493E224 /* Pods-Luma.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Luma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lumalegacy.Luma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Luma/Luma-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -488,6 +632,7 @@
 				2C2B21301CCAE275000F4CCE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2C2B21311CCAE275000F4CCE /* Build configuration list for PBXNativeTarget "LumaTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +641,7 @@
 				2C2B21331CCAE275000F4CCE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2C2B21341CCAE275000F4CCE /* Build configuration list for PBXNativeTarget "LumaUITests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +650,7 @@
 				2C2B21361CCAE275000F4CCE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
