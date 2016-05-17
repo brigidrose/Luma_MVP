@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '65998F9F7069CAFA12D0CC05'
+               BlueprintIdentifier = '0C15B5414BF3958519566242'
                BlueprintName = 'DynamicColor'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'DynamicColor.framework'>

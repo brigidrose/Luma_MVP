@@ -23,6 +23,7 @@ target 'Luma' do
     pod 'DateTools'
     pod 'SDWebImage'
     pod 'CSStickyHeaderFlowLayout'
+    pod 'KRLCollectionViewGridLayout'
 
 end
 

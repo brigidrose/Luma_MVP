@@ -9,20 +9,67 @@
 import UIKit
 import TPKeyboardAvoiding
 import UIColor_Hex_Swift
-
+import MarqueeLabel
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
 
     private var streamGalleryCV:UICollectionView!
     private var streamGallerySeparatorView:UIView!
     private var streamTV:UITableView!
+    private var noFeedTitleLabel:MarqueeLabel!
+    private var noFeedBodyLabel:MarqueeLabel!
+    private var noFeedActionButton:UIButton!
     
-    var indexOfSelectedMomentStream:Int = 0
+    var indexOfSelectedMomentStream:Int?
     var momentStreams:[MomentStream] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.titleView = LumaNavigationControllerTitleView(frame:CGRectMake(0,0,30,25))
+        navigationItem.titleView = LumaNavigationControllerTitleView(frame:CGRectMake(0,0,30,25))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "AccountBarButtonItem"), style: .Plain, target: self, action: #selector(MainViewController.accountBarButtonItemTapped(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "DevicesBarButtonItem"), style: .Plain, target: self, action: #selector(MainViewController.devicesBarButtonItemTapped(_:)))
+
+        noFeedTitleLabel = MarqueeLabel(frame: CGRectZero)
+        noFeedTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        noFeedTitleLabel.textAlignment = .Center
+        noFeedTitleLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+        noFeedTitleLabel.text = "You Haven’t Joined a Moment Stream"
+        noFeedTitleLabel.numberOfLines = 1
+        noFeedTitleLabel.trailingBuffer = 50
+        view.addSubview(noFeedTitleLabel)
+        
+        noFeedBodyLabel = MarqueeLabel(frame: CGRectZero)
+        noFeedBodyLabel.translatesAutoresizingMaskIntoConstraints = false
+        noFeedBodyLabel.textAlignment = .Center
+        noFeedBodyLabel.font = UIFont.systemFontOfSize(15)
+        noFeedBodyLabel.text = "Purchase a Bracelet to create your own"
+        noFeedBodyLabel.textColor = Colors.grayTextColor
+        noFeedBodyLabel.numberOfLines = 1
+        noFeedBodyLabel.trailingBuffer = 50
+        view.addSubview(noFeedBodyLabel)
+        
+        let metricsDictionary = ["sidePadding":20]
+        
+        let noFeedTitleLabelV = NSLayoutConstraint(item: noFeedTitleLabel, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .CenterY, multiplier: 1, constant: -36)
+        let noFeedTitleLabelH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-sidePadding-[noFeedTitleLabel]-sidePadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: ["noFeedTitleLabel":noFeedTitleLabel, "noFeedBodyLabel":noFeedBodyLabel])
+        let noFeedLabelsV = NSLayoutConstraint.constraintsWithVisualFormat("V:[noFeedTitleLabel][noFeedBodyLabel]", options: [.AlignAllLeft, .AlignAllRight], metrics: metricsDictionary, views: ["noFeedTitleLabel":noFeedTitleLabel, "noFeedBodyLabel":noFeedBodyLabel])
+
+        view.addConstraints(noFeedTitleLabelH)
+        view.addConstraints(noFeedLabelsV)
+        view.addConstraint(noFeedTitleLabelV)
+        
+        noFeedActionButton = UIButton(frame: CGRectZero)
+        noFeedActionButton.translatesAutoresizingMaskIntoConstraints = false
+        noFeedActionButton.setButtonType("primary")
+        noFeedActionButton.setTitle("Purchase Bracelet", forState: .Normal)
+        noFeedActionButton.addTarget(self, action: #selector(MainViewController.noFeedActionButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        view.addSubview(noFeedActionButton)
+        
+        let noFeedActionButtonH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-sidePadding-[noFeedActionButton]-sidePadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: ["noFeedActionButton" : noFeedActionButton])
+        view.addConstraints(noFeedActionButtonH)
+        let noFeedActionButtonV = NSLayoutConstraint.constraintsWithVisualFormat("V:[noFeedActionButton(56)]-36-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: ["noFeedActionButton" : noFeedActionButton])
+        view.addConstraints(noFeedActionButtonV)
+
         
         let streamTableViewController = UITableViewController()
         self.addChildViewController(streamTableViewController)
@@ -55,7 +102,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         streamGalleryCollectionViewController.collectionView = streamGalleryCV
         view.addSubview(streamGalleryCV)
         
-        
         streamGallerySeparatorView = UIView(frame:CGRectZero)
         streamGallerySeparatorView.translatesAutoresizingMaskIntoConstraints = false
         streamGallerySeparatorView.backgroundColor = Colors.separatorGray
@@ -79,6 +125,26 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         view.addConstraints(hStreamGallerySeparatorView + [heightStreamGallerySeparatorView, vStreamGallerySeparatorView])
         
+        
+        if momentStreams.count == 0{
+            noFeedActionButton.hidden = false
+            noFeedTitleLabel.hidden = false
+            noFeedBodyLabel.hidden = false
+            streamTV.hidden = true
+            streamGalleryCV.hidden = true
+            streamGallerySeparatorView.hidden = true
+        }
+        else{
+            noFeedActionButton.hidden = true
+            noFeedTitleLabel.hidden = true
+            noFeedBodyLabel.hidden = true
+            streamTV.hidden = false
+            streamGalleryCV.hidden = false
+            streamGallerySeparatorView.hidden = false
+        }
+
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,8 +163,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             return 1
         }
         else{
-//            return momentStreams[indexOfSelectedMomentStream].moments.count + 1
-            return 2
+            if indexOfSelectedMomentStream != nil{
+                return momentStreams[indexOfSelectedMomentStream!].moments.count + 1
+            }
+            else{
+                return 0
+            }
         }
     }
     
@@ -126,6 +196,24 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("StreamGalleryCollectionViewCell", forIndexPath: indexPath)
         cell.backgroundColor = Colors.primary.colorWithAlphaComponent(0.5)
         return cell
+    }
+    
+    // MARK: Navigation Bar Button Taps
+    
+    func accountBarButtonItemTapped(sender:UIBarButtonItem){
+        
+    }
+    
+    func devicesBarButtonItemTapped(sender:UIBarButtonItem){
+        
+    }
+    
+    func noFeedActionButtonTapped(sender:UIButton){
+        let storeVC = LumaStoreViewController()
+        let storeNC = UINavigationController(rootViewController: storeVC)
+        storeNC.navigationBar.tintColor = Colors.primary
+        presentViewController(storeNC, animated: true, completion: nil)
+        
     }
     
     

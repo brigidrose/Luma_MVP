@@ -9,8 +9,10 @@
 import UIKit
 import UIColor_Hex_Swift
 enum Colors {
-    static let primary = UIColor(rgba: "#B86CFF")
-    static let offWhite = UIColor(rgba: "#FBFBFB")
+    static let primary = UIColor(rgba: "#5C6FEB")
+    static let offWhite = UIColor(rgba: "#f3f2f1")
     static let white = UIColor.whiteColor()
     static let separatorGray = UIColor(rgba: "#D8D8D8")
+    static let grayTextColor = UIColor(rgba: "#979797")
+
 }
