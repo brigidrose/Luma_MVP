@@ -45,7 +45,7 @@ class BraceletStoreViewController: UIViewController, UITableViewDataSource, UITa
         tableVC.tableView.registerClass(MultilineTextViewTableViewCell.self, forCellReuseIdentifier: "MultilineTextViewTableViewCell")
         tableVC.tableView.registerClass(TitleSeparatorTableViewCell.self, forCellReuseIdentifier: "TitleSeparatorTableViewCell")
         tableVC.tableView.rowHeight = UITableViewAutomaticDimension
-        tableVC.tableView.estimatedRowHeight = 100
+        tableVC.tableView.estimatedRowHeight = 140
         tableVC.tableView.separatorStyle = .None
         view.addSubview(tableVC.tableView)
         

@@ -18,9 +18,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var noFeedTitleLabel:MarqueeLabel!
     private var noFeedBodyLabel:MarqueeLabel!
     private var noFeedActionButton:UIButton!
+    private var newMomentButton:UIButton!
+    private var streamGallerySelectedIndexPath:NSIndexPath = NSIndexPath(forItem: 0, inSection: 1)
+    private var refreshControl:UIRefreshControl!
     
-    var indexOfSelectedMomentStream:Int?
-    var momentStreams:[MomentStream] = []
+    var momentStreams:[MomentStream] = [MomentStream()]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,19 +71,24 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         view.addConstraints(noFeedActionButtonH)
         let noFeedActionButtonV = NSLayoutConstraint.constraintsWithVisualFormat("V:[noFeedActionButton(56)]-36-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: ["noFeedActionButton" : noFeedActionButton])
         view.addConstraints(noFeedActionButtonV)
-
         
         let streamTableViewController = UITableViewController()
         self.addChildViewController(streamTableViewController)
         streamTV = TPKeyboardAvoidingTableView(frame: CGRectZero)
-        streamTV.backgroundColor = Colors.offWhite
+        streamTV.backgroundColor = Colors.white
         streamTV.translatesAutoresizingMaskIntoConstraints = false
         streamTV.delegate = self
         streamTV.dataSource = self
         streamTV.clipsToBounds = false
         streamTV.registerClass(MomentTableViewCell.self, forCellReuseIdentifier: "MomentTableViewCell")
+        streamTV.registerClass(TitleSeparatorTableViewCell.self, forCellReuseIdentifier: "TitleSeparatorTableViewCell")
+        streamTV.registerClass(MomentStreamSummaryTableViewCell.self, forCellReuseIdentifier: "MomentStreamSummaryTableViewCell")
+        streamTV.registerClass(MomentTableViewCell.self, forCellReuseIdentifier: "MomentTableViewCell")
         streamTV.estimatedRowHeight = 150
         streamTV.rowHeight = UITableViewAutomaticDimension
+        streamTV.contentInset.top = 64
+//        streamTV.scrollIndicatorInsets.top = 64
+        streamTV.separatorStyle = .None
         streamTableViewController.tableView = streamTV
         view.addSubview(streamTV)
         
@@ -89,6 +96,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         layout.scrollDirection = .Horizontal
         layout.itemSize = CGSizeMake(50, 50)
         layout.minimumInteritemSpacing = 10
+        layout.sectionInset.right = 10
         let streamGalleryCollectionViewController = UICollectionViewController()
         self.addChildViewController(streamGalleryCollectionViewController)
         streamGalleryCV = TPKeyboardAvoidingCollectionView(frame: CGRectZero, collectionViewLayout: layout)
@@ -98,6 +106,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         streamGalleryCV.alwaysBounceHorizontal = true
         streamGalleryCV.delegate = self
         streamGalleryCV.dataSource = self
+        streamGalleryCV.scrollsToTop = false
         streamGalleryCV.registerClass(StreamGalleryCollectionViewCell.self, forCellWithReuseIdentifier: "StreamGalleryCollectionViewCell")
         streamGalleryCollectionViewController.collectionView = streamGalleryCV
         view.addSubview(streamGalleryCV)
@@ -121,15 +130,31 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let hStreamGallerySeparatorView = NSLayoutConstraint.constraintsWithVisualFormat("H:|[streamGallerySeparatorView]|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
         let heightStreamGallerySeparatorView = NSLayoutConstraint(item: streamGallerySeparatorView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 0.5)
-        let vStreamGallerySeparatorView = NSLayoutConstraint(item: streamGallerySeparatorView, attribute: .Bottom, relatedBy: .Equal, toItem: streamGalleryCV, attribute: .Bottom, multiplier: 1, constant: -0.5)
+        let vStreamGallerySeparatorView = NSLayoutConstraint(item: streamGallerySeparatorView, attribute: .Bottom, relatedBy: .Equal, toItem: streamGalleryCV, attribute: .Bottom, multiplier: 1, constant: 0)
         
         view.addConstraints(hStreamGallerySeparatorView + [heightStreamGallerySeparatorView, vStreamGallerySeparatorView])
+        
+        newMomentButton = UIButton(frame: CGRectZero)
+        newMomentButton.translatesAutoresizingMaskIntoConstraints = false
+        newMomentButton.setButtonType("circle")
+        newMomentButton.setImage(UIImage(named: "PlusButtonIcon"), forState: .Normal)
+        newMomentButton.addTarget(self, action: #selector(MainViewController.newMomentButtonTapped), forControlEvents: .TouchUpInside)
+        view.addSubview(newMomentButton)
+        
+        let newMomentButtonCenterX = NSLayoutConstraint(item: newMomentButton, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1, constant: 0)
+        view.addConstraint(newMomentButtonCenterX)
+        let newMomentButtonH = NSLayoutConstraint.constraintsWithVisualFormat("H:[newMomentButton(76)]", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: ["newMomentButton" : newMomentButton])
+        view.addConstraints(newMomentButtonH)
+        let newMomentButtonV = NSLayoutConstraint.constraintsWithVisualFormat("V:[newMomentButton(76)]-36-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: ["newMomentButton" : newMomentButton])
+        view.addConstraints(newMomentButtonV)
+
         
         
         if momentStreams.count == 0{
             noFeedActionButton.hidden = false
             noFeedTitleLabel.hidden = false
             noFeedBodyLabel.hidden = false
+            newMomentButton.hidden = true
             streamTV.hidden = true
             streamGalleryCV.hidden = true
             streamGallerySeparatorView.hidden = true
@@ -138,12 +163,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             noFeedActionButton.hidden = true
             noFeedTitleLabel.hidden = true
             noFeedBodyLabel.hidden = true
+            newMomentButton.hidden = false
             streamTV.hidden = false
             streamGalleryCV.hidden = false
             streamGallerySeparatorView.hidden = false
         }
 
-        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(MainViewController.streamRefreshed), forControlEvents: .ValueChanged)
+        streamTV.addSubview(refreshControl)
 
     }
 
@@ -152,10 +180,20 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
+    func newMomentButtonTapped() {
+        print("new moment button tapped")
+    }
+    
+    func streamRefreshed() {
+        print("stream refreshed")
+        refreshControl.beginRefreshing()
+        refreshControl.endRefreshing()
+    }
+    
     // MARK: Table View Data Source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -163,18 +201,91 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             return 1
         }
         else{
-            if indexOfSelectedMomentStream != nil{
-                return momentStreams[indexOfSelectedMomentStream!].moments.count + 1
+            if streamGallerySelectedIndexPath.item != 0{
+                return momentStreams[streamGallerySelectedIndexPath.item].moments.count + 1
             }
             else{
-                return 0
+                return 5
             }
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MomentTableViewCell") as! MomentTableViewCell
-        return cell
+        if indexPath.section == 0{
+            // stream header section
+            // dequeue what's new header if what's new is selected
+            if streamGallerySelectedIndexPath == NSIndexPath(forItem: 0, inSection: 0){
+                let cell = tableView.dequeueReusableCellWithIdentifier("TitleSeparatorTableViewCell") as! TitleSeparatorTableViewCell
+                cell.titleLabel.text = "What's New"
+                return cell
+            }
+            // else dequeue stream summary header
+            else{
+                let cell = tableView.dequeueReusableCellWithIdentifier("MomentStreamSummaryTableViewCell") as! MomentStreamSummaryTableViewCell
+                if cell.participantsStackView.arrangedSubviews.count != 4{
+                    for _ in 0...3 {
+                        let button = UIButton()
+                        button.setImage(UIImage(named:"streamParticipantIcon"), forState: .Normal)
+                        cell.participantsStackView.addArrangedSubview(button)
+                    }
+                }
+                return cell
+            }
+        }
+        else{
+            let cell = tableView.dequeueReusableCellWithIdentifier("MomentTableViewCell") as! MomentTableViewCell
+            return cell
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section > 0 && section < tableView.numberOfSections - 1{
+            return 28
+        }
+        else{
+            return 0
+        }
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 1{
+            let view = UIView(frame: CGRectMake(0,0,UIScreen.mainScreen().bounds.width, 44 + 36))
+            view.backgroundColor = UIColor.whiteColor()
+            
+            let leftLineView = UIView(frame: CGRectZero)
+            let rightLineView = UIView(frame: CGRectZero)
+            let titleLabel = UILabel(frame: CGRectZero)
+            leftLineView.translatesAutoresizingMaskIntoConstraints = false
+            rightLineView.translatesAutoresizingMaskIntoConstraints = false
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            view.addSubview(leftLineView)
+            view.addSubview(rightLineView)
+            view.addSubview(titleLabel)
+            
+            leftLineView.backgroundColor = UIColor.blackColor()
+            rightLineView.backgroundColor = UIColor.blackColor()
+            titleLabel.font = UIFont.monospacedDigitSystemFontOfSize(14, weight: UIFontWeightMedium).italic()
+            titleLabel.text = "5 Locked Moments"
+            titleLabel.textAlignment = .Center
+            
+            let metricsDictionary = ["sidePadding":10, "titleLabelBuffer":7.5]
+            let viewsDictionary = ["leftLineView":leftLineView, "rightLineView":rightLineView, "titleLabel":titleLabel]
+            
+            let titleLabelCenterX = NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1, constant: 0)
+            let titleAndLinesH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-sidePadding-[leftLineView]-titleLabelBuffer-[titleLabel]-titleLabelBuffer-[rightLineView]-sidePadding-|", options: .AlignAllCenterY, metrics: metricsDictionary, views: viewsDictionary)
+            let allV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-titleLabelBuffer-[titleLabel]-titleLabelBuffer-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
+            let leftLineViewHeight = NSLayoutConstraint(item: leftLineView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 0.5)
+            let rightLineViewHeight = NSLayoutConstraint(item: rightLineView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 0.5)
+            view.addConstraints(titleAndLinesH + allV)
+            view.addConstraints([titleLabelCenterX, leftLineViewHeight, rightLineViewHeight])
+            
+            return view
+        }
+        else{
+            return nil
+        }
+
     }
     
     // MARK: Collection View Data Source

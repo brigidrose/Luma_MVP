@@ -52,17 +52,26 @@ extension UIButton {
             buttonTextColor = UIColor.whiteColor()
             self.setBorderWithRoundedCorners(28)
 //            self.titleEdgeInsets = UIEdgeInsetsMake(5.0, 7.5, 5.0, 7.5)
+            self.titleLabel?.font = UIFont(name: ".SFUIText-Regular", size: 22)
+        case "circle":
+            buttonColor = Colors.primary
+            buttonTextColor = UIColor.whiteColor()
+            self.setBorderWithRoundedCorners(38)
+            self.layer.borderWidth = 3
+            self.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.1).CGColor
+        //            self.titleEdgeInsets = UIEdgeInsetsMake(5.0, 7.5, 5.0, 7.5)
         default:
             buttonColor = Colors.primary
             buttonTextColor = UIColor.whiteColor()
             self.setBorderWithRoundedCorners(28)
 //            self.titleEdgeInsets = UIEdgeInsetsMake(5.0, 7.5, 5.0, 7.5)
+            self.titleLabel?.font = UIFont(name: ".SFUIText-Regular", size: 22)
+
         }
         
         self.setBackgroundColor(buttonColor.darkerColor(), forUIControlState: .Highlighted)
         self.setBackgroundColor(buttonColor, forUIControlState: .Normal)
         self.setTitleColor(buttonTextColor, forState: .Normal)
-        self.titleLabel?.font = UIFont(name: ".SFUIText-Regular", size: 22)
         
     }
     
