@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>BBBadgeBarButtonItem.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Bolts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -45,6 +50,11 @@
 			<false/>
 		</dict>
 		<key>FBSDKShareKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>IQKeyboardManagerSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -94,6 +104,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SZTextView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SkyFloatingLabelTextField.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>TPKeyboardAvoiding.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -127,17 +147,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>16C1711A09220A714BAFB0DF879ABA7F</key>
+		<key>1520003FEBEC114D6C84F832AFEDB994</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>21A03529D137FD3D5CCDB229530F2039</key>
+		<key>22DA697202341D6E920274EF5132A171</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>25B9AD68FE13512F0499A99477019604</key>
+		<key>2A6719C532694A1BB9C656DFB49E2D5F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,7 +172,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4A17B2273236778ABBF7B94150EAA4BE</key>
+		<key>480AA5E848CCD5FC651D8CADEBE95FDD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,7 +192,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>626D49AD18621B0A3059EE726B27AE89</key>
+		<key>65732A7FC3F590ECEF0A0C5FBA41B981</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -182,7 +202,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6F74A08EFCF1E7FA956B4B3787615E23</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6FACE30FFDD69CD562F6E8526FA562EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>71973EDF3303DC5F94C58A9AC4F63580</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -192,12 +222,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>81E13A2B3A09F91523F804BFE68DA271</key>
+		<key>8978C7FB7007A28B676AB1EA004C3923</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8978C7FB7007A28B676AB1EA004C3923</key>
+		<key>996C4CEDBD819845E4AE075097DBD57D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -212,12 +242,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CF328AA806F4701695A7E5B38EDE3C09</key>
+		<key>BDDC4DBF7654960710F7FF7B28F35033</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C87DBB7C3279CF54DC0D61F76907E87E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>DDDF9388C64BC9A538E854A916F69BA9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EA17A154D23DEDB84D665D299E7183C7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

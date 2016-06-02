@@ -9,7 +9,11 @@
 /* Begin PBXBuildFile section */
 		2C0259441CCAF61000FA6D70 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0259431CCAF61000FA6D70 /* Colors.swift */; };
 		2C0259461CCAFE5900FA6D70 /* MomentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0259451CCAFE5900FA6D70 /* MomentTableViewCell.swift */; };
+		2C234FF91CED65FD002DD8A8 /* Bag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C234FF81CED65FD002DD8A8 /* Bag.swift */; };
 		2C248AE61CEA331F00E55CDB /* LumaStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C248AE51CEA331F00E55CDB /* LumaStoreViewController.swift */; };
+		2C28C1BB1CEBC40900D0D5AB /* ProductTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C28C1BA1CEBC40900D0D5AB /* ProductTitleTableViewCell.swift */; };
+		2C28C1BD1CEBD3DA00D0D5AB /* ProductImageGalleryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C28C1BC1CEBD3DA00D0D5AB /* ProductImageGalleryTableViewCell.swift */; };
+		2C28C1BF1CEBE37F00D0D5AB /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C28C1BE1CEBE37F00D0D5AB /* ImageCollectionViewCell.swift */; };
 		2C2B21071CCAE275000F4CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21061CCAE275000F4CCE /* AppDelegate.swift */; };
 		2C2B210C1CCAE275000F4CCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B210A1CCAE275000F4CCE /* Main.storyboard */; };
 		2C2B210F1CCAE275000F4CCE /* Luma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B210D1CCAE275000F4CCE /* Luma.xcdatamodeld */; };
@@ -23,6 +27,11 @@
 		2C2B21401CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B213F1CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift */; };
 		2C2B21421CCAF05B000F4CCE /* MomentStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21411CCAF05B000F4CCE /* MomentStream.swift */; };
 		2C2B21441CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B21431CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift */; };
+		2C40E7611CEE3BAF003D58E2 /* BagDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C40E7601CEE3BAF003D58E2 /* BagDetailViewController.swift */; };
+		2C40E7631CEE4CBA003D58E2 /* SingleLineTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C40E7621CEE4CBA003D58E2 /* SingleLineTextFieldTableViewCell.swift */; };
+		2C40E7651CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C40E7641CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift */; };
+		2C40E7671CEE6CCE003D58E2 /* AddressFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C40E7661CEE6CCE003D58E2 /* AddressFormTableViewCell.swift */; };
+		2C40E7691CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C40E7681CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift */; };
 		2C89F6731CEA15C70090B536 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89F6721CEA15C70090B536 /* UIButtonExtensions.swift */; };
 		2C89F6761CEA232F0090B536 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89F6751CEA232F0090B536 /* UIFontExtension.swift */; };
 		2CA8EC381CEA3FEC00EDEEEC /* BraceletStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC371CEA3FEC00EDEEEC /* BraceletStoreViewController.swift */; };
@@ -30,8 +39,11 @@
 		2CA8EC3C1CEA642D00EDEEEC /* ProductHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC3B1CEA642D00EDEEEC /* ProductHeadlineTableViewCell.swift */; };
 		2CA8EC3E1CEA697900EDEEEC /* ProductFeatureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC3D1CEA697900EDEEEC /* ProductFeatureTableViewCell.swift */; };
 		2CA8EC401CEA6B3600EDEEEC /* ProductReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC3F1CEA6B3600EDEEEC /* ProductReviewTableViewCell.swift */; };
-		2CA8EC431CEA7DAC00EDEEEC /* CharmProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC421CEA7DAC00EDEEEC /* CharmProduct.swift */; };
+		2CA8EC431CEA7DAC00EDEEEC /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC421CEA7DAC00EDEEEC /* Product.swift */; };
 		2CA8EC451CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC441CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift */; };
+		2CD2528C1CEBA9A200F0591D /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2528B1CEBA9A200F0591D /* ProductDetailViewController.swift */; };
+		2CE9A5DA1CFFBF7100C09D0A /* BagItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9A5D91CFFBF7100C09D0A /* BagItemTableViewCell.swift */; };
+		2CE9A5DC1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9A5DB1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift */; };
 		C7119DC08F6399989AE919BC /* Pods_Luma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB3CB8BF51957014C6DCE5D7 /* Pods_Luma.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +68,11 @@
 		092FDD1A9BB58F8A8493E224 /* Pods-Luma.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luma.release.xcconfig"; path = "Pods/Target Support Files/Pods-Luma/Pods-Luma.release.xcconfig"; sourceTree = "<group>"; };
 		2C0259431CCAF61000FA6D70 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Enums/Colors.swift; sourceTree = "<group>"; };
 		2C0259451CCAFE5900FA6D70 /* MomentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentTableViewCell.swift; path = View/MomentTableViewCell.swift; sourceTree = "<group>"; };
+		2C234FF81CED65FD002DD8A8 /* Bag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bag.swift; path = Model/Bag.swift; sourceTree = "<group>"; };
 		2C248AE51CEA331F00E55CDB /* LumaStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LumaStoreViewController.swift; path = "View Controllers/LumaStoreViewController.swift"; sourceTree = "<group>"; };
+		2C28C1BA1CEBC40900D0D5AB /* ProductTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductTitleTableViewCell.swift; path = View/ProductTitleTableViewCell.swift; sourceTree = "<group>"; };
+		2C28C1BC1CEBD3DA00D0D5AB /* ProductImageGalleryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductImageGalleryTableViewCell.swift; path = View/ProductImageGalleryTableViewCell.swift; sourceTree = "<group>"; };
+		2C28C1BE1CEBE37F00D0D5AB /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = View/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		2C2B21031CCAE275000F4CCE /* Luma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2B21061CCAE275000F4CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C2B210B1CCAE275000F4CCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -77,6 +93,11 @@
 		2C2B21411CCAF05B000F4CCE /* MomentStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentStream.swift; path = Model/MomentStream.swift; sourceTree = "<group>"; };
 		2C2B21431CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LumaNavigationControllerTitleView.swift; path = View/LumaNavigationControllerTitleView.swift; sourceTree = "<group>"; };
 		2C2B21491CCAF494000F4CCE /* Luma-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Luma-Bridging-Header.h"; sourceTree = "<group>"; };
+		2C40E7601CEE3BAF003D58E2 /* BagDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BagDetailViewController.swift; path = "View Controllers/BagDetailViewController.swift"; sourceTree = "<group>"; };
+		2C40E7621CEE4CBA003D58E2 /* SingleLineTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleLineTextFieldTableViewCell.swift; path = View/SingleLineTextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		2C40E7641CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultilineTextViewTableViewCell.swift; path = View/MultilineTextViewTableViewCell.swift; sourceTree = "<group>"; };
+		2C40E7661CEE6CCE003D58E2 /* AddressFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddressFormTableViewCell.swift; path = View/AddressFormTableViewCell.swift; sourceTree = "<group>"; };
+		2C40E7681CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TitleSeparatorTableViewCell.swift; path = View/TitleSeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		2C89F6721CEA15C70090B536 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		2C89F6751CEA232F0090B536 /* UIFontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		2CA8EC371CEA3FEC00EDEEEC /* BraceletStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BraceletStoreViewController.swift; path = "View Controllers/BraceletStoreViewController.swift"; sourceTree = "<group>"; };
@@ -84,8 +105,11 @@
 		2CA8EC3B1CEA642D00EDEEEC /* ProductHeadlineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductHeadlineTableViewCell.swift; path = View/ProductHeadlineTableViewCell.swift; sourceTree = "<group>"; };
 		2CA8EC3D1CEA697900EDEEEC /* ProductFeatureTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductFeatureTableViewCell.swift; path = View/ProductFeatureTableViewCell.swift; sourceTree = "<group>"; };
 		2CA8EC3F1CEA6B3600EDEEEC /* ProductReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductReviewTableViewCell.swift; path = View/ProductReviewTableViewCell.swift; sourceTree = "<group>"; };
-		2CA8EC421CEA7DAC00EDEEEC /* CharmProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharmProduct.swift; path = Model/CharmProduct.swift; sourceTree = "<group>"; };
+		2CA8EC421CEA7DAC00EDEEEC /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Product.swift; path = Model/Product.swift; sourceTree = "<group>"; };
 		2CA8EC441CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductGalleryCollectionViewCell.swift; path = View/ProductGalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		2CD2528B1CEBA9A200F0591D /* ProductDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductDetailViewController.swift; path = "View Controllers/ProductDetailViewController.swift"; sourceTree = "<group>"; };
+		2CE9A5D91CFFBF7100C09D0A /* BagItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BagItemTableViewCell.swift; path = View/BagItemTableViewCell.swift; sourceTree = "<group>"; };
+		2CE9A5DB1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BagSummaryTableViewCell.swift; path = View/BagSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		99715BF62822F2813EBEB7E6 /* Pods-Luma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Luma/Pods-Luma.debug.xcconfig"; sourceTree = "<group>"; };
 		CB3CB8BF51957014C6DCE5D7 /* Pods_Luma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Luma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -144,12 +168,12 @@
 				2C2B21061CCAE275000F4CCE /* AppDelegate.swift */,
 				2C2B21491CCAF494000F4CCE /* Luma-Bridging-Header.h */,
 				2C2B210A1CCAE275000F4CCE /* Main.storyboard */,
+				2C2B21101CCAE275000F4CCE /* Assets.xcassets */,
 				2C2B213C1CCAE68F000F4CCE /* Model */,
 				2C2B21391CCAE654000F4CCE /* View Controllers */,
 				2C2B21451CCAF151000F4CCE /* Views */,
 				2C2B21481CCAF3DB000F4CCE /* Enums */,
 				2C89F6741CEA15CE0090B536 /* Extensions */,
-				2C2B21101CCAE275000F4CCE /* Assets.xcassets */,
 				2C2B21121CCAE275000F4CCE /* LaunchScreen.storyboard */,
 				2C2B21151CCAE275000F4CCE /* Info.plist */,
 				2C2B210D1CCAE275000F4CCE /* Luma.xcdatamodeld */,
@@ -182,6 +206,8 @@
 				2C248AE51CEA331F00E55CDB /* LumaStoreViewController.swift */,
 				2CA8EC371CEA3FEC00EDEEEC /* BraceletStoreViewController.swift */,
 				2CA8EC391CEA3FF700EDEEEC /* CharmStoreViewController.swift */,
+				2CD2528B1CEBA9A200F0591D /* ProductDetailViewController.swift */,
+				2C40E7601CEE3BAF003D58E2 /* BagDetailViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -190,7 +216,8 @@
 			isa = PBXGroup;
 			children = (
 				2C2B213A1CCAE676000F4CCE /* Moment.swift */,
-				2CA8EC421CEA7DAC00EDEEEC /* CharmProduct.swift */,
+				2C234FF81CED65FD002DD8A8 /* Bag.swift */,
+				2CA8EC421CEA7DAC00EDEEEC /* Product.swift */,
 				2C2B21411CCAF05B000F4CCE /* MomentStream.swift */,
 				2C2B213D1CCAE94F000F4CCE /* LumaUser.swift */,
 			);
@@ -204,6 +231,13 @@
 				2C2B213F1CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift */,
 				2C0259451CCAFE5900FA6D70 /* MomentTableViewCell.swift */,
 				2CA8EC441CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift */,
+				2C28C1BE1CEBE37F00D0D5AB /* ImageCollectionViewCell.swift */,
+				2C40E7661CEE6CCE003D58E2 /* AddressFormTableViewCell.swift */,
+				2C40E7621CEE4CBA003D58E2 /* SingleLineTextFieldTableViewCell.swift */,
+				2C40E7641CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift */,
+				2C40E7681CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift */,
+				2CE9A5D91CFFBF7100C09D0A /* BagItemTableViewCell.swift */,
+				2CE9A5DB1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift */,
 				2CA8EC411CEA6B3C00EDEEEC /* Product TableViewCell */,
 			);
 			name = Views;
@@ -230,8 +264,10 @@
 			isa = PBXGroup;
 			children = (
 				2CA8EC3B1CEA642D00EDEEEC /* ProductHeadlineTableViewCell.swift */,
+				2C28C1BA1CEBC40900D0D5AB /* ProductTitleTableViewCell.swift */,
 				2CA8EC3D1CEA697900EDEEEC /* ProductFeatureTableViewCell.swift */,
 				2CA8EC3F1CEA6B3600EDEEEC /* ProductReviewTableViewCell.swift */,
+				2C28C1BC1CEBD3DA00D0D5AB /* ProductImageGalleryTableViewCell.swift */,
 			);
 			name = "Product TableViewCell";
 			sourceTree = "<group>";
@@ -438,19 +474,31 @@
 			files = (
 				2C2B21421CCAF05B000F4CCE /* MomentStream.swift in Sources */,
 				2C0259441CCAF61000FA6D70 /* Colors.swift in Sources */,
+				2CE9A5DA1CFFBF7100C09D0A /* BagItemTableViewCell.swift in Sources */,
+				2C28C1BB1CEBC40900D0D5AB /* ProductTitleTableViewCell.swift in Sources */,
+				2CD2528C1CEBA9A200F0591D /* ProductDetailViewController.swift in Sources */,
 				2CA8EC401CEA6B3600EDEEEC /* ProductReviewTableViewCell.swift in Sources */,
+				2C234FF91CED65FD002DD8A8 /* Bag.swift in Sources */,
+				2C40E7691CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift in Sources */,
 				2CA8EC3A1CEA3FF700EDEEEC /* CharmStoreViewController.swift in Sources */,
 				2C2B21381CCAE64A000F4CCE /* MainViewController.swift in Sources */,
 				2CA8EC451CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift in Sources */,
+				2C40E7671CEE6CCE003D58E2 /* AddressFormTableViewCell.swift in Sources */,
 				2C2B21441CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift in Sources */,
+				2C40E7611CEE3BAF003D58E2 /* BagDetailViewController.swift in Sources */,
 				2C2B210F1CCAE275000F4CCE /* Luma.xcdatamodeld in Sources */,
 				2C0259461CCAFE5900FA6D70 /* MomentTableViewCell.swift in Sources */,
 				2CA8EC3E1CEA697900EDEEEC /* ProductFeatureTableViewCell.swift in Sources */,
 				2CA8EC3C1CEA642D00EDEEEC /* ProductHeadlineTableViewCell.swift in Sources */,
 				2C89F6731CEA15C70090B536 /* UIButtonExtensions.swift in Sources */,
+				2CE9A5DC1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift in Sources */,
 				2C2B21071CCAE275000F4CCE /* AppDelegate.swift in Sources */,
-				2CA8EC431CEA7DAC00EDEEEC /* CharmProduct.swift in Sources */,
+				2C40E7651CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift in Sources */,
+				2CA8EC431CEA7DAC00EDEEEC /* Product.swift in Sources */,
 				2CA8EC381CEA3FEC00EDEEEC /* BraceletStoreViewController.swift in Sources */,
+				2C40E7631CEE4CBA003D58E2 /* SingleLineTextFieldTableViewCell.swift in Sources */,
+				2C28C1BD1CEBD3DA00D0D5AB /* ProductImageGalleryTableViewCell.swift in Sources */,
+				2C28C1BF1CEBE37F00D0D5AB /* ImageCollectionViewCell.swift in Sources */,
 				2C2B21401CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift in Sources */,
 				2C2B213E1CCAE94F000F4CCE /* LumaUser.swift in Sources */,
 				2C248AE61CEA331F00E55CDB /* LumaStoreViewController.swift in Sources */,
@@ -606,6 +654,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lumalegacy.Luma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Luma/Luma-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -620,6 +669,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lumalegacy.Luma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Luma/Luma-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

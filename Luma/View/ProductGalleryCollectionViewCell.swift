@@ -66,6 +66,10 @@ class ProductGalleryCollectionViewCell: UICollectionViewCell {
         
         containerView.addConstraint(imageViewHCenter)
         containerView.addConstraints(imageViewH + labelH + labelV + imageViewLabelV)
+        
+        layer.borderWidth = 0.5
+        layer.borderColor = Colors.separatorGray.CGColor
+
     }
     
     required init?(coder aDecoder: NSCoder) {

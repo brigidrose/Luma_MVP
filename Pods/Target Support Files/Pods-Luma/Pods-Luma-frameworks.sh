@@ -85,6 +85,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Luma/AMTextFieldPickerExtension.framework"
+  install_framework "Pods-Luma/BBBadgeBarButtonItem.framework"
   install_framework "Pods-Luma/Bolts.framework"
   install_framework "Pods-Luma/CSStickyHeaderFlowLayout.framework"
   install_framework "Pods-Luma/ColorArt.framework"
@@ -93,6 +94,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Luma/FBSDKCoreKit.framework"
   install_framework "Pods-Luma/FBSDKLoginKit.framework"
   install_framework "Pods-Luma/FBSDKShareKit.framework"
+  install_framework "Pods-Luma/IQKeyboardManagerSwift.framework"
   install_framework "Pods-Luma/JVFloatLabeledTextField.framework"
   install_framework "Pods-Luma/KDEDateLabel.framework"
   install_framework "Pods-Luma/KRLCollectionViewGridLayout.framework"
@@ -101,6 +103,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Luma/Parse.framework"
   install_framework "Pods-Luma/ParseFacebookUtilsV4.framework"
   install_framework "Pods-Luma/SDWebImage.framework"
+  install_framework "Pods-Luma/SZTextView.framework"
+  install_framework "Pods-Luma/SkyFloatingLabelTextField.framework"
   install_framework "Pods-Luma/TPKeyboardAvoiding.framework"
   install_framework "Pods-Luma/TTTAttributedLabel.framework"
   install_framework "Pods-Luma/TouchVisualizer.framework"
@@ -108,6 +112,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Luma/AMTextFieldPickerExtension.framework"
+  install_framework "Pods-Luma/BBBadgeBarButtonItem.framework"
   install_framework "Pods-Luma/Bolts.framework"
   install_framework "Pods-Luma/CSStickyHeaderFlowLayout.framework"
   install_framework "Pods-Luma/ColorArt.framework"
@@ -116,6 +121,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Luma/FBSDKCoreKit.framework"
   install_framework "Pods-Luma/FBSDKLoginKit.framework"
   install_framework "Pods-Luma/FBSDKShareKit.framework"
+  install_framework "Pods-Luma/IQKeyboardManagerSwift.framework"
   install_framework "Pods-Luma/JVFloatLabeledTextField.framework"
   install_framework "Pods-Luma/KDEDateLabel.framework"
   install_framework "Pods-Luma/KRLCollectionViewGridLayout.framework"
@@ -124,6 +130,8 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Luma/Parse.framework"
   install_framework "Pods-Luma/ParseFacebookUtilsV4.framework"
   install_framework "Pods-Luma/SDWebImage.framework"
+  install_framework "Pods-Luma/SZTextView.framework"
+  install_framework "Pods-Luma/SkyFloatingLabelTextField.framework"
   install_framework "Pods-Luma/TPKeyboardAvoiding.framework"
   install_framework "Pods-Luma/TTTAttributedLabel.framework"
   install_framework "Pods-Luma/TouchVisualizer.framework"

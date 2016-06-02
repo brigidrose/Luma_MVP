@@ -8,7 +8,7 @@
 
 import UIKit
 import TPKeyboardAvoiding
-
+import BBBadgeBarButtonItem
 class LumaStoreViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
     var pageVC:UIPageViewController!
@@ -26,6 +26,15 @@ class LumaStoreViewController: UIViewController, UIPageViewControllerDataSource,
         view.tintColor = Colors.primary
         navigationItem.title = "Luma Store"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "CloseBarButtonItem"), style: .Plain, target: self, action: #selector(LumaStoreViewController.closeBarButtonItemTapped(_:)))
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        
+        let bagButton = UIButton(frame: CGRectMake(0,0,24,30))
+        // load appropriate image on bag items count
+        bagButton.setImage(UIImage(named: "bagBarButtonItemEmpty"), forState: UIControlState.Normal)
+        bagButton.addTarget(self, action: #selector(LumaStoreViewController.bagBarButtonItemTapped(_:)), forControlEvents: .TouchUpInside)
+        let bagBarButtonItem = BBBadgeBarButtonItem(customUIButton: bagButton)
+        bagBarButtonItem.badgeValue = "0"
+        navigationItem.rightBarButtonItem = bagBarButtonItem
         
         pageVC = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         pageVC.dataSource = self
@@ -154,5 +163,26 @@ class LumaStoreViewController: UIViewController, UIPageViewControllerDataSource,
         }
     }
     
+    func bagBarButtonItemTapped(sender:BBBadgeBarButtonItem) {
+        print("bag bar button item tapped")
+        
+        let bagDetailVC = BagDetailViewController()
+        navigationController?.pushViewController(bagDetailVC, animated: true)
+    }
+    
+    func updateBagBarButtonItem(){
+        let bagButton = UIButton(frame: CGRectMake(0,0,24,30))
+        // load appropriate image on bag items count
+        bagButton.setImage(UIImage(named: "bagBarButtonItem"), forState: UIControlState.Normal)
+        bagButton.addTarget(self, action: #selector(LumaStoreViewController.bagBarButtonItemTapped(_:)), forControlEvents: .TouchUpInside)
+        let nonEmptyBagBarButtonItem = BBBadgeBarButtonItem(customUIButton: bagButton)
+        nonEmptyBagBarButtonItem.badgeValue = "\(Int((navigationItem.rightBarButtonItem as! BBBadgeBarButtonItem).badgeValue)! + 1)"
+        nonEmptyBagBarButtonItem.badgeOriginX = 1.5
+        nonEmptyBagBarButtonItem.badgeOriginY = 9
+        nonEmptyBagBarButtonItem.badgeBGColor = UIColor.clearColor()
+        nonEmptyBagBarButtonItem.badgeFont = UIFont.systemFontOfSize(14)
+        navigationItem.setRightBarButtonItem(nonEmptyBagBarButtonItem, animated: true)
+        
+    }
 
 }

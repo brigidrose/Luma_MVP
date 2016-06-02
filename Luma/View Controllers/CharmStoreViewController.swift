@@ -14,11 +14,19 @@ class CharmStoreViewController: UIViewController, UICollectionViewDataSource, UI
 
     var charmStoreVC:UICollectionViewController!
     
-    var charmProducts:[CharmProduct] = []
+    var charmProducts:[Product] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        for i in 0...4{
+            let charmProduct = Product()
+            charmProduct.name = "Charm \(i + 1)"
+            charmProduct.price = 50.0 * Float(i + 1) - 0.01
+            charmProduct.deliveryDays = i + 1
+            charmProducts.append(charmProduct)
+        }
+        
         charmStoreVC = UICollectionViewController()
         
         let layout = KRLCollectionViewGridLayout()
@@ -35,6 +43,7 @@ class CharmStoreViewController: UIViewController, UICollectionViewDataSource, UI
         charmStoreVC.collectionView?.delegate = self
         charmStoreVC.collectionView?.dataSource = self
         charmStoreVC.collectionView?.contentInset.top = 44
+        charmStoreVC.collectionView?.alwaysBounceVertical = true
         view.addSubview(charmStoreVC.collectionView!)
     }
 
@@ -50,19 +59,37 @@ class CharmStoreViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return charmProducts.count
     }
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ProductGalleryCollectionViewCell", forIndexPath: indexPath) as! ProductGalleryCollectionViewCell
-        cell.layer.borderWidth = 0.5
-        cell.layer.borderColor = Colors.separatorGray.CGColor
+        cell.nameLabel.text = "\(charmProducts[indexPath.item].name)"
+        cell.priceLabel.text = "$\(charmProducts[indexPath.item].price)"
         return cell
     }
     
     // MARK: Colllection View Delegate
     
-
+    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ProductGalleryCollectionViewCell
+        UIView.animateWithDuration(0.15) {
+            cell.backgroundColor = Colors.offWhite
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ProductGalleryCollectionViewCell
+        UIView.animateWithDuration(0.15) {
+            cell.backgroundColor = UIColor.clearColor()
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let productDetailVC = ProductDetailViewController()
+        productDetailVC.product = charmProducts[indexPath.item]
+        navigationController?.pushViewController(productDetailVC, animated: true)
+    }
     
 }

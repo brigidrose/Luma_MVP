@@ -24,7 +24,10 @@ target 'Luma' do
     pod 'SDWebImage'
     pod 'CSStickyHeaderFlowLayout'
     pod 'KRLCollectionViewGridLayout'
-
+    pod 'BBBadgeBarButtonItem'
+    pod 'SkyFloatingLabelTextField'
+    pod 'IQKeyboardManagerSwift'
+    pod 'SZTextView'
 end
 
 target 'LumaTests' do

@@ -9,5 +9,6 @@
 #ifndef Luma_Bridging_Header_h
 #define Luma_Bridging_Header_h
 
+#import <BBBadgeBarButtonItem/BBBadgeBarButtonItem.h>
 
 #endif /* Luma_Bridging_Header_h */
