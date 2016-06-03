@@ -28,6 +28,8 @@ target 'Luma' do
     pod 'SkyFloatingLabelTextField'
     pod 'IQKeyboardManagerSwift'
     pod 'SZTextView'
+    pod 'FMMosaicLayout'
+    pod 'CountdownLabel'
 end
 
 target 'LumaTests' do

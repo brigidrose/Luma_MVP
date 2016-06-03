@@ -84,6 +84,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         streamTV.registerClass(TitleSeparatorTableViewCell.self, forCellReuseIdentifier: "TitleSeparatorTableViewCell")
         streamTV.registerClass(MomentStreamSummaryTableViewCell.self, forCellReuseIdentifier: "MomentStreamSummaryTableViewCell")
         streamTV.registerClass(MomentTableViewCell.self, forCellReuseIdentifier: "MomentTableViewCell")
+        streamTV.registerClass(GeoLockedMomentTableViewCell.self, forCellReuseIdentifier: "GeoLockedMomentTableViewCell")
+        streamTV.registerClass(TimeLockedMomentTableViewCell.self, forCellReuseIdentifier: "TimeLockedMomentTableViewCell")
         streamTV.estimatedRowHeight = 150
         streamTV.rowHeight = UITableViewAutomaticDimension
         streamTV.contentInset.top = 64
@@ -233,8 +235,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         else{
-            let cell = tableView.dequeueReusableCellWithIdentifier("MomentTableViewCell") as! MomentTableViewCell
-            return cell
+            if indexPath.item % 3 == 1{
+                let cell = tableView.dequeueReusableCellWithIdentifier("MomentTableViewCell") as! MomentTableViewCell
+                return cell
+            }
+            else if indexPath.item % 3 == 2{
+                let cell = tableView.dequeueReusableCellWithIdentifier("TimeLockedMomentTableViewCell") as! TimeLockedMomentTableViewCell
+                cell.unlockCountdownLabel.start()
+                return cell
+            }
+            else{
+                let cell = tableView.dequeueReusableCellWithIdentifier("GeoLockedMomentTableViewCell") as! GeoLockedMomentTableViewCell
+                return cell
+            }
         }
     }
     

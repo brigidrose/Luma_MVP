@@ -8,6 +8,8 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.7.0)
   - ColorArt (0.1.1)
+  - CountdownLabel (1.1.2):
+    - LTMorphingLabel (~> 0.1.1)
   - CSStickyHeaderFlowLayout (0.2.10)
   - DateTools (1.7.0)
   - DynamicColor (2.4.0)
@@ -17,10 +19,12 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.12.0):
     - FBSDKCoreKit
+  - FMMosaicLayout (0.1.4)
   - IQKeyboardManagerSwift (4.0.3)
   - JVFloatLabeledTextField (1.1.0)
   - KDEDateLabel (1.2.0)
   - KRLCollectionViewGridLayout (0.4.1)
+  - LTMorphingLabel (0.1.1)
   - MarqueeLabel (2.7.5):
     - MarqueeLabel/ObjC (= 2.7.5)
   - MarqueeLabel/ObjC (2.7.5)
@@ -47,12 +51,14 @@ DEPENDENCIES:
   - AMTextFieldPickerExtension
   - BBBadgeBarButtonItem
   - ColorArt
+  - CountdownLabel
   - CSStickyHeaderFlowLayout
   - DateTools
   - DynamicColor
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - FMMosaicLayout
   - IQKeyboardManagerSwift
   - JVFloatLabeledTextField
   - KDEDateLabel
@@ -74,16 +80,19 @@ SPEC CHECKSUMS:
   BBBadgeBarButtonItem: c2fbca0bff18e21b70defc9438a8a5048008e7ca
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   ColorArt: de0ffb63da4acdde8e234ded62e200236ca3e7e4
+  CountdownLabel: 06f96abd1f6e3a2dc6795ffb321c742ab5959b74
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   DynamicColor: 2f3fd61053684667bad9f03045dcf9a2a5a007ea
   FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
   FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
   FBSDKShareKit: df1491f064cffc8ebcc3fc8b71be94cc190c728e
+  FMMosaicLayout: c0febf6876c987c425d7e2176d034fa7a2c98cb5
   IQKeyboardManagerSwift: b6883b720b0e76473692fdc80828442566e1075f
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   KDEDateLabel: f37824a632879ef72f3cabaf847bf95743d93882
   KRLCollectionViewGridLayout: 6363dc7e3d91cf1f97e19ed20846764566659596
+  LTMorphingLabel: dfc40f43a0dcf81867b1f29431f34e861a5f1b35
   MarqueeLabel: bd476f1a91e4414a6aec4ea4096a9979e8c8c2ad
   NVActivityIndicatorView: dc80f18fb27ac92f0aa87246cc13dc39ed3e9ee0
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc

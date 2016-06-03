@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FMMosaicLayout
 
 class MomentTableViewCell: UITableViewCell {
 
@@ -16,7 +17,7 @@ class MomentTableViewCell: UITableViewCell {
     var moreButton:UIButton!
     var actionLabel:UILabel!
     var contentLabel:UILabel!
-    
+    var galleryImageView:UIImageView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -69,7 +70,15 @@ class MomentTableViewCell: UITableViewCell {
         cardView.addSubview(contentLabel)
         
         
-        let viewsDictionary = ["cardView":cardView, "userButton":userButton, "moreButton":moreButton, "actionButton":actionButton, "actionLabel":actionLabel, "contentLabel":contentLabel]
+        galleryImageView = UIImageView(frame: CGRectZero)
+        galleryImageView.translatesAutoresizingMaskIntoConstraints = false
+        galleryImageView.contentMode = .ScaleAspectFill
+        galleryImageView.clipsToBounds = true
+        galleryImageView.backgroundColor = Colors.offWhite
+        cardView.addSubview(galleryImageView)
+        
+        
+        let viewsDictionary = ["cardView":cardView, "userButton":userButton, "moreButton":moreButton, "actionButton":actionButton, "actionLabel":actionLabel, "contentLabel":contentLabel, "galleryImageView":galleryImageView]
         let metricsDictionary = ["cardPadding":10]
         
         let cardViewH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-cardPadding-[cardView]-cardPadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
@@ -85,8 +94,11 @@ class MomentTableViewCell: UITableViewCell {
         let labelsH = NSLayoutConstraint.constraintsWithVisualFormat("H:[userButton(50)]-15-[actionLabel]-20-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         cardView.addConstraints(labelsH)
         
-        let labelsV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[actionLabel]-4-[contentLabel]->=14-|", options: [.AlignAllLeft, .AlignAllRight], metrics: metricsDictionary, views: viewsDictionary)
+        let labelsV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[actionLabel]-4-[contentLabel]->=14-[galleryImageView]|", options: [.AlignAllLeft, .AlignAllRight], metrics: metricsDictionary, views: viewsDictionary)
         cardView.addConstraints(labelsV)
+        
+        let collectionViewHeight = NSLayoutConstraint(item: galleryImageView, attribute: .Height, relatedBy: .Equal, toItem: galleryImageView, attribute: .Width, multiplier: 1, constant: 0)
+        cardView.addConstraint(collectionViewHeight)
         
         let leftColumnV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[userButton(50)]->=28-[actionButton(44)]-15-|", options: .AlignAllLeft, metrics: metricsDictionary, views: viewsDictionary)
         cardView.addConstraints(leftColumnV)
