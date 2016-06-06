@@ -301,6 +301,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section != 0{
+            let momentDetailVC = MomentDetailViewController()
+            momentDetailVC.view.tintColor = Colors.primary
+            let momentDetailNC = UINavigationController(rootViewController: momentDetailVC)
+            momentDetailNC.navigationBar.tintColor = Colors.primary
+            presentViewController(momentDetailNC, animated: true, completion: nil)
+        }
+        else{
+            print(indexPath)
+        }
+    }
+    
     // MARK: Collection View Data Source
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
