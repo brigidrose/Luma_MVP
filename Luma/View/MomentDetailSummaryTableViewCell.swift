@@ -61,7 +61,7 @@ class MomentDetailSummaryTableViewCell: UITableViewCell {
         
         let userButtonCenterY = NSLayoutConstraint(item: userButton, attribute: .CenterY, relatedBy: .Equal, toItem: titleCardView, attribute: .Top, multiplier: 1, constant: 5)
         
-        titleCardView.addConstraints([userButtonWidth, userButtonHeight, userButtonCenterX, userButtonCenterY])
+        contentView.addConstraints([userButtonWidth, userButtonHeight, userButtonCenterX, userButtonCenterY])
         
         let titleLabelHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-34-[titleLabel]-12-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         

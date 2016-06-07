@@ -26,8 +26,10 @@ class MomentDetailViewController: UIViewController, UITableViewDelegate, UITable
         tableVC.tableView.delegate = self
         tableVC.tableView.dataSource = self
         tableVC.tableView.registerClass(MomentDetailSummaryTableViewCell.self, forCellReuseIdentifier: "MomentDetailSummaryTableViewCell")
+        tableVC.tableView.registerClass(MomentMediaTableViewCell.self, forCellReuseIdentifier: "MomentMediaTableViewCell")
         tableVC.tableView.rowHeight = UITableViewAutomaticDimension
         tableVC.tableView.estimatedRowHeight = 150
+        tableVC.tableView.separatorStyle = .None
         view.addSubview(tableVC.tableView)
         
         let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[tableView]|", options: NSLayoutFormatOptions(rawValue:0) , metrics: nil, views: ["tableView":tableVC.tableView])
@@ -70,8 +72,14 @@ class MomentDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MomentDetailSummaryTableViewCell") as! MomentDetailSummaryTableViewCell
-        return cell
+        if indexPath.row % 2 == 0{
+            let cell = tableView.dequeueReusableCellWithIdentifier("MomentDetailSummaryTableViewCell") as! MomentDetailSummaryTableViewCell
+            return cell
+        }
+        else{
+            let cell = tableView.dequeueReusableCellWithIdentifier("MomentMediaTableViewCell") as! MomentMediaTableViewCell
+            return cell
+        }
     }
 
 }

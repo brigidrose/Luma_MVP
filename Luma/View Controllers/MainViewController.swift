@@ -23,6 +23,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var refreshControl:UIRefreshControl!
     
     var momentStreams:[MomentStream] = [MomentStream()]
+//    var momentStreams:[MomentStream] = []
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,9 +90,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         streamTV.registerClass(TimeLockedMomentTableViewCell.self, forCellReuseIdentifier: "TimeLockedMomentTableViewCell")
         streamTV.estimatedRowHeight = 150
         streamTV.rowHeight = UITableViewAutomaticDimension
+        streamTV.contentOffset.y = -64
         streamTV.contentInset.top = 64
-//        streamTV.scrollIndicatorInsets.top = 64
+        streamTV.scrollIndicatorInsets.top = 64
         streamTV.separatorStyle = .None
+        
         streamTableViewController.tableView = streamTV
         view.addSubview(streamTV)
         
@@ -184,6 +188,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func newMomentButtonTapped() {
         print("new moment button tapped")
+        let newMomentVC = NewMomentViewController()
+        let newMomentNC = UINavigationController(rootViewController: newMomentVC)
+        newMomentNC.view.tintColor = Colors.primary
+        presentViewController(newMomentNC, animated: true, completion: nil)
     }
     
     func streamRefreshed() {
