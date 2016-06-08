@@ -47,6 +47,8 @@
 		2CA8EC451CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC441CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift */; };
 		2CB486091D064793000C4DD8 /* MomentMediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB486081D064793000C4DD8 /* MomentMediaTableViewCell.swift */; };
 		2CB4860B1D064E91000C4DD8 /* NewMomentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4860A1D064E91000C4DD8 /* NewMomentViewController.swift */; };
+		2CCC0AF71D080A6600A7796B /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCC0AF61D080A6600A7796B /* AccountViewController.swift */; };
+		2CCC0AF91D080A6C00A7796B /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCC0AF81D080A6C00A7796B /* DevicesViewController.swift */; };
 		2CD2528C1CEBA9A200F0591D /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2528B1CEBA9A200F0591D /* ProductDetailViewController.swift */; };
 		2CDC4B2E1D00C10800EDACB6 /* MomentStreamSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC4B2D1D00C10800EDACB6 /* MomentStreamSummaryTableViewCell.swift */; };
 		2CE9A5DA1CFFBF7100C09D0A /* BagItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9A5D91CFFBF7100C09D0A /* BagItemTableViewCell.swift */; };
@@ -120,6 +122,8 @@
 		2CA8EC441CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductGalleryCollectionViewCell.swift; path = View/ProductGalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		2CB486081D064793000C4DD8 /* MomentMediaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentMediaTableViewCell.swift; path = View/MomentMediaTableViewCell.swift; sourceTree = "<group>"; };
 		2CB4860A1D064E91000C4DD8 /* NewMomentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewMomentViewController.swift; path = "View Controllers/NewMomentViewController.swift"; sourceTree = "<group>"; };
+		2CCC0AF61D080A6600A7796B /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountViewController.swift; path = "View Controllers/AccountViewController.swift"; sourceTree = "<group>"; };
+		2CCC0AF81D080A6C00A7796B /* DevicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DevicesViewController.swift; path = "View Controllers/DevicesViewController.swift"; sourceTree = "<group>"; };
 		2CD2528B1CEBA9A200F0591D /* ProductDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductDetailViewController.swift; path = "View Controllers/ProductDetailViewController.swift"; sourceTree = "<group>"; };
 		2CDC4B2D1D00C10800EDACB6 /* MomentStreamSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentStreamSummaryTableViewCell.swift; path = View/MomentStreamSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		2CE9A5D91CFFBF7100C09D0A /* BagItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BagItemTableViewCell.swift; path = View/BagItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -224,6 +228,8 @@
 				2CA8EC391CEA3FF700EDEEEC /* CharmStoreViewController.swift */,
 				2CD2528B1CEBA9A200F0591D /* ProductDetailViewController.swift */,
 				2C40E7601CEE3BAF003D58E2 /* BagDetailViewController.swift */,
+				2CCC0AF61D080A6600A7796B /* AccountViewController.swift */,
+				2CCC0AF81D080A6C00A7796B /* DevicesViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -519,6 +525,8 @@
 				2C40E7651CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift in Sources */,
 				2CA8EC431CEA7DAC00EDEEEC /* Product.swift in Sources */,
 				2CA8EC381CEA3FEC00EDEEEC /* BraceletStoreViewController.swift in Sources */,
+				2CCC0AF91D080A6C00A7796B /* DevicesViewController.swift in Sources */,
+				2CCC0AF71D080A6600A7796B /* AccountViewController.swift in Sources */,
 				2C40E7631CEE4CBA003D58E2 /* SingleLineTextFieldTableViewCell.swift in Sources */,
 				2C28C1BD1CEBD3DA00D0D5AB /* ProductImageGalleryTableViewCell.swift in Sources */,
 				2C3162011D020DD1006BBC85 /* TimeLockedMomentTableViewCell.swift in Sources */,

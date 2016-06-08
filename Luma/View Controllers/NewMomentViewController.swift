@@ -45,11 +45,6 @@ class NewMomentViewController: UIViewController {
         view.backgroundColor = Colors.white
         
         
-        streamSelectionButton = UIButton(type: .Custom)
-        streamSelectionButton.frame = CGRectZero
-        streamSelectionButton.translatesAutoresizingMaskIntoConstraints = false
-        streamSelectionButton.backgroundColor = Colors.primary
-        view.addSubview(streamSelectionButton)
         
         let momentContentTVC = UITableViewController()
         addChildViewController(momentContentTVC)
@@ -57,9 +52,15 @@ class NewMomentViewController: UIViewController {
         momentContentTVC.tableView = UITableView(frame: CGRectZero)
         momentContentTVC.tableView.translatesAutoresizingMaskIntoConstraints = false
         momentContentTableView = momentContentTVC.tableView
-        momentContentTableView.contentInset.top = 64
+//        momentContentTableView.contentInset.top = 64
         momentContentTableView.contentInset.bottom = 44
         view.addSubview(momentContentTableView)
+        
+        streamSelectionButton = UIButton(type: .Custom)
+        streamSelectionButton.frame = CGRectZero
+        streamSelectionButton.translatesAutoresizingMaskIntoConstraints = false
+        streamSelectionButton.backgroundColor = Colors.primary
+        view.addSubview(streamSelectionButton)
         
         let viewsDictionary = ["momentContentTableView":momentContentTableView, "topLayoutGuide":topLayoutGuide, "bottomLayoutGuide":bottomLayoutGuide, "streamSelectionButton":streamSelectionButton]
         let metricsDictionary = ["sidePadding":15]
@@ -70,7 +71,11 @@ class NewMomentViewController: UIViewController {
         view.addConstraints(tableViewHConstraints)
         view.addConstraints(tableViewVConstraints)
         
+        let streamSelectionButtonH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[streamSelectionButton]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        let streamSelectionButtonV = NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide][streamSelectionButton(64)]", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
         
+        view.addConstraints(streamSelectionButtonH)
+        view.addConstraints(streamSelectionButtonV)
     }
     
     override func canBecomeFirstResponder() -> Bool {

@@ -346,11 +346,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Navigation Bar Button Taps
     
     func accountBarButtonItemTapped(sender:UIBarButtonItem){
-        
+        let accountVC = AccountViewController()
+        let accountNC = UINavigationController(rootViewController: accountVC)
+        accountNC.view.tintColor = Colors.primary
+        presentViewController(accountNC, animated: true, completion: nil)
     }
     
     func devicesBarButtonItemTapped(sender:UIBarButtonItem){
-        
+        let devicesVC = DevicesViewController()
+        let devicesNC = UINavigationController(rootViewController: devicesVC)
+        devicesNC.view.tintColor = Colors.primary
+        presentViewController(devicesNC, animated: true, completion: nil)
     }
     
     func noFeedActionButtonTapped(sender:UIButton){
