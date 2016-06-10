@@ -95,7 +95,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Luma/FBSDKCoreKit.framework"
   install_framework "Pods-Luma/FBSDKLoginKit.framework"
   install_framework "Pods-Luma/FBSDKShareKit.framework"
-  install_framework "Pods-Luma/FMMosaicLayout.framework"
   install_framework "Pods-Luma/IQKeyboardManagerSwift.framework"
   install_framework "Pods-Luma/JVFloatLabeledTextField.framework"
   install_framework "Pods-Luma/KDEDateLabel.framework"
@@ -112,6 +111,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Luma/TTTAttributedLabel.framework"
   install_framework "Pods-Luma/TouchVisualizer.framework"
   install_framework "Pods-Luma/UIColor_Hex_Swift.framework"
+  install_framework "Pods-Luma/swiftScan.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Luma/AMTextFieldPickerExtension.framework"
@@ -125,7 +125,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Luma/FBSDKCoreKit.framework"
   install_framework "Pods-Luma/FBSDKLoginKit.framework"
   install_framework "Pods-Luma/FBSDKShareKit.framework"
-  install_framework "Pods-Luma/FMMosaicLayout.framework"
   install_framework "Pods-Luma/IQKeyboardManagerSwift.framework"
   install_framework "Pods-Luma/JVFloatLabeledTextField.framework"
   install_framework "Pods-Luma/KDEDateLabel.framework"
@@ -142,4 +141,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Luma/TTTAttributedLabel.framework"
   install_framework "Pods-Luma/TouchVisualizer.framework"
   install_framework "Pods-Luma/UIColor_Hex_Swift.framework"
+  install_framework "Pods-Luma/swiftScan.framework"
 fi

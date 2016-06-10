@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'E2298E2622F3EC5D728A387B'
-               BlueprintName = 'FMMosaicLayout'
+               BlueprintIdentifier = '6F7F6E539FA4E0822A26EE86'
+               BlueprintName = 'swiftScan'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'FMMosaicLayout.framework'>
+               BuildableName = 'swiftScan.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -18,10 +18,9 @@ class NewMomentViewController: UIViewController {
         super.viewDidLoad()
 
         
-        navigationItem.title = "New Moment"
+        navigationItem.title = "Moment"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .Done, target: self, action: #selector(NewMomentViewController.createButtonTapped))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(NewMomentViewController.cancelButtonTapped))
-        
         
         toolBarBottom = UIToolbar(frame: CGRectZero)
         toolBarBottom.translatesAutoresizingMaskIntoConstraints = false
@@ -56,14 +55,46 @@ class NewMomentViewController: UIViewController {
         momentContentTableView.contentInset.bottom = 44
         view.addSubview(momentContentTableView)
         
+        let streamThumbnailImageView = UIImageView(frame: CGRectZero)
+        streamThumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
+        streamThumbnailImageView.layer.cornerRadius = 22
+        streamThumbnailImageView.contentMode = .ScaleAspectFill
+        streamThumbnailImageView.backgroundColor = Colors.offWhite
+        
+        let streamSelectionLabel = UILabel(frame: CGRectZero)
+        streamSelectionLabel.translatesAutoresizingMaskIntoConstraints = false
+        streamSelectionLabel.textAlignment = .Left
+        streamSelectionLabel.text = "Select Moment Stream"
+        streamSelectionLabel.font = UIFont.systemFontOfSize(17)
+        
+        let streamSelectionSeparatorView = UIView(frame: CGRectZero)
+        streamSelectionSeparatorView.translatesAutoresizingMaskIntoConstraints = false
+        streamSelectionSeparatorView.backgroundColor = Colors.offWhite
+        
         streamSelectionButton = UIButton(type: .Custom)
         streamSelectionButton.frame = CGRectZero
         streamSelectionButton.translatesAutoresizingMaskIntoConstraints = false
-        streamSelectionButton.backgroundColor = Colors.primary
+        streamSelectionButton.backgroundColor = Colors.white
+        streamSelectionButton.setBackgroundColor(Colors.offWhite, forUIControlState: .Highlighted)
+        streamSelectionButton.addTarget(self, action: #selector(NewMomentViewController.streamSelectionButtonTapped), forControlEvents: .TouchUpInside)
+        streamSelectionButton.addSubview(streamThumbnailImageView)
+        streamSelectionButton.addSubview(streamSelectionLabel)
+        streamSelectionButton.addSubview(streamSelectionSeparatorView)
         view.addSubview(streamSelectionButton)
         
-        let viewsDictionary = ["momentContentTableView":momentContentTableView, "topLayoutGuide":topLayoutGuide, "bottomLayoutGuide":bottomLayoutGuide, "streamSelectionButton":streamSelectionButton]
-        let metricsDictionary = ["sidePadding":15]
+        
+        let viewsDictionary = ["momentContentTableView":momentContentTableView, "topLayoutGuide":topLayoutGuide, "bottomLayoutGuide":bottomLayoutGuide, "streamSelectionButton":streamSelectionButton, "streamThumbnailImageView":streamThumbnailImageView, "streamSelectionLabel":streamSelectionLabel, "streamSelectionSeparatorView":streamSelectionSeparatorView]
+        let metricsDictionary = ["sidePadding":15, "buttonPadding":10]
+        
+        let buttonViewsH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-buttonPadding-[streamThumbnailImageView(44)]-buttonPadding-[streamSelectionLabel]-buttonPadding-|", options: .AlignAllCenterY, metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        
+        let buttonSeparatorH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[streamSelectionSeparatorView]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        
+        let buttonViewsV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-buttonPadding-[streamThumbnailImageView(44)]-9-[streamSelectionSeparatorView(1)]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        
+        streamSelectionButton.addConstraints(buttonViewsH)
+        streamSelectionButton.addConstraints(buttonViewsV)
+        streamSelectionButton.addConstraints(buttonSeparatorH)
         
         let tableViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[momentContentTableView]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String : AnyObject])
         let tableViewVConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide][momentContentTableView][bottomLayoutGuide]", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String : AnyObject])
@@ -92,6 +123,14 @@ class NewMomentViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func streamSelectionButtonTapped() {
+        print("stream selection button tapped")
+        let streamSelectionVC = StreamSelectionViewController()
+        let streamSelectionNC = UINavigationController(rootViewController:streamSelectionVC)
+        streamSelectionNC.view.tintColor = Colors.primary
+        presentViewController(streamSelectionNC, animated: true, completion: nil)
+    }
+    
     func createButtonTapped() {
         print("create button tapped")
         dismissViewControllerAnimated(true, completion: nil)
@@ -99,6 +138,7 @@ class NewMomentViewController: UIViewController {
     
     func cancelButtonTapped() {
         print("cancel button tapped")
+        resignFirstResponder()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -108,6 +148,10 @@ class NewMomentViewController: UIViewController {
     
     func addUnlockSettingsButtonTapped(){
         print("add unlock settings button tapped")
+        let unlockSettingsVC = UnlockSettingsViewController()
+        let unlockSettingsNC = UINavigationController(rootViewController: unlockSettingsVC)
+        unlockSettingsNC.view.tintColor = Colors.primary
+        presentViewController(unlockSettingsNC, animated: true, completion: nil)
     }
 
 

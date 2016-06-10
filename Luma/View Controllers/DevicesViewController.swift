@@ -13,7 +13,7 @@ class DevicesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Devices"
+        navigationItem.title = "Settings"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"CloseBarButtonItem" ), style: .Plain, target: self, action: #selector(DevicesViewController.closeButtonTapped))
 
         view.backgroundColor = Colors.white

@@ -10,5 +10,4 @@
 #define Luma_Bridging_Header_h
 
 #import <BBBadgeBarButtonItem/BBBadgeBarButtonItem.h>
-#import <FMMosaicLayout/FMMosaicLayout.h>
 #endif /* Luma_Bridging_Header_h */

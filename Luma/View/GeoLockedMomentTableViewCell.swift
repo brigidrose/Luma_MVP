@@ -61,7 +61,7 @@ class GeoLockedMomentTableViewCell: UITableViewCell {
         
         mapView = MKMapView(frame: CGRectZero)
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.showsUserLocation = true
+        mapView.showsUserLocation = false
         mapView.userInteractionEnabled = false
         cardView.addSubview(mapView)
         

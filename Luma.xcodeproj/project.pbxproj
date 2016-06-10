@@ -36,6 +36,9 @@
 		2C40E7691CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C40E7681CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift */; };
 		2C5CF7171D022E1F003A4476 /* MomentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CF7161D022E1F003A4476 /* MomentDetailViewController.swift */; };
 		2C5CF7191D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CF7181D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift */; };
+		2C7E2F3A1D09DA5B009A4500 /* StreamSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E2F391D09DA5B009A4500 /* StreamSelectionViewController.swift */; };
+		2C7E2F3C1D09EF2F009A4500 /* StreamWithParticipantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E2F3B1D09EF2F009A4500 /* StreamWithParticipantsTableViewCell.swift */; };
+		2C7E2F3E1D0A6996009A4500 /* UnlockSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E2F3D1D0A6996009A4500 /* UnlockSettingsViewController.swift */; };
 		2C89F6731CEA15C70090B536 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89F6721CEA15C70090B536 /* UIButtonExtensions.swift */; };
 		2C89F6761CEA232F0090B536 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89F6751CEA232F0090B536 /* UIFontExtension.swift */; };
 		2CA8EC381CEA3FEC00EDEEEC /* BraceletStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC371CEA3FEC00EDEEEC /* BraceletStoreViewController.swift */; };
@@ -111,6 +114,9 @@
 		2C40E7681CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TitleSeparatorTableViewCell.swift; path = View/TitleSeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		2C5CF7161D022E1F003A4476 /* MomentDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentDetailViewController.swift; path = "View Controllers/MomentDetailViewController.swift"; sourceTree = "<group>"; };
 		2C5CF7181D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentDetailSummaryTableViewCell.swift; path = View/MomentDetailSummaryTableViewCell.swift; sourceTree = "<group>"; };
+		2C7E2F391D09DA5B009A4500 /* StreamSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamSelectionViewController.swift; path = "View Controllers/StreamSelectionViewController.swift"; sourceTree = "<group>"; };
+		2C7E2F3B1D09EF2F009A4500 /* StreamWithParticipantsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamWithParticipantsTableViewCell.swift; path = View/StreamWithParticipantsTableViewCell.swift; sourceTree = "<group>"; };
+		2C7E2F3D1D0A6996009A4500 /* UnlockSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnlockSettingsViewController.swift; path = "View Controllers/UnlockSettingsViewController.swift"; sourceTree = "<group>"; };
 		2C89F6721CEA15C70090B536 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		2C89F6751CEA232F0090B536 /* UIFontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		2CA8EC371CEA3FEC00EDEEEC /* BraceletStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BraceletStoreViewController.swift; path = "View Controllers/BraceletStoreViewController.swift"; sourceTree = "<group>"; };
@@ -223,6 +229,8 @@
 				2C2B21371CCAE64A000F4CCE /* MainViewController.swift */,
 				2C5CF7161D022E1F003A4476 /* MomentDetailViewController.swift */,
 				2CB4860A1D064E91000C4DD8 /* NewMomentViewController.swift */,
+				2C7E2F391D09DA5B009A4500 /* StreamSelectionViewController.swift */,
+				2C7E2F3D1D0A6996009A4500 /* UnlockSettingsViewController.swift */,
 				2C248AE51CEA331F00E55CDB /* LumaStoreViewController.swift */,
 				2CA8EC371CEA3FEC00EDEEEC /* BraceletStoreViewController.swift */,
 				2CA8EC391CEA3FF700EDEEEC /* CharmStoreViewController.swift */,
@@ -251,6 +259,7 @@
 			children = (
 				2C2B21431CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift */,
 				2C5CF7181D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift */,
+				2C7E2F3B1D09EF2F009A4500 /* StreamWithParticipantsTableViewCell.swift */,
 				2CB486081D064793000C4DD8 /* MomentMediaTableViewCell.swift */,
 				2C2B213F1CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift */,
 				2C0259451CCAFE5900FA6D70 /* MomentTableViewCell.swift */,
@@ -388,6 +397,11 @@
 					2C2B21021CCAE275000F4CCE = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = U45MJ5LU33;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					2C2B21191CCAE275000F4CCE = {
 						CreatedOnToolsVersion = 7.3;
@@ -512,6 +526,7 @@
 				2CDC4B2E1D00C10800EDACB6 /* MomentStreamSummaryTableViewCell.swift in Sources */,
 				2CA8EC451CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift in Sources */,
 				2C40E7671CEE6CCE003D58E2 /* AddressFormTableViewCell.swift in Sources */,
+				2C7E2F3C1D09EF2F009A4500 /* StreamWithParticipantsTableViewCell.swift in Sources */,
 				2C2B21441CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift in Sources */,
 				2C40E7611CEE3BAF003D58E2 /* BagDetailViewController.swift in Sources */,
 				2C2B210F1CCAE275000F4CCE /* Luma.xcdatamodeld in Sources */,
@@ -522,6 +537,7 @@
 				2C89F6731CEA15C70090B536 /* UIButtonExtensions.swift in Sources */,
 				2CE9A5DC1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift in Sources */,
 				2C2B21071CCAE275000F4CCE /* AppDelegate.swift in Sources */,
+				2C7E2F3A1D09DA5B009A4500 /* StreamSelectionViewController.swift in Sources */,
 				2C40E7651CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift in Sources */,
 				2CA8EC431CEA7DAC00EDEEEC /* Product.swift in Sources */,
 				2CA8EC381CEA3FEC00EDEEEC /* BraceletStoreViewController.swift in Sources */,
@@ -534,6 +550,7 @@
 				2C2B21401CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift in Sources */,
 				2C5CF7171D022E1F003A4476 /* MomentDetailViewController.swift in Sources */,
 				2C5CF7191D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift in Sources */,
+				2C7E2F3E1D0A6996009A4500 /* UnlockSettingsViewController.swift in Sources */,
 				2CB4860B1D064E91000C4DD8 /* NewMomentViewController.swift in Sources */,
 				2C2B213E1CCAE94F000F4CCE /* LumaUser.swift in Sources */,
 				2C248AE61CEA331F00E55CDB /* LumaStoreViewController.swift in Sources */,

@@ -19,7 +19,6 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.12.0):
     - FBSDKCoreKit
-  - FMMosaicLayout (0.1.4)
   - IQKeyboardManagerSwift (4.0.3)
   - JVFloatLabeledTextField (1.1.0)
   - KDEDateLabel (1.2.0)
@@ -41,6 +40,7 @@ PODS:
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
   - SkyFloatingLabelTextField (1.2.1)
+  - swiftScan (1.0.8)
   - SZTextView (1.2.2)
   - TouchVisualizer (1.4.0)
   - TPKeyboardAvoiding (1.3)
@@ -58,7 +58,6 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
-  - FMMosaicLayout
   - IQKeyboardManagerSwift
   - JVFloatLabeledTextField
   - KDEDateLabel
@@ -69,6 +68,7 @@ DEPENDENCIES:
   - ParseFacebookUtilsV4
   - SDWebImage
   - SkyFloatingLabelTextField
+  - swiftScan
   - SZTextView
   - TouchVisualizer
   - TPKeyboardAvoiding
@@ -87,7 +87,6 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
   FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
   FBSDKShareKit: df1491f064cffc8ebcc3fc8b71be94cc190c728e
-  FMMosaicLayout: c0febf6876c987c425d7e2176d034fa7a2c98cb5
   IQKeyboardManagerSwift: b6883b720b0e76473692fdc80828442566e1075f
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   KDEDateLabel: f37824a632879ef72f3cabaf847bf95743d93882
@@ -99,6 +98,7 @@ SPEC CHECKSUMS:
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SkyFloatingLabelTextField: 3f6610aded18e778df5cfab3b9e12a11b3e014e9
+  swiftScan: 2dc76303bc7c2dcb7bde9c539f9bd6a7520abc8e
   SZTextView: 3a81174dce0710a9ab069bc73a813e6df53b9c82
   TouchVisualizer: 44c1a7a6e1b6526df7673f68400072363ecd3bf6
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
