@@ -22,6 +22,8 @@ class MomentDetailSummaryTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        selectionStyle = .None
+        
         titleCardView = UIView(frame: CGRectZero)
         titleCardView.translatesAutoresizingMaskIntoConstraints = false
         titleCardView.backgroundColor = UIColor(hexString: "979797")
@@ -41,6 +43,9 @@ class MomentDetailSummaryTableViewCell: UITableViewCell {
         userButton = UIButton(frame: CGRectZero)
         userButton.translatesAutoresizingMaskIntoConstraints = false
         userButton.setImage(UIImage(named: "momentUserButtonIcon"), forState: .Normal)
+        userButton.backgroundColor = Colors.white
+        userButton.layer.cornerRadius = 25
+        userButton.clipsToBounds = true
         contentView.addSubview(userButton)
         
         let viewsDictionary = ["titleCardView":titleCardView, "titleLabel":titleLabel, "userButton":userButton]

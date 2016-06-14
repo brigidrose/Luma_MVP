@@ -51,12 +51,19 @@ class UnlockSettingsViewController: UIViewController, MKMapViewDelegate {
         locationPickerContainerView.hidden = true
         view.addSubview(locationPickerContainerView)
         
+        
         mapView = MKMapView(frame: CGRectZero)
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15))
-        mapView.showsUserLocation = true
+        mapView.showsUserLocation = false
         mapView.delegate = self
         locationPickerContainerView.addSubview(mapView)
+        
+        let mapPinImageView = UIImageView(frame:CGRectZero)
+        mapPinImageView.translatesAutoresizingMaskIntoConstraints = false
+        mapPinImageView.image = UIImage(named: "mapPin")
+        locationPickerContainerView.addSubview(mapPinImageView)
+
         
         let segmentedControlContainerView = UIView(frame: CGRectZero)
         segmentedControlContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,14 +91,14 @@ class UnlockSettingsViewController: UIViewController, MKMapViewDelegate {
         unlockSettingsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         unlockSettingsTitleLabel.textAlignment = .Left
         unlockSettingsTitleLabel.font = UIFont.systemFontOfSize(18)
-        unlockSettingsTitleLabel.text = "Unlock Settings Title Label"
+        unlockSettingsTitleLabel.text = "Loading..."
         unlockSettingsSummaryLabelsContainerView.addSubview(unlockSettingsTitleLabel)
         
         unlockSettingsDetailLabel = UILabel(frame: CGRectZero)
         unlockSettingsDetailLabel.translatesAutoresizingMaskIntoConstraints = false
         unlockSettingsDetailLabel.textAlignment = .Left
         unlockSettingsDetailLabel.font = UIFont.systemFontOfSize(13)
-        unlockSettingsDetailLabel.text = "Unlock Settings Detail Label"
+        unlockSettingsDetailLabel.text = "Longitude: \(round(1000 * mapView.centerCoordinate.longitude)/1000)   Latitude: \(round(1000 * mapView.centerCoordinate.latitude)/1000)"
         unlockSettingsSummaryLabelsContainerView.addSubview(unlockSettingsDetailLabel)
         
         unlockSettingsSeparatorView = UIView(frame: CGRectZero)
@@ -100,7 +107,7 @@ class UnlockSettingsViewController: UIViewController, MKMapViewDelegate {
         unlockSettingsSummaryLabelsContainerView.addSubview(unlockSettingsSeparatorView)
         
         
-        let viewsDictionary = ["topLayoutGuide":topLayoutGuide, "bottomLayoutGuide":bottomLayoutGuide, "segmentedControlContainerView":segmentedControlContainerView, "segmentedControlContainerSeparatorView":segmentedControlContainerSeparatorView, "segmentedControl":segmentedControl,"datePickerContainerView":datePickerContainerView, "locationPickerContainerView":locationPickerContainerView, "unlockSettingsSummaryLabelsContainerView":unlockSettingsSummaryLabelsContainerView, "unlockSettingsTitleLabel":unlockSettingsTitleLabel, "unlockSettingsDetailLabel":unlockSettingsDetailLabel, "unlockSettingsSeparatorView":unlockSettingsSeparatorView, "datePicker":datePicker, "mapView":mapView]
+        let viewsDictionary = ["topLayoutGuide":topLayoutGuide, "bottomLayoutGuide":bottomLayoutGuide, "segmentedControlContainerView":segmentedControlContainerView, "segmentedControlContainerSeparatorView":segmentedControlContainerSeparatorView, "segmentedControl":segmentedControl,"datePickerContainerView":datePickerContainerView, "locationPickerContainerView":locationPickerContainerView, "unlockSettingsSummaryLabelsContainerView":unlockSettingsSummaryLabelsContainerView, "unlockSettingsTitleLabel":unlockSettingsTitleLabel, "unlockSettingsDetailLabel":unlockSettingsDetailLabel, "unlockSettingsSeparatorView":unlockSettingsSeparatorView, "datePicker":datePicker, "mapView":mapView, "mapPinImageView":mapPinImageView]
         
         let metricsDictionary = ["sidePadding":15, "miniSidePadding":7.5, "verticalPadding":8]
         
@@ -155,6 +162,22 @@ class UnlockSettingsViewController: UIViewController, MKMapViewDelegate {
         unlockSettingsSummaryLabelsContainerView.addConstraints(unlockSeparatorV)
         unlockSettingsSummaryLabelsContainerView.addConstraints(unlockSeparatorH)
         
+        let mapPinImageViewH = NSLayoutConstraint.constraintsWithVisualFormat("H:[mapPinImageView]", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        let mapPinImageViewV = NSLayoutConstraint.constraintsWithVisualFormat("V:[mapPinImageView]", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        let mapPinImageViewCenterX = NSLayoutConstraint(item: mapPinImageView, attribute: .CenterX, relatedBy: .Equal, toItem: mapView, attribute: .CenterX, multiplier: 1, constant: 7)
+        let mapPinImageViewCenterY = NSLayoutConstraint(item: mapPinImageView, attribute: .CenterY, relatedBy: .Equal, toItem: mapView, attribute: .CenterY, multiplier: 1, constant: -15)
+        
+        locationPickerContainerView.addConstraints(mapPinImageViewH)
+        locationPickerContainerView.addConstraints(mapPinImageViewV)
+        locationPickerContainerView.addConstraint(mapPinImageViewCenterX)
+        locationPickerContainerView.addConstraint(mapPinImageViewCenterY)
+        
+        if segmentedControl.selectedSegmentIndex == 1{
+            updateLabelsWithLocation()
+        }
+        else{
+            updateLabelsWithTime()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -178,6 +201,8 @@ class UnlockSettingsViewController: UIViewController, MKMapViewDelegate {
         else{
             navigationItem.rightBarButtonItem = nil
         }
+        updateLabelsWithTime()
+        updateLabelsWithLocation()
     }
     
     func locationSearchButtonTapped(){
@@ -185,10 +210,51 @@ class UnlockSettingsViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        print(mapView.region)
+        updateLabelsWithLocation()
+    }
+    
+    func updateLabelsWithLocation() {
+        if segmentedControl.selectedSegmentIndex == 1{
+            self.unlockSettingsTitleLabel.text = "Unlocks Near"
+            self.unlockSettingsDetailLabel.text = "loading location..."
+        }
+        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)) { (places, error) in
+            if places?.count > 0{
+                let place = places![0]
+                if self.segmentedControl.selectedSegmentIndex == 1{
+                    if (place.subThoroughfare != nil && place.thoroughfare != nil && place.locality != nil && place.administrativeArea != nil){
+                        self.unlockSettingsTitleLabel.text = "\(place.subThoroughfare!) \(place.thoroughfare!)"
+                        self.unlockSettingsDetailLabel.text = "\(place.locality!), \(place.administrativeArea!)"
+                    }
+                    else{
+                        self.unlockSettingsTitleLabel.text = "Unlocks Near"
+                        if place.locality != nil && place.administrativeArea != nil{
+                            self.unlockSettingsDetailLabel.text = "\(place.locality!), \(place.administrativeArea!)"
+                        }
+                        else{
+                            self.unlockSettingsDetailLabel.text = "Latitude: \(round(1000 * self.mapView.centerCoordinate.latitude)/1000)   Longitude: \(round(1000 * self.mapView.centerCoordinate.longitude)/1000)"
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    
+    func updateLabelsWithTime(){
+        let date = datePicker.date
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .LongStyle
+        let timeFormatter = NSDateFormatter()
+        timeFormatter.timeStyle = .ShortStyle
+        
+        if segmentedControl.selectedSegmentIndex == 0{
+            self.unlockSettingsTitleLabel.text = "\(dateFormatter.stringFromDate(date))  \(timeFormatter.stringFromDate(date))"
+            self.unlockSettingsDetailLabel.text = "the moment will unlock at this time"
+        }
     }
     
     func datePickerChanged() {
-        print(datePicker.date)
+        updateLabelsWithTime()
     }
 }

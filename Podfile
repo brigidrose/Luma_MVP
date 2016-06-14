@@ -30,6 +30,7 @@ target 'Luma' do
     pod 'SZTextView'
     pod 'CountdownLabel'
     pod 'swiftScan'
+    pod 'QBImagePickerController'
 end
 
 target 'LumaTests' do

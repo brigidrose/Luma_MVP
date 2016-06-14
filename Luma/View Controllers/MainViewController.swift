@@ -10,6 +10,8 @@ import UIKit
 import TPKeyboardAvoiding
 import UIColor_Hex_Swift
 import MarqueeLabel
+import Parse
+
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
 
     private var streamGalleryCV:UICollectionView!
@@ -179,6 +181,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.addTarget(self, action: #selector(MainViewController.streamRefreshed), forControlEvents: .ValueChanged)
         streamTV.addSubview(refreshControl)
 
+        if PFUser.currentUser() == nil{
+            let onboardingVC = OnboardingViewController()
+            presentViewController(onboardingVC, animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -36,9 +36,10 @@ PODS:
     - FBSDKLoginKit (~> 4.10)
     - FBSDKTVOSKit (~> 4.10)
     - Parse (~> 1.12)
-  - SDWebImage (3.7.6):
-    - SDWebImage/Core (= 3.7.6)
-  - SDWebImage/Core (3.7.6)
+  - QBImagePickerController (3.4.0)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
   - SkyFloatingLabelTextField (1.2.1)
   - swiftScan (1.0.8)
   - SZTextView (1.2.2)
@@ -66,6 +67,7 @@ DEPENDENCIES:
   - NVActivityIndicatorView
   - Parse
   - ParseFacebookUtilsV4
+  - QBImagePickerController
   - SDWebImage
   - SkyFloatingLabelTextField
   - swiftScan
@@ -96,7 +98,8 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: dc80f18fb27ac92f0aa87246cc13dc39ed3e9ee0
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
-  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SkyFloatingLabelTextField: 3f6610aded18e778df5cfab3b9e12a11b3e014e9
   swiftScan: 2dc76303bc7c2dcb7bde9c539f9bd6a7520abc8e
   SZTextView: 3a81174dce0710a9ab069bc73a813e6df53b9c82

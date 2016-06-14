@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FMMosaicLayout
 
 class MomentTableViewCell: UITableViewCell {
 

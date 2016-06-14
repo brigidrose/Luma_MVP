@@ -109,6 +109,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>QBImagePickerController-QBImagePicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>QBImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -152,6 +162,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>05C0F3E77453B34603AFBAC706D96D3C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>08F6A5AF8E89681F880EB03F167AACB7</key>
 		<dict>
 			<key>primary</key>
@@ -167,17 +182,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1A3DE20CCFE8A9BB6435293848E4D6C3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>2C8AA1BAF35413BDB954A1DF93576ED1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2E16E08AF9C7EA032070D9560FC02725</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -192,12 +197,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>45D27E7B5FE686998D6FC669F2FD8D7A</key>
+		<key>52D82BFDD1E808D9CB257431922C1EE4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>52D82BFDD1E808D9CB257431922C1EE4</key>
+		<key>581FB18A06BD7D1FF2EF9596CC618901</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -212,7 +217,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>61D5A882D91C9C34AC1C546F3C9DD5B5</key>
+		<key>6795E2A3C448D8DFF7D2EDA292A34D2B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -232,17 +237,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>791D401C596EA98BC6517AC30B608E45</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8978C7FB7007A28B676AB1EA004C3923</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9406E39F7C00FB064D8C3FD28E2D05CB</key>
+		<key>93CDC30670A377F4D4D7D1089BC6B29D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>94A257B599AC73C06B2D99280AD067E5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>98C0EA9534772000A27EB527E2E56CCB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -252,7 +262,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9B9203FB31989C1A0B77EFD24AA1F26F</key>
+		<key>A3EA056549079E4B7D83DB3AAE2CB204</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A5EFD2B9CAD1BE425710D4D0F2BF7042</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -267,12 +282,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BCDC8C459180638E34059D56CAF957B1</key>
+		<key>BDDC4DBF7654960710F7FF7B28F35033</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BDDC4DBF7654960710F7FF7B28F35033</key>
+		<key>C66B4A8E96CD04F693FDE003386C0169</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D9F28B3DF314A9C5AA892EF7912184CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -282,7 +302,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F699C7F8434E81C6E04889C31C1ACEC9</key>
+		<key>ED77CED464EE586E7578D842D79418DE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

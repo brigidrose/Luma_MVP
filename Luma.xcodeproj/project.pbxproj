@@ -36,6 +36,8 @@
 		2C40E7691CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C40E7681CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift */; };
 		2C5CF7171D022E1F003A4476 /* MomentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CF7161D022E1F003A4476 /* MomentDetailViewController.swift */; };
 		2C5CF7191D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CF7181D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift */; };
+		2C742CC01D0B8EA700B2DA61 /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C742CBF1D0B8EA700B2DA61 /* TextViewTableViewCell.swift */; };
+		2C742CC21D0BEC7600B2DA61 /* ImageWithCaptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C742CC11D0BEC7600B2DA61 /* ImageWithCaptionTableViewCell.swift */; };
 		2C7E2F3A1D09DA5B009A4500 /* StreamSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E2F391D09DA5B009A4500 /* StreamSelectionViewController.swift */; };
 		2C7E2F3C1D09EF2F009A4500 /* StreamWithParticipantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E2F3B1D09EF2F009A4500 /* StreamWithParticipantsTableViewCell.swift */; };
 		2C7E2F3E1D0A6996009A4500 /* UnlockSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E2F3D1D0A6996009A4500 /* UnlockSettingsViewController.swift */; };
@@ -50,6 +52,7 @@
 		2CA8EC451CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC441CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift */; };
 		2CB486091D064793000C4DD8 /* MomentMediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB486081D064793000C4DD8 /* MomentMediaTableViewCell.swift */; };
 		2CB4860B1D064E91000C4DD8 /* NewMomentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4860A1D064E91000C4DD8 /* NewMomentViewController.swift */; };
+		2CBF1CD41D0F588600F50061 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF1CD31D0F588600F50061 /* OnboardingViewController.swift */; };
 		2CCC0AF71D080A6600A7796B /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCC0AF61D080A6600A7796B /* AccountViewController.swift */; };
 		2CCC0AF91D080A6C00A7796B /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCC0AF81D080A6C00A7796B /* DevicesViewController.swift */; };
 		2CD2528C1CEBA9A200F0591D /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2528B1CEBA9A200F0591D /* ProductDetailViewController.swift */; };
@@ -114,6 +117,8 @@
 		2C40E7681CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TitleSeparatorTableViewCell.swift; path = View/TitleSeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		2C5CF7161D022E1F003A4476 /* MomentDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentDetailViewController.swift; path = "View Controllers/MomentDetailViewController.swift"; sourceTree = "<group>"; };
 		2C5CF7181D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentDetailSummaryTableViewCell.swift; path = View/MomentDetailSummaryTableViewCell.swift; sourceTree = "<group>"; };
+		2C742CBF1D0B8EA700B2DA61 /* TextViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextViewTableViewCell.swift; path = View/TextViewTableViewCell.swift; sourceTree = "<group>"; };
+		2C742CC11D0BEC7600B2DA61 /* ImageWithCaptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageWithCaptionTableViewCell.swift; path = View/ImageWithCaptionTableViewCell.swift; sourceTree = "<group>"; };
 		2C7E2F391D09DA5B009A4500 /* StreamSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamSelectionViewController.swift; path = "View Controllers/StreamSelectionViewController.swift"; sourceTree = "<group>"; };
 		2C7E2F3B1D09EF2F009A4500 /* StreamWithParticipantsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamWithParticipantsTableViewCell.swift; path = View/StreamWithParticipantsTableViewCell.swift; sourceTree = "<group>"; };
 		2C7E2F3D1D0A6996009A4500 /* UnlockSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnlockSettingsViewController.swift; path = "View Controllers/UnlockSettingsViewController.swift"; sourceTree = "<group>"; };
@@ -128,6 +133,7 @@
 		2CA8EC441CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductGalleryCollectionViewCell.swift; path = View/ProductGalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		2CB486081D064793000C4DD8 /* MomentMediaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentMediaTableViewCell.swift; path = View/MomentMediaTableViewCell.swift; sourceTree = "<group>"; };
 		2CB4860A1D064E91000C4DD8 /* NewMomentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewMomentViewController.swift; path = "View Controllers/NewMomentViewController.swift"; sourceTree = "<group>"; };
+		2CBF1CD31D0F588600F50061 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnboardingViewController.swift; path = "View Controllers/OnboardingViewController.swift"; sourceTree = "<group>"; };
 		2CCC0AF61D080A6600A7796B /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountViewController.swift; path = "View Controllers/AccountViewController.swift"; sourceTree = "<group>"; };
 		2CCC0AF81D080A6C00A7796B /* DevicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DevicesViewController.swift; path = "View Controllers/DevicesViewController.swift"; sourceTree = "<group>"; };
 		2CD2528B1CEBA9A200F0591D /* ProductDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductDetailViewController.swift; path = "View Controllers/ProductDetailViewController.swift"; sourceTree = "<group>"; };
@@ -227,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				2C2B21371CCAE64A000F4CCE /* MainViewController.swift */,
+				2CBF1CD31D0F588600F50061 /* OnboardingViewController.swift */,
 				2C5CF7161D022E1F003A4476 /* MomentDetailViewController.swift */,
 				2CB4860A1D064E91000C4DD8 /* NewMomentViewController.swift */,
 				2C7E2F391D09DA5B009A4500 /* StreamSelectionViewController.swift */,
@@ -258,6 +265,8 @@
 			isa = PBXGroup;
 			children = (
 				2C2B21431CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift */,
+				2C742CBF1D0B8EA700B2DA61 /* TextViewTableViewCell.swift */,
+				2C742CC11D0BEC7600B2DA61 /* ImageWithCaptionTableViewCell.swift */,
 				2C5CF7181D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift */,
 				2C7E2F3B1D09EF2F009A4500 /* StreamWithParticipantsTableViewCell.swift */,
 				2CB486081D064793000C4DD8 /* MomentMediaTableViewCell.swift */,
@@ -521,6 +530,7 @@
 				2CA8EC401CEA6B3600EDEEEC /* ProductReviewTableViewCell.swift in Sources */,
 				2C234FF91CED65FD002DD8A8 /* Bag.swift in Sources */,
 				2C40E7691CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift in Sources */,
+				2C742CC21D0BEC7600B2DA61 /* ImageWithCaptionTableViewCell.swift in Sources */,
 				2CA8EC3A1CEA3FF700EDEEEC /* CharmStoreViewController.swift in Sources */,
 				2C2B21381CCAE64A000F4CCE /* MainViewController.swift in Sources */,
 				2CDC4B2E1D00C10800EDACB6 /* MomentStreamSummaryTableViewCell.swift in Sources */,
@@ -550,6 +560,7 @@
 				2C2B21401CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift in Sources */,
 				2C5CF7171D022E1F003A4476 /* MomentDetailViewController.swift in Sources */,
 				2C5CF7191D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift in Sources */,
+				2CBF1CD41D0F588600F50061 /* OnboardingViewController.swift in Sources */,
 				2C7E2F3E1D0A6996009A4500 /* UnlockSettingsViewController.swift in Sources */,
 				2CB4860B1D064E91000C4DD8 /* NewMomentViewController.swift in Sources */,
 				2C2B213E1CCAE94F000F4CCE /* LumaUser.swift in Sources */,
@@ -557,6 +568,7 @@
 				2C3161FF1D020A65006BBC85 /* GeoLockedMomentTableViewCell.swift in Sources */,
 				2C89F6761CEA232F0090B536 /* UIFontExtension.swift in Sources */,
 				2C2B213B1CCAE676000F4CCE /* Moment.swift in Sources */,
+				2C742CC01D0B8EA700B2DA61 /* TextViewTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

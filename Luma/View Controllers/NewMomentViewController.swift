@@ -7,16 +7,32 @@
 //
 
 import UIKit
+import QBImagePickerController
+import IQKeyboardManagerSwift
 
-class NewMomentViewController: UIViewController {
+class NewMomentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, QBImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     var toolBarBottom:UIToolbar!
     var streamSelectionButton:UIButton!
     var momentContentTableView:UITableView!
+    var imagePickerVC = QBImagePickerController()
+    var cameraVC = UIImagePickerController()
+    var photos:[UIImage] = []
+    var captions:[String] = []
+    var momentNarrative:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        imagePickerVC.delegate = self
+        imagePickerVC.allowsMultipleSelection = true
+        imagePickerVC.maximumNumberOfSelection = 10
+        imagePickerVC.showsNumberOfSelectedAssets = true
+        imagePickerVC.mediaType = .Image
+        imagePickerVC.view.tintColor = Colors.primary
+        
+        cameraVC.delegate = self
+        cameraVC.view.tintColor = Colors.primary
         
         navigationItem.title = "Moment"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .Done, target: self, action: #selector(NewMomentViewController.createButtonTapped))
@@ -53,6 +69,13 @@ class NewMomentViewController: UIViewController {
         momentContentTableView = momentContentTVC.tableView
 //        momentContentTableView.contentInset.top = 64
         momentContentTableView.contentInset.bottom = 44
+        momentContentTableView.registerClass(TextViewTableViewCell.self, forCellReuseIdentifier: "TextViewTableViewCell")
+        momentContentTableView.registerClass(ImageWithCaptionTableViewCell.self, forCellReuseIdentifier: "ImageWithCaptionTableViewCell")
+        momentContentTableView.delegate = self
+        momentContentTableView.dataSource = self
+        momentContentTableView.rowHeight = UITableViewAutomaticDimension
+        momentContentTableView.estimatedRowHeight = 44
+        momentContentTableView.separatorStyle = .None
         view.addSubview(momentContentTableView)
         
         let streamThumbnailImageView = UIImageView(frame: CGRectZero)
@@ -107,6 +130,43 @@ class NewMomentViewController: UIViewController {
         
         view.addConstraints(streamSelectionButtonH)
         view.addConstraints(streamSelectionButtonV)
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.becomeFirstResponder()
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0{
+            return 1
+        }
+        else{
+            return photos.count
+        }
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.section == 0{
+            let cell = tableView.dequeueReusableCellWithIdentifier("TextViewTableViewCell") as! TextViewTableViewCell
+            cell.textView.delegate = self
+            cell.textView.returnKeyType = .Done
+            cell.textView.text = momentNarrative
+            return cell
+        }
+        else{
+            let cell = tableView.dequeueReusableCellWithIdentifier("ImageWithCaptionTableViewCell") as! ImageWithCaptionTableViewCell
+            cell.momentImageCaptionTextView.delegate = self
+            cell.momentImageView.image = photos[indexPath.row]
+            cell.momentImageCaptionTextView.text = captions[(indexPath.row)]
+            return cell
+        }
     }
     
     override func canBecomeFirstResponder() -> Bool {
@@ -133,6 +193,7 @@ class NewMomentViewController: UIViewController {
     
     func createButtonTapped() {
         print("create button tapped")
+        resignFirstResponder()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -144,6 +205,56 @@ class NewMomentViewController: UIViewController {
     
     func addMediaButtonTapped() {
         print("add media button tapped")
+        let actionSheetAlertController = UIAlertController(title: "Choose an Image Source", message: nil, preferredStyle: .ActionSheet)
+        let cameraAction = UIAlertAction(title: "Camera", style: .Default) { (action) in
+            self.cameraVC.sourceType = .Camera
+            self.presentViewController(self.cameraVC, animated: true, completion: nil)
+        }
+        
+        let libraryAction = UIAlertAction(title: "Photo Library", style: .Default) { (action) in
+            self.presentViewController(self.imagePickerVC, animated: true, completion: nil)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+            print("cancel button tapped")
+        }
+        actionSheetAlertController.addAction(cameraAction)
+        actionSheetAlertController.addAction(libraryAction)
+        actionSheetAlertController.addAction(cancelAction)
+        presentViewController(actionSheetAlertController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            photos.removeAll()
+            photos.append(pickedImage)
+            
+        }
+        captions.removeAll()
+        captions = Array(count: photos.count, repeatedValue: "")
+        momentContentTableView.reloadData()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func qb_imagePickerController(imagePickerController: QBImagePickerController!, didFinishPickingAssets assets: [AnyObject]!) {
+        photos.removeAll()
+        for asset in assets{
+            let image = getAssetCropped(asset as! PHAsset)
+            photos.append(image)
+        }
+        captions.removeAll()
+        captions = Array(count: photos.count, repeatedValue: "")
+        momentContentTableView.reloadData()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func qb_imagePickerControllerDidCancel(imagePickerController: QBImagePickerController!) {
+        self.becomeFirstResponder()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func addUnlockSettingsButtonTapped(){
@@ -153,6 +264,43 @@ class NewMomentViewController: UIViewController {
         unlockSettingsNC.view.tintColor = Colors.primary
         presentViewController(unlockSettingsNC, animated: true, completion: nil)
     }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n"{
+            textView.resignFirstResponder()
+            return false
+        }
+        else{
+            return true
+        }
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        let indexPath = momentContentTableView.indexPathForRowAtPoint(textView.convertPoint(CGPointZero, toView: momentContentTableView))
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        let indexPath = momentContentTableView.indexPathForRowAtPoint(textView.convertPoint(CGPointZero, toView: momentContentTableView))
+        if indexPath?.section == 1{
+            captions[(indexPath?.row)!] = textView.text
+        }
+        else{
+            momentNarrative = textView.text
+        }
+    }
+    
+    func getAssetCropped(asset: PHAsset) -> UIImage {
+        let manager = PHImageManager.defaultManager()
+        let option = PHImageRequestOptions()
+        option.resizeMode = .Fast
+        var cropped = UIImage()
+        option.synchronous = true
+        manager.requestImageForAsset(asset, targetSize: CGSize(width: 1500.0, height: 1500.0), contentMode: .AspectFit, options: option, resultHandler: {(result, info)->Void in
+            cropped = result!
+        })
+        return cropped
+    }
+
 
 
 }
