@@ -11,6 +11,7 @@ import TPKeyboardAvoiding
 import UIColor_Hex_Swift
 import MarqueeLabel
 import Parse
+import SDWebImage
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -24,8 +25,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var streamGallerySelectedIndexPath:NSIndexPath = NSIndexPath(forItem: 0, inSection: 1)
     private var refreshControl:UIRefreshControl!
     
-    var streams:[Stream] = [Stream()]
-
+    var streams:[Stream] = []
+    var charms:[Charm] = []
+    var participantsInFocus:[PFUser] = []
+    var lockedMomentsInFocus:[Moment] = []
+    var momentsInFocus:[Moment] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +97,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         streamTV.rowHeight = UITableViewAutomaticDimension
         streamTV.contentOffset.y = -64
         streamTV.contentInset.top = 64
+        streamTV.contentInset.bottom = 44 + 92
         streamTV.scrollIndicatorInsets.top = 64
         streamTV.separatorStyle = .None
         
@@ -105,6 +110,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         layout.minimumInteritemSpacing = 10
         layout.sectionInset.right = 10
         let streamGalleryCollectionViewController = UICollectionViewController()
+        streamGalleryCollectionViewController.automaticallyAdjustsScrollViewInsets = false
         self.addChildViewController(streamGalleryCollectionViewController)
         streamGalleryCV = TPKeyboardAvoidingCollectionView(frame: CGRectZero, collectionViewLayout: layout)
         streamGalleryCV.translatesAutoresizingMaskIntoConstraints = false
@@ -156,7 +162,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         view.addConstraints(newMomentButtonV)
 
         
-        
+        toggleVisibility()
+
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(MainViewController.streamRefreshed), forControlEvents: .ValueChanged)
+        streamTV.addSubview(refreshControl)
+
+    }
+    
+    func toggleVisibility() {
         if streams.count == 0{
             noFeedActionButton.hidden = false
             noFeedTitleLabel.hidden = false
@@ -175,11 +189,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             streamGalleryCV.hidden = false
             streamGallerySeparatorView.hidden = false
         }
-
-        refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(MainViewController.streamRefreshed), forControlEvents: .ValueChanged)
-        streamTV.addSubview(refreshControl)
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -193,6 +202,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         if PFUser.currentUser() == nil{
             let onboardingVC = OnboardingViewController()
             presentViewController(onboardingVC, animated: true, completion: nil)
+        }
+        else{
+            loadCharms()
         }
 
     }
@@ -214,21 +226,33 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Table View Data Source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        if streams.count > 0{
+            return 3
+        }
+        else{
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return 1
-        }
-        else{
-            if streamGallerySelectedIndexPath.item != 0{
-                return streams[streamGallerySelectedIndexPath.item].moments.count + 1
+        if streams.count > 0{
+            if section == 0{
+                return 1
             }
             else{
-                return 5
+                // locked section
+                if section == 1{
+                    return lockedMomentsInFocus.count + 1
+                }
+                else{
+                    return momentsInFocus.count + 1
+                }
             }
         }
+        else{
+            return 0
+        }
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -243,8 +267,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             // else dequeue stream summary header
             else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("StreamSummaryTableViewCell") as! StreamSummaryTableViewCell
-                if cell.participantsStackView.arrangedSubviews.count != 4{
-                    for _ in 0...3 {
+                cell.titleLabel.text = streams[streamGallerySelectedIndexPath.item].title
+                if cell.participantsStackView.arrangedSubviews.count != self.participantsInFocus.count{
+                    for _ in 0...self.participantsInFocus.count - 1{
                         let button = UIButton()
                         button.setImage(UIImage(named:"streamParticipantIcon"), forState: .Normal)
                         cell.participantsStackView.addArrangedSubview(button)
@@ -298,7 +323,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             leftLineView.backgroundColor = UIColor.blackColor()
             rightLineView.backgroundColor = UIColor.blackColor()
             titleLabel.font = UIFont.monospacedDigitSystemFontOfSize(14, weight: UIFontWeightMedium).italic()
-            titleLabel.text = "5 Locked Moments"
+            titleLabel.text = "\(tableView.numberOfRowsInSection(1) - 1) Locked Moments"
             titleLabel.textAlignment = .Center
             
             let metricsDictionary = ["sidePadding":10, "titleLabelBuffer":7.5]
@@ -341,7 +366,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0{
-            return 2
+            return 0
         }
         else{
             return streams.count
@@ -349,8 +374,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("StreamGalleryCollectionViewCell", forIndexPath: indexPath)
-        cell.backgroundColor = Colors.primary.colorWithAlphaComponent(0.5)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("StreamGalleryCollectionViewCell", forIndexPath: indexPath) as! StreamGalleryCollectionViewCell
+//        cell.backgroundColor = Colors.primary.colorWithAlphaComponent(0.5)
+        if indexPath.section == 1{
+            let model = charms[indexPath.item].model
+            cell.streamProfileImageView.sd_setImageWithURL(NSURL(string:model.heroImage.url!))
+        }
         return cell
     }
     
@@ -376,6 +405,65 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         storeNC.navigationBar.tintColor = Colors.primary
         presentViewController(storeNC, animated: true, completion: nil)
         
+    }
+    
+    func loadCharms() {
+        let loadCharmsQuery = PFQuery(className: "Charm")
+        loadCharmsQuery.whereKey("owner", equalTo: PFUser.currentUser()!)
+        loadCharmsQuery.includeKeys(["gifter", "model", "owner", "stream"])
+        loadCharmsQuery.findObjectsInBackgroundWithBlock { (charms, error) in
+            if error != nil{
+                print(error)
+            }
+            else{
+                self.streams.removeAll()
+                self.charms = charms as! [Charm]
+                for charm in charms as! [Charm]{
+                    self.streams.append(charm.stream)
+                }
+                self.toggleVisibility()
+                self.streamGalleryCV.reloadData()
+                self.streamTV.reloadData()
+                let streamInFocus = self.streams[self.streamGallerySelectedIndexPath.item]
+                streamInFocus.participants.query().findObjectsInBackgroundWithBlock({ (participants, error) in
+                    if error != nil{
+                        print(error)
+                    }
+                    else{
+                        self.participantsInFocus = participants as! [PFUser]
+                        self.streamTV.reloadRowsAtIndexPaths([NSIndexPath(forRow:0,inSection:0)], withRowAnimation: .Automatic)
+                        streamInFocus.moments.query().findObjectsInBackgroundWithBlock({ (moments, error) in
+                            if error != nil{
+                                print(error)
+                            }
+                            else{
+                                for moment in moments as! [Moment]{
+                                    if moment.locked{
+                                        self.lockedMomentsInFocus.append(moment)
+                                    }
+                                    else{
+                                        self.momentsInFocus.append(moment)
+                                    }
+                                }
+                                self.streamTV.reloadData()
+                            }
+                        })
+                    }
+                })
+                // load streams in which current user is not author and is contained in participants
+                let loadParticipatingStreamsQuery = PFQuery(className: "Stream")
+                loadParticipatingStreamsQuery.whereKey("author", notEqualTo: PFUser.currentUser()!)
+                loadParticipatingStreamsQuery.whereKey("participants", equalTo: PFUser.currentUser()!)
+                loadParticipatingStreamsQuery.findObjectsInBackgroundWithBlock({ (streams, error) in
+                    if error != nil{
+                        print(error)
+                    }
+                    else{
+                        print(streams)
+                    }
+                })
+            }
+        }
     }
     
     

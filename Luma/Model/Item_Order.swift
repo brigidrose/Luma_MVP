@@ -14,7 +14,6 @@ class Item_Order: PFObject, PFSubclassing {
     @NSManaged var placeholderTitle:String
     @NSManaged var placeholderAbout:String
     
-    
     override class func initialize(){
         self.registerSubclass()
     }

@@ -15,7 +15,7 @@ class Charm: PFObject, PFSubclassing{
     @NSManaged var about:String
     @NSManaged var gifter:PFUser
     @NSManaged var owner:PFUser
-    
+    @NSManaged var stream:Stream
     
     override class func initialize(){
         self.registerSubclass()

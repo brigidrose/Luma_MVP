@@ -13,9 +13,20 @@ class Moment: PFObject, PFSubclassing {
     
     @NSManaged var title:String
     @NSManaged var author:PFUser
-    @NSManaged var medias:[Media]
-    @NSManaged var comments:[Comment]
+    @NSManaged var locked:Bool
+    @NSManaged var unlockType:String
+    @NSManaged var unlockDate:NSDate
+    @NSManaged var unlockLocation:PFGeoPoint
 
+    var medias:PFRelation!{
+        return relationForKey("medias")
+    }
+    
+    var comments: PFRelation! {
+        return relationForKey("comments")
+    }
+
+    
     override class func initialize(){
         self.registerSubclass()
     }

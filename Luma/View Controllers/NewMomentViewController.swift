@@ -199,6 +199,7 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func cancelButtonTapped() {
         print("cancel button tapped")
+        view.endEditing(true)
         resignFirstResponder()
         dismissViewControllerAnimated(true, completion: nil)
     }

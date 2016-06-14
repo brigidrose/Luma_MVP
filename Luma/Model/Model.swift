@@ -16,7 +16,10 @@ class Model: PFObject, PFSubclassing {
     @NSManaged var heroImage:PFFile
     @NSManaged var price:Float
     @NSManaged var deliveryDays:Int
-    @NSManaged var productImages:PFRelation
+    
+    var productImages: PFRelation! {
+        return relationForKey("productImages")
+    }
     
     override class func initialize(){
         self.registerSubclass()

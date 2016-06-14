@@ -13,15 +13,21 @@ class Stream: PFObject, PFSubclassing {
     
     @NSManaged var title:String
     @NSManaged var author:PFUser
-    @NSManaged var participants:[PFUser]
-    @NSManaged var moments:[Moment]
+    
+    var participants:PFRelation! {
+        return relationForKey("participants")
+    }
+    
+    var moments:PFRelation! {
+        return relationForKey("moments")
+    }
     
     override class func initialize(){
         self.registerSubclass()
     }
     
     static func parseClassName() -> String {
-        return "Moment Stream"
+        return "Stream"
     }
 
 }

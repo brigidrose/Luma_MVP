@@ -11,7 +11,10 @@ import Parse
 class Bag: PFObject, PFSubclassing {
 
     @NSManaged var owner:PFUser
-    @NSManaged var itemOrders:[Item_Order]
+
+    var itemOrders: PFRelation! {
+        return relationForKey("itemOrders")
+    }
 
     
     override class func initialize(){

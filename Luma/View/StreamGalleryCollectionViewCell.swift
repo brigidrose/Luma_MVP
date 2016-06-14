@@ -23,16 +23,10 @@ class StreamGalleryCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 25
         self.clipsToBounds = true
         
-        containerView = UIView(frame: CGRectZero)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(containerView)
-        
-        streamProfileImageView = UIImageView(frame: CGRectZero)
-        streamProfileImageView.translatesAutoresizingMaskIntoConstraints = false
+        streamProfileImageView = UIImageView(frame: CGRectMake(0, 0, 50, 50))
         streamProfileImageView.contentMode = .ScaleAspectFit
-        containerView.addSubview(streamProfileImageView)
-        
-        
+//        streamProfileImageView.backgroundColor = Colors.offWhite
+        contentView.addSubview(streamProfileImageView)
     }
     
 }
