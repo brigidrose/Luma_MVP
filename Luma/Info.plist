@@ -42,7 +42,7 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Give location access to send and receive location-locked moments.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

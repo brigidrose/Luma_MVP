@@ -52,8 +52,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
+
+        
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
 
         return true
     }
@@ -91,6 +95,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        let query = PFQuery(className: "Moment")
+        let objectId = notification.userInfo!["momentId"] as! String
+        print(objectId)
+        query.whereKey("objectId", equalTo: objectId)
+        query.findObjectsInBackgroundWithBlock { (moments, error) in
+            if error != nil{
+                print(error)
+            }
+            else{
+                print(moments)
+                (moments![0] as! Moment).locked = false
+                (moments![0] as! Moment).saveInBackground()
+                print("\((objectId)) unlocked")
+
+            }
+        }
     }
 
     // MARK: - Core Data stack

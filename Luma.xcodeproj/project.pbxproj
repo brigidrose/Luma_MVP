@@ -33,6 +33,9 @@
 		2C40E7651CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C40E7641CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift */; };
 		2C40E7671CEE6CCE003D58E2 /* AddressFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C40E7661CEE6CCE003D58E2 /* AddressFormTableViewCell.swift */; };
 		2C40E7691CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C40E7681CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift */; };
+		2C4804421D10657900D812EC /* FetchMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4804411D10657900D812EC /* FetchMethods.swift */; };
+		2C4804441D10690600D812EC /* StreamAnnotationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4804431D10690600D812EC /* StreamAnnotationTableViewCell.swift */; };
+		2C4804461D108A8400D812EC /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4804451D108A8400D812EC /* MapPin.swift */; };
 		2C5CF7171D022E1F003A4476 /* MomentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CF7161D022E1F003A4476 /* MomentDetailViewController.swift */; };
 		2C5CF7191D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CF7181D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift */; };
 		2C6441871D0FC7C400AAD32F /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6441861D0FC7C400AAD32F /* Media.swift */; };
@@ -118,6 +121,9 @@
 		2C40E7641CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultilineTextViewTableViewCell.swift; path = View/MultilineTextViewTableViewCell.swift; sourceTree = "<group>"; };
 		2C40E7661CEE6CCE003D58E2 /* AddressFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddressFormTableViewCell.swift; path = View/AddressFormTableViewCell.swift; sourceTree = "<group>"; };
 		2C40E7681CEE9B57003D58E2 /* TitleSeparatorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TitleSeparatorTableViewCell.swift; path = View/TitleSeparatorTableViewCell.swift; sourceTree = "<group>"; };
+		2C4804411D10657900D812EC /* FetchMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FetchMethods.swift; path = Model/FetchMethods.swift; sourceTree = "<group>"; };
+		2C4804431D10690600D812EC /* StreamAnnotationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamAnnotationTableViewCell.swift; path = View/StreamAnnotationTableViewCell.swift; sourceTree = "<group>"; };
+		2C4804451D108A8400D812EC /* MapPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPin.swift; path = View/MapPin.swift; sourceTree = "<group>"; };
 		2C5CF7161D022E1F003A4476 /* MomentDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentDetailViewController.swift; path = "View Controllers/MomentDetailViewController.swift"; sourceTree = "<group>"; };
 		2C5CF7181D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MomentDetailSummaryTableViewCell.swift; path = View/MomentDetailSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		2C6441861D0FC7C400AAD32F /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Media.swift; path = Model/Media.swift; sourceTree = "<group>"; };
@@ -269,6 +275,7 @@
 				2C6441881D0FCAA900AAD32F /* Charm.swift */,
 				2C64418A1D0FCABA00AAD32F /* Item_Order.swift */,
 				2C64418E1D0FCC5700AAD32F /* Comment.swift */,
+				2C4804411D10657900D812EC /* FetchMethods.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -277,6 +284,8 @@
 			isa = PBXGroup;
 			children = (
 				2C2B21431CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift */,
+				2C4804451D108A8400D812EC /* MapPin.swift */,
+				2C4804431D10690600D812EC /* StreamAnnotationTableViewCell.swift */,
 				2C742CBF1D0B8EA700B2DA61 /* TextViewTableViewCell.swift */,
 				2C742CC11D0BEC7600B2DA61 /* ImageWithCaptionTableViewCell.swift */,
 				2C5CF7181D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift */,
@@ -545,6 +554,7 @@
 				2C742CC21D0BEC7600B2DA61 /* ImageWithCaptionTableViewCell.swift in Sources */,
 				2CA8EC3A1CEA3FF700EDEEEC /* CharmStoreViewController.swift in Sources */,
 				2C2B21381CCAE64A000F4CCE /* MainViewController.swift in Sources */,
+				2C4804421D10657900D812EC /* FetchMethods.swift in Sources */,
 				2CDC4B2E1D00C10800EDACB6 /* StreamSummaryTableViewCell.swift in Sources */,
 				2CA8EC451CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift in Sources */,
 				2C40E7671CEE6CCE003D58E2 /* AddressFormTableViewCell.swift in Sources */,
@@ -555,6 +565,7 @@
 				2C40E7611CEE3BAF003D58E2 /* BagDetailViewController.swift in Sources */,
 				2C2B210F1CCAE275000F4CCE /* Luma.xcdatamodeld in Sources */,
 				2CB486091D064793000C4DD8 /* MomentMediaTableViewCell.swift in Sources */,
+				2C4804441D10690600D812EC /* StreamAnnotationTableViewCell.swift in Sources */,
 				2C0259461CCAFE5900FA6D70 /* MomentTableViewCell.swift in Sources */,
 				2C64418F1D0FCC5700AAD32F /* Comment.swift in Sources */,
 				2CA8EC3E1CEA697900EDEEEC /* ProductFeatureTableViewCell.swift in Sources */,
@@ -562,6 +573,7 @@
 				2C89F6731CEA15C70090B536 /* UIButtonExtensions.swift in Sources */,
 				2CE9A5DC1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift in Sources */,
 				2C2B21071CCAE275000F4CCE /* AppDelegate.swift in Sources */,
+				2C4804461D108A8400D812EC /* MapPin.swift in Sources */,
 				2C7E2F3A1D09DA5B009A4500 /* StreamSelectionViewController.swift in Sources */,
 				2C40E7651CEE4CCF003D58E2 /* MultilineTextViewTableViewCell.swift in Sources */,
 				2CA8EC431CEA7DAC00EDEEEC /* Model.swift in Sources */,

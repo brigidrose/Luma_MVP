@@ -11,12 +11,13 @@ import Parse
 
 class Moment: PFObject, PFSubclassing {
     
-    @NSManaged var title:String
+    @NSManaged var narrative:String
     @NSManaged var author:PFUser
     @NSManaged var locked:Bool
     @NSManaged var unlockType:String
     @NSManaged var unlockDate:NSDate
     @NSManaged var unlockLocation:PFGeoPoint
+    @NSManaged var inStream:Stream
 
     var medias:PFRelation!{
         return relationForKey("medias")

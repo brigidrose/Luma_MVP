@@ -9,6 +9,7 @@
 import UIKit
 import QBImagePickerController
 import IQKeyboardManagerSwift
+import Parse
 
 class NewMomentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, QBImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -20,6 +21,10 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
     var photos:[UIImage] = []
     var captions:[String] = []
     var momentNarrative:String = ""
+    var inStream:Stream!
+    var locked = false
+    var unlockDate:NSDate?
+    var unlockLocation:PFGeoPoint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +40,7 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         cameraVC.view.tintColor = Colors.primary
         
         navigationItem.title = "Moment"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .Done, target: self, action: #selector(NewMomentViewController.createButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .Done, target: self, action: #selector(NewMomentViewController.createButtonTapped(_:)))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(NewMomentViewController.cancelButtonTapped))
         
         toolBarBottom = UIToolbar(frame: CGRectZero)
@@ -186,15 +191,90 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
     func streamSelectionButtonTapped() {
         print("stream selection button tapped")
         let streamSelectionVC = StreamSelectionViewController()
+        streamSelectionVC.newMomentVC = self
         let streamSelectionNC = UINavigationController(rootViewController:streamSelectionVC)
         streamSelectionNC.view.tintColor = Colors.primary
         presentViewController(streamSelectionNC, animated: true, completion: nil)
     }
     
-    func createButtonTapped() {
+    func createButtonTapped(sender:UIBarButtonItem) {
         print("create button tapped")
-        resignFirstResponder()
-        dismissViewControllerAnimated(true, completion: nil)
+        sender.enabled = false
+        let newMoment = Moment()
+        newMoment.inStream = inStream
+        newMoment.author = PFUser.currentUser()!
+        newMoment.narrative = momentNarrative
+        if unlockDate != nil || unlockLocation != nil{
+            locked = true
+            newMoment.locked = locked
+        }
+        if unlockLocation != nil{
+            newMoment.unlockLocation = unlockLocation!
+            newMoment.unlockType = "location"
+        }
+        if unlockDate != nil{
+            newMoment.unlockDate = unlockDate!
+            newMoment.unlockType = "date"
+        }
+        var count = 0
+        var mediaSaveCount = 0
+        if photos.count > 0{
+            for photo in photos{
+                let media = Media(className: "Media")
+                media.file = PFFile(data: UIImagePNGRepresentation(photo)!)!
+                media.caption = captions[count]
+                count += 1
+                media.saveInBackgroundWithBlock({ (success, error) in
+                    if error != nil{
+                        print(error)
+                    }
+                    else{
+                        newMoment.medias.addObject(media)
+                        newMoment.saveInBackgroundWithBlock({ (success, error) in
+                            if error != nil{
+                                print(error)
+                            }
+                            else{
+                                mediaSaveCount += 1
+                                if mediaSaveCount == self.photos.count{
+                                    self.inStream.moments.addObject(newMoment)
+                                    self.inStream.saveInBackgroundWithBlock({ (success, error) in
+                                        if success{
+                                            self.resignFirstResponder()
+                                            self.dismissViewControllerAnimated(true, completion: nil)
+                                        }
+                                        else{
+                                            print(error)
+                                        }
+                                    })
+                                    
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        }
+        else{
+            newMoment.saveInBackgroundWithBlock({ (success, error) in
+                if error != nil{
+                    print(error)
+                }
+                else{
+                    self.inStream.moments.addObject(newMoment)
+                    self.inStream.saveInBackgroundWithBlock({ (success, error) in
+                        if success{
+                            self.resignFirstResponder()
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        }
+                        else{
+                            print(error)
+                        }
+                    })
+                }
+            })
+        }
+        
     }
     
     func cancelButtonTapped() {
@@ -261,6 +341,7 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
     func addUnlockSettingsButtonTapped(){
         print("add unlock settings button tapped")
         let unlockSettingsVC = UnlockSettingsViewController()
+        unlockSettingsVC.newMomentVC = self
         let unlockSettingsNC = UINavigationController(rootViewController: unlockSettingsVC)
         unlockSettingsNC.view.tintColor = Colors.primary
         presentViewController(unlockSettingsNC, animated: true, completion: nil)
@@ -277,7 +358,6 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
-        let indexPath = momentContentTableView.indexPathForRowAtPoint(textView.convertPoint(CGPointZero, toView: momentContentTableView))
     }
     
     func textViewDidEndEditing(textView: UITextView) {
@@ -300,6 +380,14 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
             cropped = result!
         })
         return cropped
+    }
+    
+    func updateSelectedStreamButton() {
+        for subview in streamSelectionButton.subviews{
+            if subview.isMemberOfClass(UILabel){
+                (subview as! UILabel).text = inStream.title
+            }
+        }
     }
 
 

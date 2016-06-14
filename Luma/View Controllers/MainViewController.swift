@@ -12,6 +12,7 @@ import UIColor_Hex_Swift
 import MarqueeLabel
 import Parse
 import SDWebImage
+import MapKit
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -93,6 +94,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         streamTV.registerClass(MomentTableViewCell.self, forCellReuseIdentifier: "MomentTableViewCell")
         streamTV.registerClass(GeoLockedMomentTableViewCell.self, forCellReuseIdentifier: "GeoLockedMomentTableViewCell")
         streamTV.registerClass(TimeLockedMomentTableViewCell.self, forCellReuseIdentifier: "TimeLockedMomentTableViewCell")
+        streamTV.registerClass(StreamAnnotationTableViewCell.self, forCellReuseIdentifier: "StreamAnnotationTableViewCell")
         streamTV.estimatedRowHeight = 150
         streamTV.rowHeight = UITableViewAutomaticDimension
         streamTV.contentOffset.y = -64
@@ -220,7 +222,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func streamRefreshed() {
         print("stream refreshed")
         refreshControl.beginRefreshing()
-        refreshControl.endRefreshing()
+        loadCharms()
     }
     
     // MARK: Table View Data Source
@@ -242,10 +244,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             else{
                 // locked section
                 if section == 1{
-                    return lockedMomentsInFocus.count + 1
+                    return lockedMomentsInFocus.count
                 }
                 else{
-                    return momentsInFocus.count + 1
+                    return momentsInFocus.count
                 }
             }
         }
@@ -279,17 +281,55 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         else{
-            if indexPath.item % 3 == 1{
+            if momentsInFocus.count == 0 && indexPath.section == 2{
+                if indexPath.row == 0{
+                    let cell = tableView.dequeueReusableCellWithIdentifier("StreamAnnotationTableViewCell") as! StreamAnnotationTableViewCell
+                    cell.label.attributedText = NSAttributedString(string: "No Moments")
+                    return cell
+                }
+            }
+            let moment:Moment
+            if indexPath.section == 1{
+                moment = lockedMomentsInFocus[indexPath.row]
+            }
+            else{
+                moment = momentsInFocus[indexPath.row]
+            }
+            if !moment.locked{
                 let cell = tableView.dequeueReusableCellWithIdentifier("MomentTableViewCell") as! MomentTableViewCell
+                cell.actionLabel.text = "\(moment.author["firstName"]) added a moment"
+                cell.contentLabel.text = moment.narrative
+                if (moment.author["facebookId"] != nil){
+                    let id = moment.author["facebookId"] as! String
+                    let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?type=large")
+                    cell.userButton.sd_setImageWithURL(url, forState: .Normal)
+                }
                 return cell
             }
-            else if indexPath.item % 3 == 2{
+            else if moment.unlockType == "date"{
                 let cell = tableView.dequeueReusableCellWithIdentifier("TimeLockedMomentTableViewCell") as! TimeLockedMomentTableViewCell
+                cell.unlockCountdownLabel.setCountDownDate(moment.unlockDate)
                 cell.unlockCountdownLabel.start()
+                cell.actionLabel.text = "\(moment.author["firstName"]) added a moment to unlock in"
+                if (moment.author["facebookId"] != nil){
+                    let id = moment.author["facebookId"] as! String
+                    let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?type=large")
+                    cell.userButton.sd_setImageWithURL(url, forState: .Normal)
+                }
                 return cell
             }
             else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("GeoLockedMomentTableViewCell") as! GeoLockedMomentTableViewCell
+                let unlockCoordinate = CLLocationCoordinate2D(latitude: moment.unlockLocation.latitude, longitude:moment.unlockLocation.longitude)
+                cell.mapView.setRegion(MKCoordinateRegion(center: unlockCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)), animated: true)
+                let mapPin = MapPin(coordinate: unlockCoordinate)
+                cell.mapView.addAnnotation(mapPin)
+                cell.actionLabel.text = "\(moment.author["firstName"]) added a moment to unlock nearby"
+                if (moment.author["facebookId"] != nil){
+                    let id = moment.author["facebookId"] as! String
+                    let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?type=large")
+                    cell.userButton.sd_setImageWithURL(url, forState: .Normal)
+                }
                 return cell
             }
         }
@@ -297,7 +337,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section > 0 && section < tableView.numberOfSections - 1{
-            return 28
+            if lockedMomentsInFocus.count > 0{
+                return 28
+            }
+            else{
+                return 0
+            }
         }
         else{
             return 0
@@ -323,7 +368,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             leftLineView.backgroundColor = UIColor.blackColor()
             rightLineView.backgroundColor = UIColor.blackColor()
             titleLabel.font = UIFont.monospacedDigitSystemFontOfSize(14, weight: UIFontWeightMedium).italic()
-            titleLabel.text = "\(tableView.numberOfRowsInSection(1) - 1) Locked Moments"
+            titleLabel.text = "\(tableView.numberOfRowsInSection(1)) Locked Moments"
             titleLabel.textAlignment = .Center
             
             let metricsDictionary = ["sidePadding":10, "titleLabelBuffer":7.5]
@@ -346,8 +391,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section != 0{
+        if indexPath.section == 2{
             let momentDetailVC = MomentDetailViewController()
+            momentDetailVC.moment = momentsInFocus[indexPath.row]
             momentDetailVC.view.tintColor = Colors.primary
             let momentDetailNC = UINavigationController(rootViewController: momentDetailVC)
             momentDetailNC.navigationBar.tintColor = Colors.primary
@@ -432,19 +478,33 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     else{
                         self.participantsInFocus = participants as! [PFUser]
                         self.streamTV.reloadRowsAtIndexPaths([NSIndexPath(forRow:0,inSection:0)], withRowAnimation: .Automatic)
-                        streamInFocus.moments.query().findObjectsInBackgroundWithBlock({ (moments, error) in
+                        let momentsQuery = streamInFocus.moments.query()
+                        momentsQuery.includeKeys(["author"])
+                        momentsQuery.findObjectsInBackgroundWithBlock({ (moments, error) in
                             if error != nil{
                                 print(error)
                             }
                             else{
+                                self.lockedMomentsInFocus.removeAll()
+                                self.momentsInFocus.removeAll()
                                 for moment in moments as! [Moment]{
                                     if moment.locked{
                                         self.lockedMomentsInFocus.append(moment)
+                                        if moment.unlockType == "date"{
+                                            let notification = UILocalNotification()
+                                            notification.fireDate = moment.unlockDate
+                                            notification.alertBody = "It's time to unlock \(moment.author["firstName"])'s moment in \(moment.inStream.title)"
+                                            notification.alertAction = "Unlock"
+                                            notification.soundName = UILocalNotificationDefaultSoundName
+                                            notification.userInfo = ["momentId":"\(moment.objectId!)"]
+                                            UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                                        }
                                     }
                                     else{
                                         self.momentsInFocus.append(moment)
                                     }
                                 }
+                                self.refreshControl.endRefreshing()
                                 self.streamTV.reloadData()
                             }
                         })
@@ -465,6 +525,4 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     }
-    
-    
 }

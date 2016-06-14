@@ -8,9 +8,12 @@
 
 import UIKit
 import MapKit
+import Parse
 
 class UnlockSettingsViewController: UIViewController, MKMapViewDelegate {
 
+    var newMomentVC:NewMomentViewController!
+    
     var segmentedControl:UISegmentedControl!
     var datePickerContainerView:UIView!
     var locationPickerContainerView:UIView!
@@ -188,6 +191,12 @@ class UnlockSettingsViewController: UIViewController, MKMapViewDelegate {
 
     func doneButtonTapped() {
         print("done button tapped")
+        if segmentedControl.selectedSegmentIndex == 0{
+            newMomentVC.unlockDate = datePicker.date
+        }
+        else{
+            newMomentVC.unlockLocation = PFGeoPoint(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        }
         dismissViewControllerAnimated(true, completion: nil)
     }
     

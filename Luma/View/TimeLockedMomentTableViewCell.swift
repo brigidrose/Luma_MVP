@@ -39,6 +39,8 @@ class TimeLockedMomentTableViewCell: UITableViewCell {
         userButton = UIButton(frame: CGRectZero)
         userButton.translatesAutoresizingMaskIntoConstraints = false
         userButton.setImage(UIImage(named:"momentUserButtonIcon"), forState: .Normal)
+        userButton.layer.cornerRadius = 25
+        userButton.clipsToBounds = true
         cardView.addSubview(userButton)
         
         moreButton = UIButton(frame: CGRectZero)
