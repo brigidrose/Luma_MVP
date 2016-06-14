@@ -9,11 +9,11 @@
 import Foundation
 import Parse
 
-class MomentStream: PFObject, PFSubclassing {
+class Stream: PFObject, PFSubclassing {
     
     @NSManaged var title:String
-    @NSManaged var author:LumaUser
-    @NSManaged var participants:[LumaUser]
+    @NSManaged var author:PFUser
+    @NSManaged var participants:[PFUser]
     @NSManaged var moments:[Moment]
     
     override class func initialize(){

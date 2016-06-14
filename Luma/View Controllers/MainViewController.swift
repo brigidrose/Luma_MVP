@@ -24,8 +24,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var streamGallerySelectedIndexPath:NSIndexPath = NSIndexPath(forItem: 0, inSection: 1)
     private var refreshControl:UIRefreshControl!
     
-    var momentStreams:[MomentStream] = [MomentStream()]
-//    var momentStreams:[MomentStream] = []
+    var streams:[Stream] = [Stream()]
 
     
     override func viewDidLoad() {
@@ -86,7 +85,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         streamTV.clipsToBounds = false
         streamTV.registerClass(MomentTableViewCell.self, forCellReuseIdentifier: "MomentTableViewCell")
         streamTV.registerClass(TitleSeparatorTableViewCell.self, forCellReuseIdentifier: "TitleSeparatorTableViewCell")
-        streamTV.registerClass(MomentStreamSummaryTableViewCell.self, forCellReuseIdentifier: "MomentStreamSummaryTableViewCell")
+        streamTV.registerClass(StreamSummaryTableViewCell.self, forCellReuseIdentifier: "StreamSummaryTableViewCell")
         streamTV.registerClass(MomentTableViewCell.self, forCellReuseIdentifier: "MomentTableViewCell")
         streamTV.registerClass(GeoLockedMomentTableViewCell.self, forCellReuseIdentifier: "GeoLockedMomentTableViewCell")
         streamTV.registerClass(TimeLockedMomentTableViewCell.self, forCellReuseIdentifier: "TimeLockedMomentTableViewCell")
@@ -158,7 +157,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         
         
-        if momentStreams.count == 0{
+        if streams.count == 0{
             noFeedActionButton.hidden = false
             noFeedTitleLabel.hidden = false
             noFeedBodyLabel.hidden = false
@@ -181,15 +180,21 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.addTarget(self, action: #selector(MainViewController.streamRefreshed), forControlEvents: .ValueChanged)
         streamTV.addSubview(refreshControl)
 
-        if PFUser.currentUser() == nil{
-            let onboardingVC = OnboardingViewController()
-            presentViewController(onboardingVC, animated: true, completion: nil)
-        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if PFUser.currentUser() == nil{
+            let onboardingVC = OnboardingViewController()
+            presentViewController(onboardingVC, animated: true, completion: nil)
+        }
+
     }
     
     func newMomentButtonTapped() {
@@ -218,7 +223,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         else{
             if streamGallerySelectedIndexPath.item != 0{
-                return momentStreams[streamGallerySelectedIndexPath.item].moments.count + 1
+                return streams[streamGallerySelectedIndexPath.item].moments.count + 1
             }
             else{
                 return 5
@@ -237,7 +242,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             // else dequeue stream summary header
             else{
-                let cell = tableView.dequeueReusableCellWithIdentifier("MomentStreamSummaryTableViewCell") as! MomentStreamSummaryTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("StreamSummaryTableViewCell") as! StreamSummaryTableViewCell
                 if cell.participantsStackView.arrangedSubviews.count != 4{
                     for _ in 0...3 {
                         let button = UIButton()
@@ -339,7 +344,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             return 2
         }
         else{
-            return momentStreams.count
+            return streams.count
         }
     }
     

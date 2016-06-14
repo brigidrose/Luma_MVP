@@ -14,17 +14,17 @@ class CharmStoreViewController: UIViewController, UICollectionViewDataSource, UI
 
     var charmStoreVC:UICollectionViewController!
     
-    var charmProducts:[Product] = []
+    var models:[Model] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         for i in 0...4{
-            let charmProduct = Product()
+            let charmProduct = Model()
             charmProduct.name = "Charm \(i + 1)"
             charmProduct.price = 50.0 * Float(i + 1) - 0.01
             charmProduct.deliveryDays = i + 1
-            charmProducts.append(charmProduct)
+            models.append(charmProduct)
         }
         
         charmStoreVC = UICollectionViewController()
@@ -59,14 +59,14 @@ class CharmStoreViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return charmProducts.count
+        return models.count
     }
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ProductGalleryCollectionViewCell", forIndexPath: indexPath) as! ProductGalleryCollectionViewCell
-        cell.nameLabel.text = "\(charmProducts[indexPath.item].name)"
-        cell.priceLabel.text = "$\(charmProducts[indexPath.item].price)"
+        cell.nameLabel.text = "\(models[indexPath.item].name)"
+        cell.priceLabel.text = "$\(models[indexPath.item].price)"
         return cell
     }
     
@@ -88,7 +88,7 @@ class CharmStoreViewController: UIViewController, UICollectionViewDataSource, UI
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let productDetailVC = ProductDetailViewController()
-        productDetailVC.product = charmProducts[indexPath.item]
+        productDetailVC.product = models[indexPath.item]
         navigationController?.pushViewController(productDetailVC, animated: true)
     }
     

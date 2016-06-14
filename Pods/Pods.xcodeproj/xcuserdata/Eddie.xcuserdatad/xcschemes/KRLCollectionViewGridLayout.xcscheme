@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '6D6AC68AEB9035DD0B9FF0F7'
+               BlueprintIdentifier = 'C5CECB9A61928FA40DCD822C'
                BlueprintName = 'KRLCollectionViewGridLayout'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'KRLCollectionViewGridLayout.framework'>

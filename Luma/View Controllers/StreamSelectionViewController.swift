@@ -11,8 +11,8 @@ import UIKit
 class StreamSelectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var streamsTV:UITableView!
-    var activeStreams:[MomentStream] = []
-    var archivedStreams:[MomentStream] = []
+    var activeStreams:[Stream] = []
+    var archivedStreams:[Stream] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

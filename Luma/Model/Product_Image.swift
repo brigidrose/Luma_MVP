@@ -1,27 +1,25 @@
 //
-//  Moment.swift
+//  Product_Image.swift
 //  Luma
 //
-//  Created by Chun-Wei Chen on 4/22/16.
+//  Created by Chun-Wei Chen on 6/13/16.
 //  Copyright © 2016 Luma Legacy. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Parse
-
-class Moment: PFObject, PFSubclassing {
+class Product_Image: PFObject, PFSubclassing {
     
+    @NSManaged var model:Model
     @NSManaged var title:String
-    @NSManaged var author:PFUser
-    @NSManaged var medias:[Media]
-    @NSManaged var comments:[Comment]
-
+    @NSManaged var file:PFFile
+    
     override class func initialize(){
         self.registerSubclass()
     }
     
     static func parseClassName() -> String {
-        return "Moment"
+        return "Product_Image"
     }
 
 }

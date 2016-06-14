@@ -87,7 +87,7 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         let streamSelectionLabel = UILabel(frame: CGRectZero)
         streamSelectionLabel.translatesAutoresizingMaskIntoConstraints = false
         streamSelectionLabel.textAlignment = .Left
-        streamSelectionLabel.text = "Select Moment Stream"
+        streamSelectionLabel.text = "Select Stream"
         streamSelectionLabel.font = UIFont.systemFontOfSize(17)
         
         let streamSelectionSeparatorView = UIView(frame: CGRectZero)

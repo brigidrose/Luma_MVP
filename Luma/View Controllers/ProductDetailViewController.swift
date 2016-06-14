@@ -10,10 +10,10 @@ import UIKit
 import TPKeyboardAvoiding
 import SDWebImage
 import BBBadgeBarButtonItem
-
+import Parse
 class ProductDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    var product:Product!
+    var product:Model!
     
     var tableVC:UITableViewController!
     var actionButton:UIButton!
@@ -21,7 +21,7 @@ class ProductDetailViewController: UIViewController, UITableViewDelegate, UITabl
     var productImageURL:[String] = []
     
     var productFeatures:[(String, String)] = [("Feature Highlight 1", "Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum"), ("Feature Highlight 2", "Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum")]
-    var productReviews:[(String, LumaUser)] = [("Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum", LumaUser()),("Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum", LumaUser())]
+    var productReviews:[(String, PFUser)] = [("Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum", PFUser()),("Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum", PFUser())]
 
     
     override func viewDidLoad() {

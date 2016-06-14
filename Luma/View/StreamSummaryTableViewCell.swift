@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MomentStreamSummaryTableViewCell: UITableViewCell {
+class StreamSummaryTableViewCell: UITableViewCell {
 
     var titleLabel:UILabel!
     var settingsButton:UIButton!

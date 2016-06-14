@@ -16,7 +16,7 @@ class BraceletStoreViewController: UIViewController, UITableViewDataSource, UITa
     var actionButton:UIButton!
     
     var braceletFeatures:[(String, String)] = [("Feature Highlight 1", "Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum"), ("Feature Highlight 2", "Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum")]
-    var braceletReviews:[(String, LumaUser)] = [("Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum", LumaUser()),("Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum", LumaUser())]
+    var braceletReviews:[(String, PFUser)] = [("Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum", PFUser()),("Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum", PFUser())]
 
     var purchaseFormShown:Bool = false
     var purchaseFormSegmentedControl:UISegmentedControl!

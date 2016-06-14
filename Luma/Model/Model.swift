@@ -9,21 +9,21 @@
 import UIKit
 import Parse
 
-class Product: PFObject, PFSubclassing {
+class Model: PFObject, PFSubclassing {
     
     @NSManaged var name:String
     @NSManaged var line:String
-    @NSManaged var image:PFFile
+    @NSManaged var heroImage:PFFile
     @NSManaged var price:Float
     @NSManaged var deliveryDays:Int
-    @NSManaged var images:PFRelation
+    @NSManaged var productImages:PFRelation
     
     override class func initialize(){
         self.registerSubclass()
     }
     
     static func parseClassName() -> String {
-        return "CharmProduct"
+        return "Model"
     }
 
 }

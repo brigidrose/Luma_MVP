@@ -36,6 +36,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
 
+        Moment.registerSubclass()
+        Bag.registerSubclass()
+        Model.registerSubclass()
+        Stream.registerSubclass()
+        Media.registerSubclass()
+        Item_Order.registerSubclass()
+        Product_Image.registerSubclass()
+        Charm.registerSubclass()
+        
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true

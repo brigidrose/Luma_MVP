@@ -1,21 +1,24 @@
 //
-//  LumaUser.swift
+//  Comment.swift
 //  Luma
 //
-//  Created by Chun-Wei Chen on 4/22/16.
+//  Created by Chun-Wei Chen on 6/13/16.
 //  Copyright © 2016 Luma Legacy. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Parse
-class LumaUser:PFObject, PFSubclassing {
+class Comment: PFObject, PFSubclassing {
+    
+    @NSManaged var author:PFUser
+    @NSManaged var content:String
     
     override class func initialize(){
         self.registerSubclass()
     }
     
     static func parseClassName() -> String {
-        return "Luma User"
+        return "Comment"
     }
 
 }
