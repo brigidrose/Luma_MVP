@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'E275F13AB9E7FD090B65A174'
+               BlueprintIdentifier = 'CD8FDAC515850ECFFB944804'
                BlueprintName = 'TouchVisualizer'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'TouchVisualizer.framework'>

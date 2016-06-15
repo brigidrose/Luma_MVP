@@ -42,6 +42,7 @@ PODS:
   - SDWebImage/Core (3.8.1)
   - SkyFloatingLabelTextField (1.2.1)
   - swiftScan (1.0.8)
+  - SwiftyJSON (2.3.2)
   - SZTextView (1.2.2)
   - TouchVisualizer (1.4.0)
   - TPKeyboardAvoiding (1.3)
@@ -71,6 +72,7 @@ DEPENDENCIES:
   - SDWebImage
   - SkyFloatingLabelTextField
   - swiftScan
+  - SwiftyJSON
   - SZTextView
   - TouchVisualizer
   - TPKeyboardAvoiding
@@ -102,6 +104,7 @@ SPEC CHECKSUMS:
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SkyFloatingLabelTextField: 3f6610aded18e778df5cfab3b9e12a11b3e014e9
   swiftScan: 2dc76303bc7c2dcb7bde9c539f9bd6a7520abc8e
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   SZTextView: 3a81174dce0710a9ab069bc73a813e6df53b9c82
   TouchVisualizer: 44c1a7a6e1b6526df7673f68400072363ecd3bf6
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe

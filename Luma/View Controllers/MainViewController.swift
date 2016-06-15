@@ -227,12 +227,21 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func addParticipantButtonTapped() {
         print("add participant button tapped")
+        let streamSettingsVC = StreamSettingsViewController()
+        streamSettingsVC.stream = streams[streamGallerySelectedIndexPath.item]
+        let streamSettingsNC = UINavigationController(rootViewController: streamSettingsVC)
+        streamSettingsNC.view.tintColor = Colors.primary
+        presentViewController(streamSettingsNC, animated: true, completion: {
+            streamSettingsVC.transitionToParticipants()
+        })
+        
     }
     
     func streamSettingsButtonTapped() {
         print("stream settings button tapped")
         
         let streamSettingsVC = StreamSettingsViewController()
+        streamSettingsVC.stream = streams[streamGallerySelectedIndexPath.item]
         let streamSettingsNC = UINavigationController(rootViewController: streamSettingsVC)
         streamSettingsNC.view.tintColor = Colors.primary
         presentViewController(streamSettingsNC, animated: true, completion: nil)

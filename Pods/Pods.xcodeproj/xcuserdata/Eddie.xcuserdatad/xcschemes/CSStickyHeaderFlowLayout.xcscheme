@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '006398D64881CF80D00E1C2A'
+               BlueprintIdentifier = '0273FCDFEB21266135AC95BC'
                BlueprintName = 'CSStickyHeaderFlowLayout'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'CSStickyHeaderFlowLayout.framework'>

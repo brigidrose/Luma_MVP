@@ -31,6 +31,7 @@ target 'Luma' do
     pod 'CountdownLabel'
     pod 'swiftScan'
     pod 'QBImagePickerController'
+    pod 'SwiftyJSON'
 end
 
 target 'LumaTests' do
