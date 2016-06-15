@@ -225,6 +225,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         loadCharms()
     }
     
+    func addParticipantButtonTapped() {
+        print("add participant button tapped")
+    }
+    
+    func streamSettingsButtonTapped() {
+        print("stream settings button tapped")
+        
+        let streamSettingsVC = StreamSettingsViewController()
+        let streamSettingsNC = UINavigationController(rootViewController: streamSettingsVC)
+        streamSettingsNC.view.tintColor = Colors.primary
+        presentViewController(streamSettingsNC, animated: true, completion: nil)
+    }
+    
     // MARK: Table View Data Source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -277,6 +290,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         cell.participantsStackView.addArrangedSubview(button)
                     }
                 }
+                cell.addParticipantButton.addTarget(self, action: #selector(MainViewController.addParticipantButtonTapped), forControlEvents: .TouchUpInside)
+                cell.settingsButton.addTarget(self, action: #selector(MainViewController.streamSettingsButtonTapped), forControlEvents: .TouchUpInside)
                 return cell
             }
         }

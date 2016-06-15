@@ -66,6 +66,8 @@
 		2CDC4B2E1D00C10800EDACB6 /* StreamSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC4B2D1D00C10800EDACB6 /* StreamSummaryTableViewCell.swift */; };
 		2CE9A5DA1CFFBF7100C09D0A /* BagItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9A5D91CFFBF7100C09D0A /* BagItemTableViewCell.swift */; };
 		2CE9A5DC1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE9A5DB1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift */; };
+		2CF601981D10CD6600F32041 /* StreamSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF601971D10CD6600F32041 /* StreamSettingsViewController.swift */; };
+		2CF6019A1D10CD7900F32041 /* ParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF601991D10CD7900F32041 /* ParticipantsViewController.swift */; };
 		C7119DC08F6399989AE919BC /* Pods_Luma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB3CB8BF51957014C6DCE5D7 /* Pods_Luma.framework */; };
 /* End PBXBuildFile section */
 
@@ -154,6 +156,8 @@
 		2CDC4B2D1D00C10800EDACB6 /* StreamSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamSummaryTableViewCell.swift; path = View/StreamSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		2CE9A5D91CFFBF7100C09D0A /* BagItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BagItemTableViewCell.swift; path = View/BagItemTableViewCell.swift; sourceTree = "<group>"; };
 		2CE9A5DB1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BagSummaryTableViewCell.swift; path = View/BagSummaryTableViewCell.swift; sourceTree = "<group>"; };
+		2CF601971D10CD6600F32041 /* StreamSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamSettingsViewController.swift; path = "View Controllers/StreamSettingsViewController.swift"; sourceTree = "<group>"; };
+		2CF601991D10CD7900F32041 /* ParticipantsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParticipantsViewController.swift; path = "View Controllers/ParticipantsViewController.swift"; sourceTree = "<group>"; };
 		99715BF62822F2813EBEB7E6 /* Pods-Luma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Luma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Luma/Pods-Luma.debug.xcconfig"; sourceTree = "<group>"; };
 		CB3CB8BF51957014C6DCE5D7 /* Pods_Luma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Luma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -247,6 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				2C2B21371CCAE64A000F4CCE /* MainViewController.swift */,
+				2CF601971D10CD6600F32041 /* StreamSettingsViewController.swift */,
+				2CF601991D10CD7900F32041 /* ParticipantsViewController.swift */,
 				2CBF1CD31D0F588600F50061 /* OnboardingViewController.swift */,
 				2C5CF7161D022E1F003A4476 /* MomentDetailViewController.swift */,
 				2CB4860A1D064E91000C4DD8 /* NewMomentViewController.swift */,
@@ -543,6 +549,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CF6019A1D10CD7900F32041 /* ParticipantsViewController.swift in Sources */,
 				2C2B21421CCAF05B000F4CCE /* Stream.swift in Sources */,
 				2C0259441CCAF61000FA6D70 /* Colors.swift in Sources */,
 				2CE9A5DA1CFFBF7100C09D0A /* BagItemTableViewCell.swift in Sources */,
@@ -583,6 +590,7 @@
 				2C64418D1D0FCAD400AAD32F /* Product_Image.swift in Sources */,
 				2C40E7631CEE4CBA003D58E2 /* SingleLineTextFieldTableViewCell.swift in Sources */,
 				2C28C1BD1CEBD3DA00D0D5AB /* ProductImageGalleryTableViewCell.swift in Sources */,
+				2CF601981D10CD6600F32041 /* StreamSettingsViewController.swift in Sources */,
 				2C3162011D020DD1006BBC85 /* TimeLockedMomentTableViewCell.swift in Sources */,
 				2C28C1BF1CEBE37F00D0D5AB /* ImageCollectionViewCell.swift in Sources */,
 				2C64418B1D0FCABA00AAD32F /* Item_Order.swift in Sources */,

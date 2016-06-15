@@ -23,10 +23,26 @@ class StreamGalleryCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 25
         self.clipsToBounds = true
         
-        streamProfileImageView = UIImageView(frame: CGRectMake(0, 0, 50, 50))
+        containerView = UIView(frame: CGRectZero)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(containerView)
+        
+        streamProfileImageView = UIImageView(frame: CGRectZero)
+        streamProfileImageView.translatesAutoresizingMaskIntoConstraints = false
         streamProfileImageView.contentMode = .ScaleAspectFit
-//        streamProfileImageView.backgroundColor = Colors.offWhite
-        contentView.addSubview(streamProfileImageView)
+        containerView.addSubview(streamProfileImageView)
+        
+        let viewsDictionary = ["containerView":containerView, "streamProfileImageView":streamProfileImageView]
+        
+        let containerH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[containerView]|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
+        let containerV = NSLayoutConstraint.constraintsWithVisualFormat("V:|[containerView]|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
+        addConstraints(containerH)
+        addConstraints(containerV)
+        
+        let imageViewH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[streamProfileImageView(50)]|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
+        let imageViewV = NSLayoutConstraint.constraintsWithVisualFormat("V:|[streamProfileImageView(50)]|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
+        containerView.addConstraints(imageViewH)
+        containerView.addConstraints(imageViewV)
     }
     
 }
