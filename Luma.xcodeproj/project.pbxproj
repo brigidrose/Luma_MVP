@@ -50,6 +50,10 @@
 		2C7E2F3E1D0A6996009A4500 /* UnlockSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E2F3D1D0A6996009A4500 /* UnlockSettingsViewController.swift */; };
 		2C89F6731CEA15C70090B536 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89F6721CEA15C70090B536 /* UIButtonExtensions.swift */; };
 		2C89F6761CEA232F0090B536 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89F6751CEA232F0090B536 /* UIFontExtension.swift */; };
+		2C9E617C1D127D9600124A9E /* ProductScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E617B1D127D9600124A9E /* ProductScannerViewController.swift */; };
+		2C9E617E1D130CA100124A9E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E617D1D130CA100124A9E /* CommentTableViewCell.swift */; };
+		2C9E61821D130ED200124A9E /* TextComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E61811D130ED200124A9E /* TextComposerViewController.swift */; };
+		2C9E61841D130F3900124A9E /* CommentComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E61831D130F3900124A9E /* CommentComposerViewController.swift */; };
 		2CA8EC381CEA3FEC00EDEEEC /* BraceletStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC371CEA3FEC00EDEEEC /* BraceletStoreViewController.swift */; };
 		2CA8EC3A1CEA3FF700EDEEEC /* CharmStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC391CEA3FF700EDEEEC /* CharmStoreViewController.swift */; };
 		2CA8EC3C1CEA642D00EDEEEC /* ProductHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA8EC3B1CEA642D00EDEEEC /* ProductHeadlineTableViewCell.swift */; };
@@ -143,6 +147,10 @@
 		2C7E2F3D1D0A6996009A4500 /* UnlockSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnlockSettingsViewController.swift; path = "View Controllers/UnlockSettingsViewController.swift"; sourceTree = "<group>"; };
 		2C89F6721CEA15C70090B536 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		2C89F6751CEA232F0090B536 /* UIFontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
+		2C9E617B1D127D9600124A9E /* ProductScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductScannerViewController.swift; path = "View Controllers/ProductScannerViewController.swift"; sourceTree = "<group>"; };
+		2C9E617D1D130CA100124A9E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentTableViewCell.swift; path = View/CommentTableViewCell.swift; sourceTree = "<group>"; };
+		2C9E61811D130ED200124A9E /* TextComposerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextComposerViewController.swift; path = "View Controllers/TextComposerViewController.swift"; sourceTree = "<group>"; };
+		2C9E61831D130F3900124A9E /* CommentComposerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentComposerViewController.swift; path = "View Controllers/CommentComposerViewController.swift"; sourceTree = "<group>"; };
 		2CA8EC371CEA3FEC00EDEEEC /* BraceletStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BraceletStoreViewController.swift; path = "View Controllers/BraceletStoreViewController.swift"; sourceTree = "<group>"; };
 		2CA8EC391CEA3FF700EDEEEC /* CharmStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharmStoreViewController.swift; path = "View Controllers/CharmStoreViewController.swift"; sourceTree = "<group>"; };
 		2CA8EC3B1CEA642D00EDEEEC /* ProductHeadlineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductHeadlineTableViewCell.swift; path = View/ProductHeadlineTableViewCell.swift; sourceTree = "<group>"; };
@@ -271,6 +279,9 @@
 				2C40E7601CEE3BAF003D58E2 /* BagDetailViewController.swift */,
 				2CCC0AF61D080A6600A7796B /* AccountViewController.swift */,
 				2CCC0AF81D080A6C00A7796B /* DevicesViewController.swift */,
+				2C9E617B1D127D9600124A9E /* ProductScannerViewController.swift */,
+				2C9E61811D130ED200124A9E /* TextComposerViewController.swift */,
+				2C9E61831D130F3900124A9E /* CommentComposerViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -296,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				2C2B21431CCAF148000F4CCE /* LumaNavigationControllerTitleView.swift */,
+				2C9E617D1D130CA100124A9E /* CommentTableViewCell.swift */,
 				2CD49DCC1D11103700347E61 /* SettingsSummaryTableViewCell.swift */,
 				2CD49DCE1D11252700347E61 /* ParticipantTableViewCell.swift */,
 				2CD49DD01D1126D500347E61 /* ActionRowTableViewCell.swift */,
@@ -443,6 +455,9 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = U45MJ5LU33;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 0;
 							};
@@ -573,6 +588,7 @@
 				2C2B21381CCAE64A000F4CCE /* MainViewController.swift in Sources */,
 				2C4804421D10657900D812EC /* FetchMethods.swift in Sources */,
 				2CDC4B2E1D00C10800EDACB6 /* StreamSummaryTableViewCell.swift in Sources */,
+				2C9E617C1D127D9600124A9E /* ProductScannerViewController.swift in Sources */,
 				2CA8EC451CEA7F0B00EDEEEC /* ProductGalleryCollectionViewCell.swift in Sources */,
 				2C40E7671CEE6CCE003D58E2 /* AddressFormTableViewCell.swift in Sources */,
 				2C7E2F3C1D09EF2F009A4500 /* StreamWithParticipantsTableViewCell.swift in Sources */,
@@ -590,6 +606,7 @@
 				2C89F6731CEA15C70090B536 /* UIButtonExtensions.swift in Sources */,
 				2CD49DCF1D11252700347E61 /* ParticipantTableViewCell.swift in Sources */,
 				2CE9A5DC1CFFBF7D00C09D0A /* BagSummaryTableViewCell.swift in Sources */,
+				2C9E61841D130F3900124A9E /* CommentComposerViewController.swift in Sources */,
 				2C2B21071CCAE275000F4CCE /* AppDelegate.swift in Sources */,
 				2C4804461D108A8400D812EC /* MapPin.swift in Sources */,
 				2C7E2F3A1D09DA5B009A4500 /* StreamSelectionViewController.swift in Sources */,
@@ -597,6 +614,7 @@
 				2CA8EC431CEA7DAC00EDEEEC /* Model.swift in Sources */,
 				2CA8EC381CEA3FEC00EDEEEC /* BraceletStoreViewController.swift in Sources */,
 				2CCC0AF91D080A6C00A7796B /* DevicesViewController.swift in Sources */,
+				2C9E617E1D130CA100124A9E /* CommentTableViewCell.swift in Sources */,
 				2CCC0AF71D080A6600A7796B /* AccountViewController.swift in Sources */,
 				2C64418D1D0FCAD400AAD32F /* Product_Image.swift in Sources */,
 				2C40E7631CEE4CBA003D58E2 /* SingleLineTextFieldTableViewCell.swift in Sources */,
@@ -608,6 +626,7 @@
 				2C2B21401CCAEE47000F4CCE /* StreamGalleryCollectionViewCell.swift in Sources */,
 				2C5CF7171D022E1F003A4476 /* MomentDetailViewController.swift in Sources */,
 				2C5CF7191D0231FA003A4476 /* MomentDetailSummaryTableViewCell.swift in Sources */,
+				2C9E61821D130ED200124A9E /* TextComposerViewController.swift in Sources */,
 				2CBF1CD41D0F588600F50061 /* OnboardingViewController.swift in Sources */,
 				2C7E2F3E1D0A6996009A4500 /* UnlockSettingsViewController.swift in Sources */,
 				2CB4860B1D064E91000C4DD8 /* NewMomentViewController.swift in Sources */,

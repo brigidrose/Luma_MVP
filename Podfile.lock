@@ -13,11 +13,11 @@ PODS:
   - CSStickyHeaderFlowLayout (0.2.10)
   - DateTools (1.7.0)
   - DynamicColor (2.4.0)
-  - FBSDKCoreKit (4.12.0):
+  - FBSDKCoreKit (4.13.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.12.0):
+  - FBSDKLoginKit (4.13.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.12.0):
+  - FBSDKShareKit (4.13.0):
     - FBSDKCoreKit
   - IQKeyboardManagerSwift (4.0.3)
   - JVFloatLabeledTextField (1.1.0)
@@ -27,7 +27,7 @@ PODS:
   - MarqueeLabel (2.7.5):
     - MarqueeLabel/ObjC (= 2.7.5)
   - MarqueeLabel/ObjC (2.7.5)
-  - NVActivityIndicatorView (2.7)
+  - NVActivityIndicatorView (2.8)
   - Parse (1.13.0):
     - Bolts/Tasks (~> 1.6)
   - ParseFacebookUtilsV4 (1.11.1):
@@ -56,7 +56,7 @@ DEPENDENCIES:
   - CountdownLabel
   - CSStickyHeaderFlowLayout
   - DateTools
-  - DynamicColor
+  - DynamicColor (= 2.4.0)
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
@@ -88,16 +88,16 @@ SPEC CHECKSUMS:
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   DynamicColor: 2f3fd61053684667bad9f03045dcf9a2a5a007ea
-  FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
-  FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
-  FBSDKShareKit: df1491f064cffc8ebcc3fc8b71be94cc190c728e
+  FBSDKCoreKit: 322234a989549a4594ddf02fdcf60bef80f97341
+  FBSDKLoginKit: 7a0ee41905a3e008a1b89aa26cd21717a45b9b9c
+  FBSDKShareKit: 4b714a6f381168908b2e7c0d302641897c69dcd6
   IQKeyboardManagerSwift: b6883b720b0e76473692fdc80828442566e1075f
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   KDEDateLabel: f37824a632879ef72f3cabaf847bf95743d93882
   KRLCollectionViewGridLayout: 6363dc7e3d91cf1f97e19ed20846764566659596
   LTMorphingLabel: dfc40f43a0dcf81867b1f29431f34e861a5f1b35
   MarqueeLabel: bd476f1a91e4414a6aec4ea4096a9979e8c8c2ad
-  NVActivityIndicatorView: dc80f18fb27ac92f0aa87246cc13dc39ed3e9ee0
+  NVActivityIndicatorView: 6aba1dbbd893f615a9452c9e66ae46473e1ce092
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022

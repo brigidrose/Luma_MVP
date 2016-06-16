@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C7725051CEE0D84A2515CA49'
+               BlueprintIdentifier = 'A57B86DF34DE641BE8D2799F'
                BlueprintName = 'AMTextFieldPickerExtension'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'AMTextFieldPickerExtension.framework'>

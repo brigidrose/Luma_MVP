@@ -51,7 +51,7 @@ class StreamSummaryTableViewCell: UITableViewCell {
         let metricsDictionary = ["sidePadding":15, "topPadding":25, "bottomPadding":27, "buttonsPadding":12]
         
         let titleLabelH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-sidePadding-[titleLabel]-sidePadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-topPadding-[titleLabel]-8-[participantsStackView(25)]-bottomPadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
+        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-topPadding-[titleLabel]-8-[participantsStackView(30)]-bottomPadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         
         contentView.addConstraints(titleLabelH)
         contentView.addConstraints(vConstraints)

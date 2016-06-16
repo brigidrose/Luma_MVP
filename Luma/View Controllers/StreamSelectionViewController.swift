@@ -98,6 +98,7 @@ class StreamSelectionViewController: UIViewController, UITableViewDataSource, UI
         }
         dismissViewControllerAnimated(true, completion: {
             self.newMomentVC.updateSelectedStreamButton()
+            self.newMomentVC.checkMomentReady()
         })
     }
 

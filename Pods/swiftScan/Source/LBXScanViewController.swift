@@ -61,7 +61,7 @@ public class LBXScanViewController: UIViewController, UIImagePickerControllerDel
     {
         if(!LBXPermissions .isGetCameraPermission())
         {
-            showMsg("提示", message: "没有相机权限，请到设置->隐私中开启本程序相机权限")
+            showMsg("Camera Access Required", message: "Please enable camera access in Settings > Privacy")
             return;
         }
         
@@ -112,7 +112,7 @@ public class LBXScanViewController: UIViewController, UIImagePickerControllerDel
             self.view.addSubview(qRScanView!)
         }
         
-        qRScanView?.deviceStartReadying("相机启动中...")
+        qRScanView?.deviceStartReadying("starting...")
         
     }
    
@@ -145,7 +145,7 @@ public class LBXScanViewController: UIViewController, UIImagePickerControllerDel
     {
         if(!LBXPermissions.isGetPhotoPermission())
         {
-            showMsg("提示", message: "没有相册权限，请到设置->隐私中开启本程序相册权限")
+            showMsg("Photos Access Required", message: "Please enable Photos access in Settings > Privacy")
         }
         
         let picker = UIImagePickerController()
@@ -181,7 +181,7 @@ public class LBXScanViewController: UIViewController, UIImagePickerControllerDel
             }
         }
       
-        showMsg("", message: "识别失败")
+        showMsg("", message: "Failed to Scan")
     }
     
     func showMsg(title:String?,message:String?)
@@ -192,7 +192,7 @@ public class LBXScanViewController: UIViewController, UIImagePickerControllerDel
             //if #available(iOS 8.0, *)
             
             let alertController = UIAlertController(title: title, message:message, preferredStyle: UIAlertControllerStyle.Alert)
-            let alertAction = UIAlertAction(title:  "知道了", style: UIAlertActionStyle.Default) { [weak self] (alertAction) -> Void in
+            let alertAction = UIAlertAction(title:  "OK", style: UIAlertActionStyle.Default) { [weak self] (alertAction) -> Void in
                 
                 if let strongSelf = self
                 {

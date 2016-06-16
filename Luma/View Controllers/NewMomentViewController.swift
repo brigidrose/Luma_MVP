@@ -8,7 +8,6 @@
 
 import UIKit
 import QBImagePickerController
-import IQKeyboardManagerSwift
 import Parse
 
 class NewMomentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, QBImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -22,9 +21,12 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
     var captions:[String] = []
     var momentNarrative:String = ""
     var inStream:Stream!
-    var locked = false
     var unlockDate:NSDate?
     var unlockLocation:PFGeoPoint?
+    var unlockSettingsView:UIView!
+    var unlockTypeLabel:UILabel!
+    var unlockParameterLabel:UILabel!
+    var unlockMoreButton:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +43,7 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         
         navigationItem.title = "Moment"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .Done, target: self, action: #selector(NewMomentViewController.createButtonTapped(_:)))
+        navigationItem.rightBarButtonItem?.enabled = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(NewMomentViewController.cancelButtonTapped))
         
         toolBarBottom = UIToolbar(frame: CGRectZero)
@@ -64,14 +67,9 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
 
         view.backgroundColor = Colors.white
         
-        
-        
-        let momentContentTVC = UITableViewController()
-        addChildViewController(momentContentTVC)
-        
-        momentContentTVC.tableView = UITableView(frame: CGRectZero)
-        momentContentTVC.tableView.translatesAutoresizingMaskIntoConstraints = false
-        momentContentTableView = momentContentTVC.tableView
+                
+        momentContentTableView = UITableView(frame: CGRectZero)
+        momentContentTableView.translatesAutoresizingMaskIntoConstraints = false
 //        momentContentTableView.contentInset.top = 64
         momentContentTableView.contentInset.bottom = 44
         momentContentTableView.registerClass(TextViewTableViewCell.self, forCellReuseIdentifier: "TextViewTableViewCell")
@@ -110,8 +108,41 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         streamSelectionButton.addSubview(streamSelectionSeparatorView)
         view.addSubview(streamSelectionButton)
         
+        let unlockSettingsSeparatorView = UIView(frame: CGRectZero)
+        unlockSettingsSeparatorView.translatesAutoresizingMaskIntoConstraints = false
+        unlockSettingsSeparatorView.backgroundColor = Colors.offWhite
         
-        let viewsDictionary = ["momentContentTableView":momentContentTableView, "topLayoutGuide":topLayoutGuide, "bottomLayoutGuide":bottomLayoutGuide, "streamSelectionButton":streamSelectionButton, "streamThumbnailImageView":streamThumbnailImageView, "streamSelectionLabel":streamSelectionLabel, "streamSelectionSeparatorView":streamSelectionSeparatorView]
+        unlockTypeLabel = UILabel(frame: CGRectZero)
+        unlockTypeLabel.translatesAutoresizingMaskIntoConstraints = false
+        unlockTypeLabel.textAlignment = .Left
+        unlockTypeLabel.text = "Unlocks"
+        unlockTypeLabel.font = UIFont.systemFontOfSize(13)
+        
+        
+        unlockParameterLabel = UILabel(frame: CGRectZero)
+        unlockParameterLabel.translatesAutoresizingMaskIntoConstraints = false
+        unlockParameterLabel.textAlignment = .Left
+        unlockParameterLabel.text = "Parameter"
+        unlockParameterLabel.font = UIFont.systemFontOfSize(18)
+        
+        unlockMoreButton = UIButton(frame: CGRectZero)
+        unlockMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        unlockMoreButton.setImage(UIImage(named: "momentMoreButtonIcon"), forState: .Normal)
+        unlockMoreButton.addTarget(self, action: #selector(NewMomentViewController.unlockMoreButtonTapped), forControlEvents: .TouchUpInside)
+        
+        unlockSettingsView = UIView(frame:CGRectZero)
+        unlockSettingsView.translatesAutoresizingMaskIntoConstraints = false
+        unlockSettingsView.backgroundColor = Colors.white
+        unlockSettingsView.addSubview(unlockTypeLabel)
+        unlockSettingsView.addSubview(unlockParameterLabel)
+        unlockSettingsView.addSubview(unlockMoreButton)
+        unlockSettingsView.addSubview(unlockSettingsSeparatorView)
+        unlockSettingsView.hidden = true
+        view.addSubview(unlockSettingsView)
+        
+        
+        
+        let viewsDictionary = ["momentContentTableView":momentContentTableView, "topLayoutGuide":topLayoutGuide, "bottomLayoutGuide":bottomLayoutGuide, "streamSelectionButton":streamSelectionButton, "streamThumbnailImageView":streamThumbnailImageView, "streamSelectionLabel":streamSelectionLabel, "streamSelectionSeparatorView":streamSelectionSeparatorView, "unlockSettingsView":unlockSettingsView, "unlockTypeLabel":unlockTypeLabel, "unlockParameterLabel":unlockParameterLabel, "unlockMoreButton":unlockMoreButton, "unlockSettingsSeparatorView":unlockSettingsSeparatorView]
         let metricsDictionary = ["sidePadding":15, "buttonPadding":10]
         
         let buttonViewsH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-buttonPadding-[streamThumbnailImageView(44)]-buttonPadding-[streamSelectionLabel]-buttonPadding-|", options: .AlignAllCenterY, metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
@@ -124,6 +155,23 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         streamSelectionButton.addConstraints(buttonViewsV)
         streamSelectionButton.addConstraints(buttonSeparatorH)
         
+        let unlockSettingsViewH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[unlockSettingsView]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        view.addConstraints(unlockSettingsViewH)
+        
+        let unlockSettingsViewInternalH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-sidePadding-[unlockTypeLabel]-sidePadding-[unlockMoreButton(44)]-21-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        let unlockLabelsV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-12-[unlockTypeLabel]->=0-[unlockParameterLabel]", options: [.AlignAllLeft, .AlignAllRight], metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        let unlockSeparatorH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[unlockSettingsSeparatorView]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        let unlockSeparatorV = NSLayoutConstraint.constraintsWithVisualFormat("V:[unlockParameterLabel]-12-[unlockSettingsSeparatorView(1)]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        let unlockButtonHeight = NSLayoutConstraint(item: unlockMoreButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 44)
+        let unlockButtonCenterY = NSLayoutConstraint(item: unlockMoreButton, attribute: .CenterY, relatedBy: .Equal, toItem: unlockSettingsView, attribute: .CenterY, multiplier: 1, constant: 0)
+        
+        view.addConstraints(unlockSettingsViewInternalH)
+        view.addConstraints(unlockSeparatorH)
+        view.addConstraints(unlockSeparatorV)
+        view.addConstraints(unlockLabelsV)
+        view.addConstraint(unlockButtonHeight)
+        view.addConstraint(unlockButtonCenterY)
+        
         let tableViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[momentContentTableView]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String : AnyObject])
         let tableViewVConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide][momentContentTableView][bottomLayoutGuide]", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String : AnyObject])
         
@@ -131,7 +179,7 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         view.addConstraints(tableViewVConstraints)
         
         let streamSelectionButtonH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[streamSelectionButton]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
-        let streamSelectionButtonV = NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide][streamSelectionButton(64)]", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
+        let streamSelectionButtonV = NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide][streamSelectionButton(64)][unlockSettingsView(64)]", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary as! [String:AnyObject])
         
         view.addConstraints(streamSelectionButtonH)
         view.addConstraints(streamSelectionButtonV)
@@ -140,8 +188,29 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.becomeFirstResponder()
+        toggleVisibility()
+
+    }
+    
+    func unlockMoreButtonTapped() {
+        print("unlock more button tapped")
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let removeAction = UIAlertAction(title: "Remove Unlock Settings", style: .Destructive) { (action) in
+            self.unlockLocation = nil
+            self.unlockDate = nil
+            self.toggleVisibility()
+        }
+        let editAction = UIAlertAction(title: "Edit Unlock Settings", style: .Default) { (action) in
+            self.launchUnlockSettingsVC()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+            "cancel button tapped"
+        }
+        alertController.addAction(editAction)
+        alertController.addAction(removeAction)
+        alertController.addAction(cancelAction)
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -205,8 +274,7 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         newMoment.author = PFUser.currentUser()!
         newMoment.narrative = momentNarrative
         if unlockDate != nil || unlockLocation != nil{
-            locked = true
-            newMoment.locked = locked
+            newMoment.locked = true
         }
         if unlockLocation != nil{
             newMoment.unlockLocation = unlockLocation!
@@ -340,6 +408,10 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func addUnlockSettingsButtonTapped(){
         print("add unlock settings button tapped")
+        launchUnlockSettingsVC()
+    }
+    
+    func launchUnlockSettingsVC() {
         let unlockSettingsVC = UnlockSettingsViewController()
         unlockSettingsVC.newMomentVC = self
         let unlockSettingsNC = UINavigationController(rootViewController: unlockSettingsVC)
@@ -370,6 +442,29 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    func textViewDidChange(textView: UITextView) {
+        let indexPath = momentContentTableView.indexPathForRowAtPoint(textView.convertPoint(CGPointZero, toView: momentContentTableView))
+        if indexPath?.section == 0{
+            if textView.text != "" && inStream != nil{
+                navigationItem.rightBarButtonItem?.enabled = true
+            }
+            else{
+                navigationItem.rightBarButtonItem?.enabled = false
+            }
+        }
+
+    }
+    
+    func checkMomentReady() {
+        if momentNarrative != "" && inStream != nil{
+            navigationItem.rightBarButtonItem?.enabled = true
+        }
+        else{
+            navigationItem.rightBarButtonItem?.enabled = false
+        }
+
+    }
+    
     func getAssetCropped(asset: PHAsset) -> UIImage {
         let manager = PHImageManager.defaultManager()
         let option = PHImageRequestOptions()
@@ -387,6 +482,17 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
             if subview.isMemberOfClass(UILabel){
                 (subview as! UILabel).text = inStream.title
             }
+        }
+    }
+    
+    func toggleVisibility() {
+        if unlockLocation != nil || unlockDate != nil{
+            unlockSettingsView.hidden = false
+            momentContentTableView.contentInset.top = 128
+        }
+        else{
+            unlockSettingsView.hidden = true
+            momentContentTableView.contentInset.top = 64
         }
     }
 

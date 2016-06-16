@@ -15,7 +15,7 @@ target 'Luma' do
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
     pod 'FBSDKShareKit'
-    pod 'DynamicColor'
+    pod 'DynamicColor', '2.4.0'
     pod 'UIColor_Hex_Swift'
     pod 'ColorArt'
     pod 'JVFloatLabeledTextField'

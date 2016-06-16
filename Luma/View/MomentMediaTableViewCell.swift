@@ -27,6 +27,7 @@ class MomentMediaTableViewCell: UITableViewCell {
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageView.contentMode = .ScaleAspectFill
         thumbnailImageView.backgroundColor = UIColor(hexString: "F3F3F3")
+        thumbnailImageView.clipsToBounds = true
         contentView.addSubview(thumbnailImageView)
         
         captionLabel = UILabel(frame: CGRectZero)

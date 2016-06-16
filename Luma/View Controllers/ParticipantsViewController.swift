@@ -48,11 +48,14 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
     
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
+            return 1
+        }
+        else if section == 1{
             return participants.count
         }
         else{
@@ -62,6 +65,14 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0{
+            let user = streamSettingsVC.stream.author
+            let cell = tableView.dequeueReusableCellWithIdentifier("ParticipantTableViewCell") as! ParticipantTableViewCell
+            cell.participantNameLabel.text = "\(user["firstName"]) \(user["lastName"])"
+            let url = NSURL(string: "https://graph.facebook.com/\(user["facebookId"])/picture?type=large")
+            cell.thumbnailImageView.sd_setImageWithURL(url)
+            return cell
+        }
+        else if indexPath.section == 1{
             let user = participants[indexPath.row]
             let cell = tableView.dequeueReusableCellWithIdentifier("ParticipantTableViewCell") as! ParticipantTableViewCell
             cell.participantNameLabel.text = "\(user["firstName"]) \(user["lastName"])"
@@ -81,6 +92,9 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0{
+            return "Owner"
+        }
+        else if section == 1{
             return "Participants"
         }
         else{
@@ -112,12 +126,16 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
                 for (key, subJson) in json["data"] {
                     if let id = subJson["id"].string {
                         var isParticipant = false
+                        var isAuthor = false
                         for participant in self.participants{
                             if participant["facebookId"] as! String == id{
                                 isParticipant = true
                             }
+                            if self.streamSettingsVC.stream.author["facebookId"] as! String == id{
+                                isAuthor = true
+                            }
                         }
-                        if !isParticipant{
+                        if !isParticipant && !isAuthor{
                             self.facebookFriends.append((subJson["name"].string!, id))
                         }
                     }
@@ -132,6 +150,9 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0{
+        
+        }
+        else if indexPath.section == 1{
         
         }
         else{

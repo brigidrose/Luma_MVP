@@ -87,6 +87,7 @@ class StreamSettingsViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("SettingsSummaryTableViewCell") as! SettingsSummaryTableViewCell
+            cell.itemTitleLabel.text = stream.title
             return cell
         }
         else if indexPath.section == 1{

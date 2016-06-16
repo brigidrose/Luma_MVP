@@ -32,6 +32,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     var lockedMomentsInFocus:[Moment] = []
     var momentsInFocus:[Moment] = []
     
+    var streamSummaryLoaded = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -111,19 +113,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         layout.itemSize = CGSizeMake(50, 50)
         layout.minimumInteritemSpacing = 10
         layout.sectionInset.right = 10
-        let streamGalleryCollectionViewController = UICollectionViewController()
-        streamGalleryCollectionViewController.automaticallyAdjustsScrollViewInsets = false
-        self.addChildViewController(streamGalleryCollectionViewController)
         streamGalleryCV = TPKeyboardAvoidingCollectionView(frame: CGRectZero, collectionViewLayout: layout)
         streamGalleryCV.translatesAutoresizingMaskIntoConstraints = false
         streamGalleryCV.backgroundColor = Colors.white
-        streamGalleryCV.contentInset = UIEdgeInsetsMake(15, 10, 15, 10)
         streamGalleryCV.alwaysBounceHorizontal = true
         streamGalleryCV.delegate = self
         streamGalleryCV.dataSource = self
         streamGalleryCV.scrollsToTop = false
         streamGalleryCV.registerClass(StreamGalleryCollectionViewCell.self, forCellWithReuseIdentifier: "StreamGalleryCollectionViewCell")
-        streamGalleryCollectionViewController.collectionView = streamGalleryCV
         view.addSubview(streamGalleryCV)
         
         streamGallerySeparatorView = UIView(frame:CGRectZero)
@@ -291,16 +288,39 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             // else dequeue stream summary header
             else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("StreamSummaryTableViewCell") as! StreamSummaryTableViewCell
+                print("streamGallerySelectedIndexPath.item is \(streamGallerySelectedIndexPath.item)")
                 cell.titleLabel.text = streams[streamGallerySelectedIndexPath.item].title
-                if cell.participantsStackView.arrangedSubviews.count != self.participantsInFocus.count{
+
+                if !streamSummaryLoaded{
+                    for subView in cell.participantsStackView.arrangedSubviews{
+                        cell.participantsStackView.removeArrangedSubview(subView)
+                        subView.removeFromSuperview()
+                    }
+                    let button = UIButton()
+                    button.imageView?.contentMode = .ScaleAspectFit
+                    button.layer.cornerRadius = 15
+                    button.clipsToBounds = true
+                    let url = NSURL(string: "https://graph.facebook.com/\(self.streams[streamGallerySelectedIndexPath.item].author["facebookId"] as! String)/picture?type=large")
+                    button.sd_setImageWithURL(url, forState: .Normal, placeholderImage: UIImage(named: "streamParticipantIcon"))
+                    button.addConstraint(NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 30))
+                    cell.participantsStackView.addArrangedSubview(button)
+                    var count = 0
                     for _ in 0...self.participantsInFocus.count - 1{
                         let button = UIButton()
-                        button.setImage(UIImage(named:"streamParticipantIcon"), forState: .Normal)
+                        button.imageView?.contentMode = .ScaleAspectFit
+                        button.layer.cornerRadius = 15
+                        button.clipsToBounds = true
+                        let url = NSURL(string: "https://graph.facebook.com/\(self.participantsInFocus[count]["facebookId"] as! String)/picture?type=large")
+                        button.sd_setImageWithURL(url, forState: .Normal, placeholderImage: UIImage(named: "streamParticipantIcon"))
+                        button.addConstraint(NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 30))
                         cell.participantsStackView.addArrangedSubview(button)
+                        count += 1
                     }
+
+                    cell.addParticipantButton.addTarget(self, action: #selector(MainViewController.addParticipantButtonTapped), forControlEvents: .TouchUpInside)
+                    cell.settingsButton.addTarget(self, action: #selector(MainViewController.streamSettingsButtonTapped), forControlEvents: .TouchUpInside)
+                    streamSummaryLoaded = true
                 }
-                cell.addParticipantButton.addTarget(self, action: #selector(MainViewController.addParticipantButtonTapped), forControlEvents: .TouchUpInside)
-                cell.settingsButton.addTarget(self, action: #selector(MainViewController.streamSettingsButtonTapped), forControlEvents: .TouchUpInside)
                 return cell
             }
         }
@@ -345,7 +365,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("GeoLockedMomentTableViewCell") as! GeoLockedMomentTableViewCell
                 let unlockCoordinate = CLLocationCoordinate2D(latitude: moment.unlockLocation.latitude, longitude:moment.unlockLocation.longitude)
-                cell.mapView.setRegion(MKCoordinateRegion(center: unlockCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)), animated: true)
+                cell.mapView.setRegion(MKCoordinateRegion(center: unlockCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)), animated: false)
                 let mapPin = MapPin(coordinate: unlockCoordinate)
                 cell.mapView.addAnnotation(mapPin)
                 cell.actionLabel.text = "\(moment.author["firstName"]) added a moment to unlock nearby"
@@ -447,10 +467,27 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("StreamGalleryCollectionViewCell", forIndexPath: indexPath) as! StreamGalleryCollectionViewCell
 //        cell.backgroundColor = Colors.primary.colorWithAlphaComponent(0.5)
         if indexPath.section == 1{
-            let model = charms[indexPath.item].model
-            cell.streamProfileImageView.sd_setImageWithURL(NSURL(string:model.heroImage.url!))
+            if indexPath.item < charms.count{
+                let model = charms[indexPath.item].model
+                cell.streamProfileImageView.sd_setImageWithURL(NSURL(string:model.heroImage.url!))
+            }
+            else{
+                // current user not author of stream
+                cell.streamProfileImageView.backgroundColor = Colors.offWhite
+            }
+        }
+        if indexPath != streamGallerySelectedIndexPath{
+            cell.alpha = 0.5
+        }
+        else{
+            cell.alpha = 1
         }
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        streamGallerySelectedIndexPath = indexPath
+        loadCharms()
     }
     
     // MARK: Navigation Bar Button Taps
@@ -478,6 +515,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func loadCharms() {
+        streamSummaryLoaded = false
         let loadCharmsQuery = PFQuery(className: "Charm")
         loadCharmsQuery.whereKey("owner", equalTo: PFUser.currentUser()!)
         loadCharmsQuery.includeKeys(["gifter", "model", "owner", "stream"])
@@ -491,49 +529,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for charm in charms as! [Charm]{
                     self.streams.append(charm.stream)
                 }
-                self.toggleVisibility()
-                self.streamGalleryCV.reloadData()
-                self.streamTV.reloadData()
-                let streamInFocus = self.streams[self.streamGallerySelectedIndexPath.item]
-                streamInFocus.participants.query().findObjectsInBackgroundWithBlock({ (participants, error) in
-                    if error != nil{
-                        print(error)
-                    }
-                    else{
-                        self.participantsInFocus = participants as! [PFUser]
-                        self.streamTV.reloadRowsAtIndexPaths([NSIndexPath(forRow:0,inSection:0)], withRowAnimation: .Automatic)
-                        let momentsQuery = streamInFocus.moments.query()
-                        momentsQuery.includeKeys(["author"])
-                        momentsQuery.findObjectsInBackgroundWithBlock({ (moments, error) in
-                            if error != nil{
-                                print(error)
-                            }
-                            else{
-                                self.lockedMomentsInFocus.removeAll()
-                                self.momentsInFocus.removeAll()
-                                for moment in moments as! [Moment]{
-                                    if moment.locked{
-                                        self.lockedMomentsInFocus.append(moment)
-                                        if moment.unlockType == "date"{
-                                            let notification = UILocalNotification()
-                                            notification.fireDate = moment.unlockDate
-                                            notification.alertBody = "It's time to unlock \(moment.author["firstName"])'s moment in \(moment.inStream.title)"
-                                            notification.alertAction = "Unlock"
-                                            notification.soundName = UILocalNotificationDefaultSoundName
-                                            notification.userInfo = ["momentId":"\(moment.objectId!)"]
-                                            UIApplication.sharedApplication().scheduleLocalNotification(notification)
-                                        }
-                                    }
-                                    else{
-                                        self.momentsInFocus.append(moment)
-                                    }
-                                }
-                                self.refreshControl.endRefreshing()
-                                self.streamTV.reloadData()
-                            }
-                        })
-                    }
-                })
                 // load streams in which current user is not author and is contained in participants
                 let loadParticipatingStreamsQuery = PFQuery(className: "Stream")
                 loadParticipatingStreamsQuery.whereKey("author", notEqualTo: PFUser.currentUser()!)
@@ -543,7 +538,51 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         print(error)
                     }
                     else{
-                        print(streams)
+                        self.streams.appendContentsOf(streams as! [Stream])
+                        let streamInFocus = self.streams[self.streamGallerySelectedIndexPath.item]
+                        streamInFocus.participants.query().findObjectsInBackgroundWithBlock({ (participants, error) in
+                            if error != nil{
+                                print(error)
+                            }
+                            else{
+                                self.participantsInFocus.removeAll()
+                                self.participantsInFocus = participants as! [PFUser]
+//                                self.streamTV.reloadRowsAtIndexPaths([NSIndexPath(forRow:0,inSection:0)], withRowAnimation: .Automatic)
+                                let momentsQuery = streamInFocus.moments.query()
+                                momentsQuery.includeKeys(["author"])
+                                momentsQuery.orderByDescending("createdAt")
+                                momentsQuery.findObjectsInBackgroundWithBlock({ (moments, error) in
+                                    if error != nil{
+                                        print(error)
+                                    }
+                                    else{
+                                        self.lockedMomentsInFocus.removeAll()
+                                        self.momentsInFocus.removeAll()
+                                        for moment in moments as! [Moment]{
+                                            if moment.locked{
+                                                self.lockedMomentsInFocus.append(moment)
+                                                if moment.unlockType == "date"{
+                                                    let notification = UILocalNotification()
+                                                    notification.fireDate = moment.unlockDate
+                                                    notification.alertBody = "It's time to unlock \(moment.author["firstName"])'s moment in \(moment.inStream.title)"
+                                                    notification.alertAction = "Unlock"
+                                                    notification.soundName = UILocalNotificationDefaultSoundName
+                                                    notification.userInfo = ["momentId":"\(moment.objectId!)"]
+                                                    UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                                                }
+                                            }
+                                            else{
+                                                self.momentsInFocus.append(moment)
+                                            }
+                                        }
+                                        self.refreshControl.endRefreshing()
+                                        self.toggleVisibility()
+                                        self.streamGalleryCV.reloadData()
+                                        self.streamTV.reloadData()
+                                    }
+                                })
+                            }
+                        })
                     }
                 })
             }

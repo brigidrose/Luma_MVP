@@ -115,6 +115,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
         }
     }
+    
+    func setUpMomentUnlockNotifications() {
+        print("set up moment unlock notifications")
+        
+    }
+    
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        print("location updated")
+//        print(locations)
+//    }
+//    
+//    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+//        print(error)
+//    }
 
     // MARK: - Core Data stack
 

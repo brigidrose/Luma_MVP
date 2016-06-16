@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '77B7D81FFD90583112E9E3BC'
+               BlueprintIdentifier = 'BD695F894249780E4A1FE549'
                BlueprintName = 'KDEDateLabel'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'KDEDateLabel.framework'>
