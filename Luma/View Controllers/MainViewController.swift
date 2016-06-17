@@ -365,7 +365,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("GeoLockedMomentTableViewCell") as! GeoLockedMomentTableViewCell
                 let unlockCoordinate = CLLocationCoordinate2D(latitude: moment.unlockLocation.latitude, longitude:moment.unlockLocation.longitude)
-                cell.mapView.setRegion(MKCoordinateRegion(center: unlockCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)), animated: false)
+                cell.mapView.setRegion(MKCoordinateRegion(center: unlockCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)), animated: false)
                 let mapPin = MapPin(coordinate: unlockCoordinate)
                 cell.mapView.addAnnotation(mapPin)
                 cell.actionLabel.text = "\(moment.author["firstName"]) added a moment to unlock nearby"

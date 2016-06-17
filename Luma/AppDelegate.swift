@@ -201,6 +201,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         notification.fireDate = nil
         UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         manager.stopMonitoringForRegion(region)
+        let momentQuery = PFQuery(className: "Moment")
+        momentQuery.getObjectInBackgroundWithId(region.identifier) { (moment, error) in
+            if error != nil{
+                print(error)
+            }
+            else{
+                (moment as! Moment).locked = false
+                moment?.saveInBackgroundWithBlock({ (success, error) in
+                    if error != nil{
+                        print(error)
+                    }
+                    else{
+                        print("moment unlocked")
+                    }
+                })
+            }
+        }
+        
     }
     
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
