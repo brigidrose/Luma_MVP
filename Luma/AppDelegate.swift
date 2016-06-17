@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
 
         
         let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
@@ -89,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        setUpMomentUnlockNotifications()
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -119,13 +121,97 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func setUpMomentUnlockNotifications() {
         print("set up moment unlock notifications")
         
+        // remove monitored regions
+        for region in locationManager.monitoredRegions{
+            locationManager.stopMonitoringForRegion(region)
+        }
+        
+        // remove all scheduled notifications
+        if UIApplication.sharedApplication().scheduledLocalNotifications != nil{
+            for scheduledNotification in UIApplication.sharedApplication().scheduledLocalNotifications!{
+                UIApplication.sharedApplication().cancelLocalNotification(scheduledNotification)
+            }
+        }
+        
+        var streams:[Stream] = []
+        
+        let loadOwnedCharmsStreamsQuery = PFQuery(className: "Charm")
+        loadOwnedCharmsStreamsQuery.whereKey("owner", equalTo: PFUser.currentUser()!)
+        loadOwnedCharmsStreamsQuery.includeKeys(["gifter", "model", "owner", "stream"])
+        loadOwnedCharmsStreamsQuery.findObjectsInBackgroundWithBlock { (charms, error) in
+            if error != nil{
+                print(error)
+            }
+            else{
+                for charm in charms as! [Charm]{
+                    streams.append(charm.stream)
+                }
+                // load streams in which current user is not author and is contained in participants
+                let loadParticipatingStreamsQuery = PFQuery(className: "Stream")
+                loadParticipatingStreamsQuery.whereKey("author", notEqualTo: PFUser.currentUser()!)
+                loadParticipatingStreamsQuery.whereKey("participants", equalTo: PFUser.currentUser()!)
+                loadParticipatingStreamsQuery.findObjectsInBackgroundWithBlock({ (participatingStreams, error) in
+                    if error != nil{
+                        print(error)
+                    }
+                    else{
+                        streams.appendContentsOf(participatingStreams as! [Stream])
+                        let lockedMomentsQuery = PFQuery(className: "Moment")
+                        lockedMomentsQuery.whereKey("locked", equalTo: true)
+                        lockedMomentsQuery.whereKey("inStream", containedIn: streams)
+                        lockedMomentsQuery.findObjectsInBackgroundWithBlock({ (moments, error) in
+                            if error != nil{
+                                print(error)
+                            }
+                            else{
+                                for moment in moments as! [Moment]{
+                                    if moment.unlockType == "date"{
+                                        let notification = UILocalNotification()
+                                        notification.fireDate = moment.unlockDate
+                                        notification.alertBody = "It's time to unlock \(moment.author["firstName"])'s moment in \(moment.inStream.title)"
+                                        notification.alertAction = "Unlock"
+                                        notification.soundName = UILocalNotificationDefaultSoundName
+                                        notification.userInfo = ["momentId":"\(moment.objectId!)"]
+                                        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                                    }
+                                    if moment.unlockType == "location"{
+                                        
+                                        self.locationManager.startMonitoringForRegion(CLCircularRegion(center: CLLocationCoordinate2D(latitude: moment.unlockLocation.latitude, longitude:moment.unlockLocation.longitude), radius: 50, identifier: moment.objectId!))
+                                    }
+                                }
+                                print("started monitoring for regions \(self.locationManager.monitoredRegions)")
+                            }
+                        })
+
+                    }
+                })
+            }
+        }
+        
+    }
+    
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print("did enter region \(region.identifier)")
+        let circularRegion = region as! CLCircularRegion
+        let notification = UILocalNotification()
+        notification.alertBody = "You unlocked a moment near \(circularRegion.center.latitude), \(circularRegion.center.longitude)"
+        notification.alertAction = "Unlock"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.userInfo = ["momentId":"\(region.identifier)"]
+        notification.fireDate = nil
+        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+        manager.stopMonitoringForRegion(region)
+    }
+    
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        print("did exit region \(region)")
     }
     
 //    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        print("location updated")
 //        print(locations)
 //    }
-//    
+//
 //    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
 //        print(error)
 //    }

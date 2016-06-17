@@ -539,6 +539,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                     else{
                         self.streams.appendContentsOf(streams as! [Stream])
+                        
                         let streamInFocus = self.streams[self.streamGallerySelectedIndexPath.item]
                         streamInFocus.participants.query().findObjectsInBackgroundWithBlock({ (participants, error) in
                             if error != nil{
@@ -561,15 +562,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                                         for moment in moments as! [Moment]{
                                             if moment.locked{
                                                 self.lockedMomentsInFocus.append(moment)
-                                                if moment.unlockType == "date"{
-                                                    let notification = UILocalNotification()
-                                                    notification.fireDate = moment.unlockDate
-                                                    notification.alertBody = "It's time to unlock \(moment.author["firstName"])'s moment in \(moment.inStream.title)"
-                                                    notification.alertAction = "Unlock"
-                                                    notification.soundName = UILocalNotificationDefaultSoundName
-                                                    notification.userInfo = ["momentId":"\(moment.objectId!)"]
-                                                    UIApplication.sharedApplication().scheduleLocalNotification(notification)
-                                                }
                                             }
                                             else{
                                                 self.momentsInFocus.append(moment)

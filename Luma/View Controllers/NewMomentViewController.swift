@@ -276,6 +276,9 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         if unlockDate != nil || unlockLocation != nil{
             newMoment.locked = true
         }
+        else{
+            newMoment.locked = false
+        }
         if unlockLocation != nil{
             newMoment.unlockLocation = unlockLocation!
             newMoment.unlockType = "location"

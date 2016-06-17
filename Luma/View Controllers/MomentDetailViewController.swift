@@ -154,6 +154,7 @@ class MomentDetailViewController: UIViewController, UITableViewDelegate, UITable
         print("load comments")
         let commentQuery = moment.comments.query()
         commentQuery.orderByDescending("createdAt")
+        commentQuery.includeKey("author")
         commentQuery.findObjectsInBackgroundWithBlock { (comments, error) in
             if error != nil{
                 print(error)
