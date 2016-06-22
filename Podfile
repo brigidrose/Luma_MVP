@@ -32,6 +32,8 @@ target 'Luma' do
     pod 'swiftScan'
     pod 'QBImagePickerController'
     pod 'SwiftyJSON'
+    pod 'Fabric'
+    pod 'Crashlytics'
 end
 
 target 'LumaTests' do

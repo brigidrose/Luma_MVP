@@ -15,7 +15,6 @@ class DevicesViewController: UIViewController {
 
         navigationItem.title = "Settings"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"CloseBarButtonItem" ), style: .Plain, target: self, action: #selector(DevicesViewController.closeButtonTapped))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Scan", style: .Plain, target: self, action: #selector(DevicesViewController.scanButtonTapped))
 
         view.backgroundColor = Colors.white
     }
@@ -30,12 +29,4 @@ class DevicesViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func scanButtonTapped() {
-        print("scan button tapped")
-        
-        let scanVC = ProductScannerViewController()
-        let scanNC = UINavigationController(rootViewController: scanVC)
-        scanNC.view.tintColor = Colors.primary
-        presentViewController(scanNC, animated: true, completion: nil)
-    }
 }

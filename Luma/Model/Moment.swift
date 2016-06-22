@@ -18,6 +18,7 @@ class Moment: PFObject, PFSubclassing {
     @NSManaged var unlockDate:NSDate
     @NSManaged var unlockLocation:PFGeoPoint
     @NSManaged var inStream:Stream
+    @NSManaged var featuredMedia:Media?
 
     var medias:PFRelation!{
         return relationForKey("medias")
@@ -26,7 +27,6 @@ class Moment: PFObject, PFSubclassing {
     var comments: PFRelation! {
         return relationForKey("comments")
     }
-
     
     override class func initialize(){
         self.registerSubclass()

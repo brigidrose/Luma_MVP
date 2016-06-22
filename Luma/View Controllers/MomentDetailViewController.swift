@@ -94,7 +94,7 @@ class MomentDetailViewController: UIViewController, UITableViewDelegate, UITable
                 cell.titleLabel.text = moment.narrative
                 if (moment.author["facebookId"] != nil){
                     let id = moment.author["facebookId"] as! String
-                    let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?type=large")
+                    let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=500&height=500")
                     cell.userButton.sd_setImageWithURL(url, forState: .Normal)
                 }
                 return cell
@@ -119,7 +119,7 @@ class MomentDetailViewController: UIViewController, UITableViewDelegate, UITable
                 let comment = comments[indexPath.row]
                 let cell = tableView.dequeueReusableCellWithIdentifier("CommentTableViewCell") as! CommentTableViewCell
                 let id = comment.author["facebookId"] as! String
-                let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?type=large")
+                let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=500&height=500")
                 cell.authorButton.sd_setImageWithURL(url, forState: .Normal, placeholderImage: UIImage(named: "momentauthorButtonIcon"))
                 cell.commentLabel.text = comment.content
                 return cell

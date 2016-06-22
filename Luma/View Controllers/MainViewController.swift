@@ -23,7 +23,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var noFeedBodyLabel:MarqueeLabel!
     private var noFeedActionButton:UIButton!
     private var newMomentButton:UIButton!
-    private var streamGallerySelectedIndexPath:NSIndexPath = NSIndexPath(forItem: 0, inSection: 1)
     private var refreshControl:UIRefreshControl!
     
     var streams:[Stream] = []
@@ -31,6 +30,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     var participantsInFocus:[PFUser] = []
     var lockedMomentsInFocus:[Moment] = []
     var momentsInFocus:[Moment] = []
+    var streamGallerySelectedIndexPath:NSIndexPath = NSIndexPath(forItem: 0, inSection: 1)
     
     var streamSummaryLoaded = false
     
@@ -93,10 +93,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         streamTV.registerClass(MomentTableViewCell.self, forCellReuseIdentifier: "MomentTableViewCell")
         streamTV.registerClass(TitleSeparatorTableViewCell.self, forCellReuseIdentifier: "TitleSeparatorTableViewCell")
         streamTV.registerClass(StreamSummaryTableViewCell.self, forCellReuseIdentifier: "StreamSummaryTableViewCell")
-        streamTV.registerClass(MomentTableViewCell.self, forCellReuseIdentifier: "MomentTableViewCell")
         streamTV.registerClass(GeoLockedMomentTableViewCell.self, forCellReuseIdentifier: "GeoLockedMomentTableViewCell")
         streamTV.registerClass(TimeLockedMomentTableViewCell.self, forCellReuseIdentifier: "TimeLockedMomentTableViewCell")
         streamTV.registerClass(StreamAnnotationTableViewCell.self, forCellReuseIdentifier: "StreamAnnotationTableViewCell")
+        streamTV.registerClass(NoMediaMomentTableViewCell.self, forCellReuseIdentifier: "NoMediaMomentTableViewCell")
         streamTV.estimatedRowHeight = 150
         streamTV.rowHeight = UITableViewAutomaticDimension
         streamTV.contentOffset.y = -64
@@ -300,21 +300,23 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     button.imageView?.contentMode = .ScaleAspectFit
                     button.layer.cornerRadius = 15
                     button.clipsToBounds = true
-                    let url = NSURL(string: "https://graph.facebook.com/\(self.streams[streamGallerySelectedIndexPath.item].author["facebookId"] as! String)/picture?type=large")
+                    let url = NSURL(string: "https://graph.facebook.com/\(self.streams[streamGallerySelectedIndexPath.item].author["facebookId"] as! String)/picture?width=500&height=500")
                     button.sd_setImageWithURL(url, forState: .Normal, placeholderImage: UIImage(named: "streamParticipantIcon"))
                     button.addConstraint(NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 30))
                     cell.participantsStackView.addArrangedSubview(button)
                     var count = 0
-                    for _ in 0...self.participantsInFocus.count - 1{
-                        let button = UIButton()
-                        button.imageView?.contentMode = .ScaleAspectFit
-                        button.layer.cornerRadius = 15
-                        button.clipsToBounds = true
-                        let url = NSURL(string: "https://graph.facebook.com/\(self.participantsInFocus[count]["facebookId"] as! String)/picture?type=large")
-                        button.sd_setImageWithURL(url, forState: .Normal, placeholderImage: UIImage(named: "streamParticipantIcon"))
-                        button.addConstraint(NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 30))
-                        cell.participantsStackView.addArrangedSubview(button)
-                        count += 1
+                    if self.participantsInFocus.count > 0{
+                        for _ in 0...self.participantsInFocus.count - 1{
+                            let button = UIButton()
+                            button.imageView?.contentMode = .ScaleAspectFit
+                            button.layer.cornerRadius = 15
+                            button.clipsToBounds = true
+                            let url = NSURL(string: "https://graph.facebook.com/\(self.participantsInFocus[count]["facebookId"] as! String)/picture?width=500&height=500")
+                            button.sd_setImageWithURL(url, forState: .Normal, placeholderImage: UIImage(named: "streamParticipantIcon"))
+                            button.addConstraint(NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 30))
+                            cell.participantsStackView.addArrangedSubview(button)
+                            count += 1
+                        }
                     }
 
                     cell.addParticipantButton.addTarget(self, action: #selector(MainViewController.addParticipantButtonTapped), forControlEvents: .TouchUpInside)
@@ -340,15 +342,34 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 moment = momentsInFocus[indexPath.row]
             }
             if !moment.locked{
-                let cell = tableView.dequeueReusableCellWithIdentifier("MomentTableViewCell") as! MomentTableViewCell
-                cell.actionLabel.text = "\(moment.author["firstName"]) added a moment"
-                cell.contentLabel.text = moment.narrative
-                if (moment.author["facebookId"] != nil){
-                    let id = moment.author["facebookId"] as! String
-                    let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?type=large")
-                    cell.userButton.sd_setImageWithURL(url, forState: .Normal)
+                if moment.featuredMedia != nil{
+                    let cell = tableView.dequeueReusableCellWithIdentifier("MomentTableViewCell") as! MomentTableViewCell
+                    cell.actionLabel.text = "\(moment.author["firstName"]) added a moment"
+                    cell.contentLabel.text = moment.narrative
+                    if (moment.author["facebookId"] != nil){
+                        let id = moment.author["facebookId"] as! String
+                        let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=500&height=500")
+                        cell.userButton.sd_setImageWithURL(url, forState: .Normal)
+                    }
+                    cell.galleryImageView.sd_setImageWithURL(NSURL(string: moment.featuredMedia!.file.url!)!)
+                    cell.timer = NSTimer.scheduledTimerWithTimeInterval(4.5, target: self, selector: #selector(MainViewController.transitionGalleryImageInCell(_:)), userInfo: ["cell":cell, "moment":moment], repeats: true)
+                    if cell.numberOfMedias == nil{
+                        cell.numberOfMedias = 0
+                        cell.currentMediaNumber = 0
+                    }
+                    return cell
                 }
-                return cell
+                else{
+                    let cell = tableView.dequeueReusableCellWithIdentifier("NoMediaMomentTableViewCell") as! NoMediaMomentTableViewCell
+                    cell.actionLabel.text = "\(moment.author["firstName"]) added a moment"
+                    cell.contentLabel.text = moment.narrative
+                    if (moment.author["facebookId"] != nil){
+                        let id = moment.author["facebookId"] as! String
+                        let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=500&height=500")
+                        cell.userButton.sd_setImageWithURL(url, forState: .Normal)
+                    }
+                    return cell
+                }
             }
             else if moment.unlockType == "date"{
                 let cell = tableView.dequeueReusableCellWithIdentifier("TimeLockedMomentTableViewCell") as! TimeLockedMomentTableViewCell
@@ -357,7 +378,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.actionLabel.text = "\(moment.author["firstName"]) added a moment to unlock in"
                 if (moment.author["facebookId"] != nil){
                     let id = moment.author["facebookId"] as! String
-                    let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?type=large")
+                    let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=500&height=500")
                     cell.userButton.sd_setImageWithURL(url, forState: .Normal)
                 }
                 return cell
@@ -371,7 +392,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.actionLabel.text = "\(moment.author["firstName"]) added a moment to unlock nearby"
                 if (moment.author["facebookId"] != nil){
                     let id = moment.author["facebookId"] as! String
-                    let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?type=large")
+                    let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=500&height=500")
                     cell.userButton.sd_setImageWithURL(url, forState: .Normal)
                 }
                 return cell
@@ -390,6 +411,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         else{
             return 0
+        }
+    }
+    
+    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if cell.isMemberOfClass(MomentTableViewCell){
+            (cell as! MomentTableViewCell).timer.invalidate()
         }
     }
     
@@ -448,6 +475,44 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    
+    func transitionGalleryImageInCell(timer:NSTimer){
+        let userInfo = timer.userInfo as! Dictionary<String, AnyObject>
+        let cell = userInfo["cell"] as! MomentTableViewCell
+        let moment = userInfo["moment"] as! Moment
+        moment.medias.query().findObjectsInBackgroundWithBlock { (medias, error) in
+            if error != nil{
+                print(error)
+            }
+            else{
+                cell.numberOfMedias = medias?.count
+                if medias?.count > 0{
+                    let media = (medias![cell.currentMediaNumber] as! Media)
+                    cell.galleryImageView.sd_setImageWithURL(NSURL(string: media.file.url!)!, completed: { (image, error, cacheType, url) in
+                        if error != nil{
+                            print(error)
+                        }
+                        else{
+                            UIView.transitionWithView(cell.galleryImageView,
+                                duration:1,
+                                options: UIViewAnimationOptions.TransitionCrossDissolve,
+                                animations: { cell.galleryImageView.image = image },
+                                completion: {(complete) in
+                                    if cell.currentMediaNumber < cell.numberOfMedias - 1{
+                                        cell.currentMediaNumber = cell.currentMediaNumber + 1
+                                    }
+                                    else{
+                                        cell.currentMediaNumber = 0
+                                    }
+                            })
+                        }
+                    })
+                }
+            }
+        }
+        
+    }
+    
     // MARK: Collection View Data Source
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -459,36 +524,80 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             return 0
         }
         else{
-            return streams.count
+            if streams.count > 0{
+                return streams.count + 1
+            }
+            else{
+                return 0
+            }
+            
         }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("StreamGalleryCollectionViewCell", forIndexPath: indexPath) as! StreamGalleryCollectionViewCell
-//        cell.backgroundColor = Colors.primary.colorWithAlphaComponent(0.5)
-        if indexPath.section == 1{
-            if indexPath.item < charms.count{
-                let model = charms[indexPath.item].model
-                cell.streamProfileImageView.sd_setImageWithURL(NSURL(string:model.heroImage.url!))
+        if indexPath.item < streams.count{
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("StreamGalleryCollectionViewCell", forIndexPath: indexPath) as! StreamGalleryCollectionViewCell
+    //        cell.backgroundColor = Colors.primary.colorWithAlphaComponent(0.5)
+            if indexPath.section == 1{
+                if indexPath.item < charms.count{
+                    let model = charms[indexPath.item].model
+                    cell.streamProfileImageView.sd_setImageWithURL(NSURL(string:model.heroImage.url!))
+                }
+                else{
+                    // current user not author of stream
+                    cell.streamProfileImageView.backgroundColor = Colors.offWhite
+                    cell.streamProfileImageView.image = nil
+                }
+                if indexPath != streamGallerySelectedIndexPath{
+                    cell.alpha = 0.3
+                    cell.streamProfileImageView.backgroundColor = Colors.offWhite
+                }
+                else{
+                    cell.alpha = 1
+                    cell.streamProfileImageView.backgroundColor = Colors.primary
+                }
             }
-            else{
-                // current user not author of stream
-                cell.streamProfileImageView.backgroundColor = Colors.offWhite
-            }
-        }
-        if indexPath != streamGallerySelectedIndexPath{
-            cell.alpha = 0.5
+            return cell
         }
         else{
-            cell.alpha = 1
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("StreamGalleryCollectionViewCell", forIndexPath: indexPath) as! StreamGalleryCollectionViewCell
+            cell.streamProfileImageView.image = UIImage(named: "addStreamButton")
+            cell.streamProfileImageView.backgroundColor = nil
+            return cell
         }
-        return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        streamGallerySelectedIndexPath = indexPath
-        loadCharms()
+        if indexPath.item < streams.count{
+            streamGallerySelectedIndexPath = indexPath
+            loadCharms()
+        }
+        else{
+            // open scanner
+            print("add stream button tapped")
+            let scanVC = ProductScannerViewController()
+            scanVC.mainVC = self
+            let scanNC = UINavigationController(rootViewController: scanVC)
+            scanNC.view.tintColor = Colors.primary
+            presentViewController(scanNC, animated: true, completion: nil)
+        }
     }
+    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+        UIView.animateWithDuration(0.15, animations: {
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! StreamGalleryCollectionViewCell
+            cell.streamProfileImageView.backgroundColor = cell.streamProfileImageView.backgroundColor?.darkerColor()
+        })
+
+    }
+    
+    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+        UIView.animateWithDuration(0.15, animations: {
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! StreamGalleryCollectionViewCell
+            cell.streamProfileImageView.backgroundColor = Colors.offWhite
+        })
+        
+    }
+    
     
     // MARK: Navigation Bar Button Taps
     
@@ -548,9 +657,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                             else{
                                 self.participantsInFocus.removeAll()
                                 self.participantsInFocus = participants as! [PFUser]
-//                                self.streamTV.reloadRowsAtIndexPaths([NSIndexPath(forRow:0,inSection:0)], withRowAnimation: .Automatic)
                                 let momentsQuery = streamInFocus.moments.query()
-                                momentsQuery.includeKeys(["author"])
+                                momentsQuery.includeKeys(["author", "featuredMedia"])
                                 momentsQuery.orderByDescending("createdAt")
                                 momentsQuery.findObjectsInBackgroundWithBlock({ (moments, error) in
                                     if error != nil{
@@ -569,6 +677,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                                         }
                                         self.refreshControl.endRefreshing()
                                         self.toggleVisibility()
+                                        let sortedStreams = self.streams.sort({ $0.updatedAt?.timeIntervalSince1970 > $1.updatedAt?.timeIntervalSince1970 })
+//                                        self.streams = sortedStreams
                                         self.streamGalleryCV.reloadData()
                                         self.streamTV.reloadData()
                                     }

@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import ParseFacebookUtilsV4
 import SDWebImage
-
+import Crashlytics
 class AccountViewController: UIViewController {
 
     var userProfileImageView:UIImageView!
@@ -140,7 +140,7 @@ class AccountViewController: UIViewController {
     func fetchProfileImage() {
         if (PFUser.currentUser()!["facebookId"] != nil){
             let id = PFUser.currentUser()!["facebookId"] as! String
-            let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?type=large")
+            let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=500&height=500")
             userProfileImageView.sd_setImageWithURL(url)
         }
     }

@@ -273,19 +273,16 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         newMoment.inStream = inStream
         newMoment.author = PFUser.currentUser()!
         newMoment.narrative = momentNarrative
-        if unlockDate != nil || unlockLocation != nil{
-            newMoment.locked = true
-        }
-        else{
-            newMoment.locked = false
-        }
+        newMoment.locked = false
         if unlockLocation != nil{
             newMoment.unlockLocation = unlockLocation!
             newMoment.unlockType = "location"
+            newMoment.locked = true
         }
         if unlockDate != nil{
             newMoment.unlockDate = unlockDate!
             newMoment.unlockType = "date"
+            newMoment.locked = true
         }
         var count = 0
         var mediaSaveCount = 0
@@ -300,6 +297,9 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
                         print(error)
                     }
                     else{
+                        if newMoment.featuredMedia == nil{
+                            newMoment.featuredMedia = media
+                        }
                         newMoment.medias.addObject(media)
                         newMoment.saveInBackgroundWithBlock({ (success, error) in
                             if error != nil{
@@ -312,7 +312,9 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
                                     self.inStream.saveInBackgroundWithBlock({ (success, error) in
                                         if success{
                                             self.resignFirstResponder()
-                                            self.dismissViewControllerAnimated(true, completion: nil)
+                                            self.dismissViewControllerAnimated(true, completion: {
+                                                (UIApplication.sharedApplication().delegate as! AppDelegate).setUpMomentUnlockNotifications()
+                                            })
                                         }
                                         else{
                                             print(error)
@@ -435,15 +437,9 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
     func textViewDidBeginEditing(textView: UITextView) {
     }
     
-    func textViewDidEndEditing(textView: UITextView) {
-        let indexPath = momentContentTableView.indexPathForRowAtPoint(textView.convertPoint(CGPointZero, toView: momentContentTableView))
-        if indexPath?.section == 1{
-            captions[(indexPath?.row)!] = textView.text
-        }
-        else{
-            momentNarrative = textView.text
-        }
-    }
+//    func textViewDidEndEditing(textView: UITextView) {
+//        let indexPath = momentContentTableView.indexPathForRowAtPoint(textView.convertPoint(CGPointZero, toView: momentContentTableView))
+//    }
     
     func textViewDidChange(textView: UITextView) {
         let indexPath = momentContentTableView.indexPathForRowAtPoint(textView.convertPoint(CGPointZero, toView: momentContentTableView))
@@ -455,7 +451,12 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
                 navigationItem.rightBarButtonItem?.enabled = false
             }
         }
-
+        if indexPath?.section == 1{
+            captions[(indexPath?.row)!] = textView.text
+        }
+        else{
+            momentNarrative = textView.text
+        }
     }
     
     func checkMomentReady() {

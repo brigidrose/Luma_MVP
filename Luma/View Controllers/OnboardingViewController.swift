@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import ParseFacebookUtilsV4
+import Crashlytics
 
 class OnboardingViewController: UIViewController {
 
@@ -89,6 +90,9 @@ class OnboardingViewController: UIViewController {
                                     if (success){
                                         PFInstallation.currentInstallation()["currentUser"] = PFUser.currentUser()
                                         PFInstallation.currentInstallation().saveInBackgroundWithBlock({(success, error) -> Void in
+                                            // TODO: Move this to where you establish a user session
+                                            // TODO: Move this to where you establish a user session
+                                            self.logUser()
                                             self.dismissViewControllerAnimated(true, completion: nil)
                                             
                                         })
@@ -122,4 +126,13 @@ class OnboardingViewController: UIViewController {
             }
         })
     }
+    
+    func logUser() {
+        // TODO: Use the current user's information
+        // You can call any combination of these three methods
+        Crashlytics.sharedInstance().setUserEmail(PFUser.currentUser()!["email"] as? String)
+        Crashlytics.sharedInstance().setUserIdentifier("12345")
+        Crashlytics.sharedInstance().setUserName("\(PFUser.currentUser()!["firstName"] as? String) \(PFUser.currentUser()!["lastName"] as? String)")
+    }
+
 }

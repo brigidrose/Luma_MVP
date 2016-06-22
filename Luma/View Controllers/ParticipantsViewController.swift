@@ -68,7 +68,7 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
             let user = streamSettingsVC.stream.author
             let cell = tableView.dequeueReusableCellWithIdentifier("ParticipantTableViewCell") as! ParticipantTableViewCell
             cell.participantNameLabel.text = "\(user["firstName"]) \(user["lastName"])"
-            let url = NSURL(string: "https://graph.facebook.com/\(user["facebookId"])/picture?type=large")
+            let url = NSURL(string: "https://graph.facebook.com/\(user["facebookId"])/picture?width=500&height=500")
             cell.thumbnailImageView.sd_setImageWithURL(url)
             return cell
         }
@@ -76,7 +76,7 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
             let user = participants[indexPath.row]
             let cell = tableView.dequeueReusableCellWithIdentifier("ParticipantTableViewCell") as! ParticipantTableViewCell
             cell.participantNameLabel.text = "\(user["firstName"]) \(user["lastName"])"
-            let url = NSURL(string: "https://graph.facebook.com/\(user["facebookId"])/picture?type=large")
+            let url = NSURL(string: "https://graph.facebook.com/\(user["facebookId"])/picture?width=500&height=500")
             cell.thumbnailImageView.sd_setImageWithURL(url)
             return cell
         }
@@ -84,7 +84,7 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
             let user = facebookFriends[indexPath.row]
             let cell = tableView.dequeueReusableCellWithIdentifier("ParticipantTableViewCell") as! ParticipantTableViewCell
             cell.participantNameLabel.text = "\(user.0)"
-            let url = NSURL(string: "https://graph.facebook.com/\(user.1)/picture?type=large")
+            let url = NSURL(string: "https://graph.facebook.com/\(user.1)/picture?width=500&height=500")
             cell.thumbnailImageView.sd_setImageWithURL(url)
             return cell
         }

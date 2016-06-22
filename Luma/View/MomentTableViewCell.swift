@@ -17,6 +17,9 @@ class MomentTableViewCell: UITableViewCell {
     var actionLabel:UILabel!
     var contentLabel:UILabel!
     var galleryImageView:UIImageView!
+    var timer:NSTimer!
+    var numberOfMedias:Int!
+    var currentMediaNumber:Int!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -75,7 +78,7 @@ class MomentTableViewCell: UITableViewCell {
         galleryImageView.translatesAutoresizingMaskIntoConstraints = false
         galleryImageView.contentMode = .ScaleAspectFill
         galleryImageView.clipsToBounds = true
-        galleryImageView.backgroundColor = Colors.offWhite
+        galleryImageView.backgroundColor = UIColor(white: 0.99, alpha: 1)
         cardView.addSubview(galleryImageView)
         
         
