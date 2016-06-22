@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
         UIApplication.sharedApplication().registerForRemoteNotifications()
-
+        
         return true
     }
     
@@ -126,6 +126,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
             }
         }
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        if UIApplication.sharedApplication().applicationState == .Inactive{
+            // user has tapped notification
+            print("user tapped")
+        }
+        else{
+            print("content available")
+        }
+
     }
     
     func setUpMomentUnlockNotifications() {

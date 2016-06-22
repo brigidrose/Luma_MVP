@@ -87,6 +87,7 @@ class ProductScannerViewController: LBXScanViewController {
                             else{
                                 print("load charms")
                                 self.mainVC.streamGallerySelectedIndexPath = NSIndexPath(forItem: 0, inSection: 1)
+                                self.mainVC.focusOnLatest = true
                                 self.mainVC.loadCharms()
                                 self.dismissViewControllerAnimated(true, completion: {
                                     

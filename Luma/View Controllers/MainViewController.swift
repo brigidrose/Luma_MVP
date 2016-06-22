@@ -31,6 +31,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     var lockedMomentsInFocus:[Moment] = []
     var momentsInFocus:[Moment] = []
     var streamGallerySelectedIndexPath:NSIndexPath = NSIndexPath(forItem: 0, inSection: 1)
+    var focusOnLatest = false
     
     var streamSummaryLoaded = false
     
@@ -634,9 +635,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             else{
                 self.streams.removeAll()
-                self.charms = charms as! [Charm]
-                for charm in charms as! [Charm]{
-                    self.streams.append(charm.stream)
+                if charms?.count > 0{
+                    self.charms = charms as! [Charm]
+                    for charm in charms as! [Charm]{
+                        self.streams.append(charm.stream)
+                    }
                 }
                 // load streams in which current user is not author and is contained in participants
                 let loadParticipatingStreamsQuery = PFQuery(className: "Stream")
@@ -649,42 +652,58 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     else{
                         self.streams.appendContentsOf(streams as! [Stream])
                         
-                        let streamInFocus = self.streams[self.streamGallerySelectedIndexPath.item]
-                        streamInFocus.participants.query().findObjectsInBackgroundWithBlock({ (participants, error) in
-                            if error != nil{
-                                print(error)
-                            }
-                            else{
-                                self.participantsInFocus.removeAll()
-                                self.participantsInFocus = participants as! [PFUser]
-                                let momentsQuery = streamInFocus.moments.query()
-                                momentsQuery.includeKeys(["author", "featuredMedia"])
-                                momentsQuery.orderByDescending("createdAt")
-                                momentsQuery.findObjectsInBackgroundWithBlock({ (moments, error) in
-                                    if error != nil{
-                                        print(error)
-                                    }
-                                    else{
-                                        self.lockedMomentsInFocus.removeAll()
-                                        self.momentsInFocus.removeAll()
-                                        for moment in moments as! [Moment]{
-                                            if moment.locked{
-                                                self.lockedMomentsInFocus.append(moment)
+                        if self.streams.count > 0{
+                            let streamInFocus = self.streams[self.streamGallerySelectedIndexPath.item]
+                            streamInFocus.participants.query().findObjectsInBackgroundWithBlock({ (participants, error) in
+                                if error != nil{
+                                    print(error)
+                                }
+                                else{
+                                    self.participantsInFocus.removeAll()
+                                    self.participantsInFocus = participants as! [PFUser]
+                                    let momentsQuery = streamInFocus.moments.query()
+                                    momentsQuery.includeKeys(["author", "featuredMedia"])
+                                    momentsQuery.orderByDescending("createdAt")
+                                    momentsQuery.findObjectsInBackgroundWithBlock({ (moments, error) in
+                                        if error != nil{
+                                            print(error)
+                                        }
+                                        else{
+                                            self.lockedMomentsInFocus.removeAll()
+                                            self.momentsInFocus.removeAll()
+                                            for moment in moments as! [Moment]{
+                                                if moment.locked{
+                                                    self.lockedMomentsInFocus.append(moment)
+                                                }
+                                                else{
+                                                    self.momentsInFocus.append(moment)
+                                                }
+                                            }
+                                            self.refreshControl.endRefreshing()
+                                            self.toggleVisibility()
+                                            let sortedStreams = self.streams.sort({ $0.updatedAt?.timeIntervalSince1970 > $1.updatedAt?.timeIntervalSince1970 })
+                                            
+                                            if !self.focusOnLatest{
+                                            self.streamGallerySelectedIndexPath = NSIndexPath(forItem:sortedStreams.indexOf(self.streams[self.streamGallerySelectedIndexPath.item])!,inSection:1)
                                             }
                                             else{
-                                                self.momentsInFocus.append(moment)
+                                                self.streamGallerySelectedIndexPath = NSIndexPath(forItem: 0, inSection: 1)
+                                                self.focusOnLatest = false
                                             }
+                                            self.streams = sortedStreams
+                                            self.streamGalleryCV.reloadData()
+                                            self.streamTV.reloadData()
                                         }
-                                        self.refreshControl.endRefreshing()
-                                        self.toggleVisibility()
-                                        let sortedStreams = self.streams.sort({ $0.updatedAt?.timeIntervalSince1970 > $1.updatedAt?.timeIntervalSince1970 })
-//                                        self.streams = sortedStreams
-                                        self.streamGalleryCV.reloadData()
-                                        self.streamTV.reloadData()
-                                    }
-                                })
-                            }
-                        })
+                                    })
+                                }
+                            })
+                        }
+                        else{
+                            self.refreshControl.endRefreshing()
+                            self.streamGalleryCV.reloadData()
+                            self.streamTV.reloadData()
+                            self.toggleVisibility()
+                        }
                     }
                 })
             }
