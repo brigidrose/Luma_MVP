@@ -39,12 +39,11 @@ Parse.Cloud.afterSave("Moment", function (request) {
                                                           participantsRelation.query().find({
                                                                                             success: function (foundParticipants) {
                                                                                                 for (i = 0; i < foundParticipants.length; i += 1) {
-                                                                                                    if (foundParticipants[i] != request.user) {
+                                                                                                    if (foundParticipants[i].id != request.user.id) {
                                                                                                     // send notification to non-self participant in stream for new moment
                                                                                             console.log("new moment notif sent to " + foundParticipants[i].get("firstName"));
                                                                                                     var pushQuery = new Parse.Query(Parse.Installation);
                                                                                                     pushQuery.equalTo("currentUser", foundParticipants[i]);
-                                                                                                    pushQuery.notEqualTo("currentUser", request.user);
                                                                                                     Parse.Push.send({
                                                                                                                     where: pushQuery, // Set our Installation query
                                                                                                                     data: {
@@ -133,12 +132,11 @@ Parse.Cloud.afterSave("Comment", function (request) {
                                                           participantsRelation.query().find({
                                                                 success: function (foundParticipants) {
                                                                 for (i = 0; i < foundParticipants.length; i += 1) {
-                                                                if (foundParticipants[i] != request.user) {
+                                                                if (foundParticipants[i].id != request.user.id) {
                                                                 console.log("new comment notif sent to " + foundParticipants[i].get("firstName"));
                                                                 // send notification to non-self participant in stream for new moment
                                                                 var pushQuery = new Parse.Query(Parse.Installation);
                                                                 pushQuery.equalTo("currentUser", foundParticipants[i]);
-                                                                pushQuery.notEqualTo("currentUser", request.user);
                                                                 Parse.Push.send({
                                                                                 where: pushQuery, // Set our Installation query
                                                                                 data: {
