@@ -9,11 +9,20 @@ Parse.Cloud.afterSave("Moment", function (request) {
                           console.log(momentId);
                           var authorReference = request.object.get("author");
                           var streamReference = request.object.get("inStream");
-                          
+                          var notificationType = ""
                           var locked = request.object.get("locked");
+                          var unlockLocation = request.object.get("unlockLocation");
+                          var unlockDate = request.object.get("unlockDate");
                           if (locked == true) {
                           console.log("moment is locked");
+                              if (unlockDate == null){
+                                  notificationType = "newLocationLockedMoment";
+                              }
+                              else{
+                                  notificationType = "newTimeLockedMoment";
+                              }
                           } else {
+                          notificationType = "newMoment"
                           narrative = request.object.get("narrative");
                           var authorQuery = new Parse.Query("_User");
                           authorQuery.get(authorReference.id, {
@@ -44,7 +53,7 @@ Parse.Cloud.afterSave("Moment", function (request) {
                                                                                                                     subtitle: "",
                                                                                                                     title: "",
                                                                                                                     "content-available": "1",
-                                                                                                                    "notificationType": "newMoment",
+                                                                                                                    "notificationType": notificationType,
                                                                                                                     "momentObjectId": request.object.id
                                                                                                                     }
                                                                                                                     }, {
@@ -70,7 +79,7 @@ Parse.Cloud.afterSave("Moment", function (request) {
                                                                                                                     subtitle: "",
                                                                                                                     title: "",
                                                                                                                     "content-available": "1",
-                                                                                                                    "notificationType": "newMoment",
+                                                                                                                    "notificationType": notificationType,
                                                                                                                     "momentObjectId": request.object.id
                                                                                                                     }
                                                                                                                     }, {
