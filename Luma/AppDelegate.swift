@@ -129,13 +129,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        
         if UIApplication.sharedApplication().applicationState == .Inactive{
             // user has tapped notification
             print("user tapped")
+            if userInfo["notificationType"] != nil{
+                switch userInfo["notificationType"] as! String {
+                case "newMoment":
+                    let momentId = userInfo["momentObjectId"] as! String
+                    let momentDetailVC = MomentDetailViewController()
+                    let momentQuery = PFQuery(className: "Moment")
+                    momentQuery.getObjectInBackgroundWithId(momentId, block: { (moment, error) in
+                        if error != nil{
+                            print(error)
+                        }
+                        else{
+                            momentDetailVC.moment = moment as! Moment
+                            momentDetailVC.view.tintColor = Colors.primary
+                            let momentDetailNC = UINavigationController(rootViewController: momentDetailVC)
+                            momentDetailNC.navigationBar.tintColor = Colors.primary
+                            self.window?.rootViewController!.presentViewController(momentDetailNC, animated: true, completion: nil)
+                        }
+                    })
+                case "newComment":
+                    print("new comment notification")
+                case "newLocationLockedMoment":
+                    print("new location locked moment notification")
+                case "newTimeLockedMoment":
+                    print("new time locked moment notification")
+                default:
+                    print("default")
+                }
+            }
         }
         else{
             print("content available")
         }
+        setUpMomentUnlockNotifications()
 
     }
     

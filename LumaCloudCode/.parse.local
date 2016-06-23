@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Luma": {
+      "applicationId": "kPLOZM7bwmSkxxWCd9Q4hPAF5mgk7nLI7M96BtaQ"
+    },
+    "_default": {
+      "link": "Luma"
+    }
+  }
+}

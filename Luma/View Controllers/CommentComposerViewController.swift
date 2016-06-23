@@ -18,7 +18,7 @@ class CommentComposerViewController: TextComposerViewController, UITextViewDeleg
 
         navigationItem.title = "Comment"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(CommentComposerViewController.cancelButtonTapped))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(CommentComposerViewController.doneButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .Done, target: self, action: #selector(CommentComposerViewController.doneButtonTapped))
         navigationItem.rightBarButtonItem?.enabled = false
         textView.placeholder = "Write a Comment..."
         textView.delegate = self
@@ -40,6 +40,7 @@ class CommentComposerViewController: TextComposerViewController, UITextViewDeleg
         let newComment = Comment()
         newComment.author = PFUser.currentUser()!
         newComment.content = textView.text
+        newComment.inMoment = self.momentDetailVC.moment
         newComment.saveInBackgroundWithBlock { (success, error) in
             if success{
                 let moment = self.momentDetailVC.moment
@@ -71,4 +72,17 @@ class CommentComposerViewController: TextComposerViewController, UITextViewDeleg
         }
 
     }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n"{
+            textView.resignFirstResponder()
+            return false
+        }
+        else{
+            return true
+        }
+    }
+
+    
+    
 }

@@ -35,6 +35,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var streamSummaryLoaded = false
     
+    var loading:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -410,6 +412,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return 0
             }
         }
+        else if section == 2 && momentsInFocus.count > 0{
+            return 28
+        }
         else{
             return 0
         }
@@ -422,7 +427,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1{
+        if section != 0{
             let view = UIView(frame: CGRectMake(0,0,UIScreen.mainScreen().bounds.width, 44 + 36))
             view.backgroundColor = UIColor.whiteColor()
             
@@ -440,7 +445,22 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             leftLineView.backgroundColor = UIColor.blackColor()
             rightLineView.backgroundColor = UIColor.blackColor()
             titleLabel.font = UIFont.monospacedDigitSystemFontOfSize(14, weight: UIFontWeightMedium).italic()
-            titleLabel.text = "\(tableView.numberOfRowsInSection(1)) Locked Moments"
+            if section == 1{
+                if tableView.numberOfRowsInSection(1) > 1{
+                    titleLabel.text = "\(tableView.numberOfRowsInSection(1)) Locked Moments"
+                }
+                else{
+                    titleLabel.text = "\(tableView.numberOfRowsInSection(1)) Locked Moment"
+                }
+            }
+            else if section == 2{
+                if tableView.numberOfRowsInSection(2) > 1{
+                    titleLabel.text = "\(tableView.numberOfRowsInSection(2)) Moments"
+                }
+                else{
+                    titleLabel.text = "\(tableView.numberOfRowsInSection(2)) Moment"
+                }
+            }
             titleLabel.textAlignment = .Center
             
             let metricsDictionary = ["sidePadding":10, "titleLabelBuffer":7.5]
@@ -570,8 +590,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.item < streams.count{
-            streamGallerySelectedIndexPath = indexPath
-            loadCharms()
+            if !loading{
+                streamGallerySelectedIndexPath = indexPath
+                loadCharms()
+            }
         }
         else{
             // open scanner
@@ -625,6 +647,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func loadCharms() {
+        loading = true
         streamSummaryLoaded = false
         let loadCharmsQuery = PFQuery(className: "Charm")
         loadCharmsQuery.whereKey("owner", equalTo: PFUser.currentUser()!)
@@ -681,18 +704,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                                             }
                                             self.refreshControl.endRefreshing()
                                             self.toggleVisibility()
-                                            let sortedStreams = self.streams.sort({ $0.updatedAt?.timeIntervalSince1970 > $1.updatedAt?.timeIntervalSince1970 })
                                             
                                             if !self.focusOnLatest{
-                                            self.streamGallerySelectedIndexPath = NSIndexPath(forItem:sortedStreams.indexOf(self.streams[self.streamGallerySelectedIndexPath.item])!,inSection:1)
+//                                            self.streamGallerySelectedIndexPath = NSIndexPath(forItem:sortedStreams.indexOf(self.streams[self.streamGallerySelectedIndexPath.item])!,inSection:1)
                                             }
                                             else{
+                                                let sortedStreams = self.streams.sort({ $0.updatedAt?.timeIntervalSince1970 > $1.updatedAt?.timeIntervalSince1970 })
+                                                self.streams = sortedStreams
                                                 self.streamGallerySelectedIndexPath = NSIndexPath(forItem: 0, inSection: 1)
                                                 self.focusOnLatest = false
                                             }
-                                            self.streams = sortedStreams
                                             self.streamGalleryCV.reloadData()
                                             self.streamTV.reloadData()
+                                            self.loading = false
                                         }
                                     })
                                 }
@@ -702,6 +726,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                             self.refreshControl.endRefreshing()
                             self.streamGalleryCV.reloadData()
                             self.streamTV.reloadData()
+                            self.loading = false
                             self.toggleVisibility()
                         }
                     }

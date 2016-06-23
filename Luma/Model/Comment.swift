@@ -12,6 +12,7 @@ class Comment: PFObject, PFSubclassing {
     
     @NSManaged var author:PFUser
     @NSManaged var content:String
+    @NSManaged var inMoment:Moment
     
     override class func initialize(){
         self.registerSubclass()
