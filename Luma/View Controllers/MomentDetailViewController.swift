@@ -14,6 +14,8 @@ class MomentDetailViewController: UIViewController, UITableViewDelegate, UITable
     var moment:Moment!
     var medias:[Media] = []
     var comments:[Comment] = []
+    var scrollToComments:Bool?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -162,6 +164,9 @@ class MomentDetailViewController: UIViewController, UITableViewDelegate, UITable
             else{
                 self.comments = comments as! [Comment]
                 self.tableVC.tableView.reloadSections(NSIndexSet(index:1), withRowAnimation: .Automatic)
+                if self.scrollToComments != nil && self.comments.count > 0{
+                        self.tableVC.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1), atScrollPosition: .Top, animated: true)
+                }
             }
         }
     }

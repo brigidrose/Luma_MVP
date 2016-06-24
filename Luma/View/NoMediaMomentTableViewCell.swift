@@ -25,14 +25,15 @@ class NoMediaMomentTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .None
-        
-        contentView.backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clearColor()
         
         cardView = UIView(frame: CGRectZero)
         cardView.translatesAutoresizingMaskIntoConstraints = false
         cardView.layer.cornerRadius = 5
         cardView.layer.borderWidth = 1
-        cardView.layer.borderColor = UIColor(hexString: "D8D8D8").CGColor
+        cardView.layer.borderColor = UIColor(hexString: "ECECEC").CGColor
+        cardView.clipsToBounds = true
+        cardView.backgroundColor = Colors.white
         contentView.addSubview(cardView)
         
         
@@ -80,8 +81,14 @@ class NoMediaMomentTableViewCell: UITableViewCell {
         contentView.addConstraints(cardViewV)
         
         
-        let topRowH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[userButton(50)]->=0-[moreButton(20)]-15-|", options: .AlignAllTop, metrics: metricsDictionary, views: viewsDictionary)
+        let topRowH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[userButton(50)]", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         cardView.addConstraints(topRowH)
+        
+        let topRowHRight = NSLayoutConstraint.constraintsWithVisualFormat("H:[moreButton(40)]-7.5-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
+        cardView.addConstraints(topRowHRight)
+        
+        let moreButtonV = NSLayoutConstraint.constraintsWithVisualFormat("V:|[moreButton(40)]", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
+        cardView.addConstraints(moreButtonV)
         
         let labelsH = NSLayoutConstraint.constraintsWithVisualFormat("H:[userButton(50)]-15-[actionLabel]-20-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         cardView.addConstraints(labelsH)

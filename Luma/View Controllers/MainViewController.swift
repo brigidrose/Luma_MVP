@@ -37,9 +37,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var loading:Bool = false
     
+    var activityIndicatorView:UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = UIColor(white: 0.99, alpha: 1)
+        
         navigationItem.titleView = LumaNavigationControllerTitleView(frame:CGRectMake(0,0,30,25))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "AccountBarButtonItem"), style: .Plain, target: self, action: #selector(MainViewController.accountBarButtonItemTapped(_:)))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "DevicesBarButtonItem"), style: .Plain, target: self, action: #selector(MainViewController.devicesBarButtonItemTapped(_:)))
@@ -85,14 +89,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let noFeedActionButtonV = NSLayoutConstraint.constraintsWithVisualFormat("V:[noFeedActionButton(56)]-36-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: ["noFeedActionButton" : noFeedActionButton])
         view.addConstraints(noFeedActionButtonV)
         
-        let streamTableViewController = UITableViewController()
-        self.addChildViewController(streamTableViewController)
         streamTV = TPKeyboardAvoidingTableView(frame: CGRectZero)
-        streamTV.backgroundColor = Colors.white
         streamTV.translatesAutoresizingMaskIntoConstraints = false
         streamTV.delegate = self
         streamTV.dataSource = self
         streamTV.clipsToBounds = false
+        streamTV.backgroundColor = UIColor.clearColor()
         streamTV.registerClass(MomentTableViewCell.self, forCellReuseIdentifier: "MomentTableViewCell")
         streamTV.registerClass(TitleSeparatorTableViewCell.self, forCellReuseIdentifier: "TitleSeparatorTableViewCell")
         streamTV.registerClass(StreamSummaryTableViewCell.self, forCellReuseIdentifier: "StreamSummaryTableViewCell")
@@ -108,7 +110,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         streamTV.scrollIndicatorInsets.top = 64
         streamTV.separatorStyle = .None
         
-        streamTableViewController.tableView = streamTV
         view.addSubview(streamTV)
         
         let layout = UICollectionViewFlowLayout()
@@ -163,12 +164,26 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let newMomentButtonV = NSLayoutConstraint.constraintsWithVisualFormat("V:[newMomentButton(76)]-36-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: ["newMomentButton" : newMomentButton])
         view.addConstraints(newMomentButtonV)
 
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activityIndicatorView.frame = CGRectMake(0, 0, 50, 50)
+        activityIndicatorView.center = view.center
+        activityIndicatorView.startAnimating()
+        activityIndicatorView.hidesWhenStopped = true
+        view.addSubview(activityIndicatorView)
         
         toggleVisibility()
+
+        noFeedActionButton.hidden = true
+        noFeedTitleLabel.hidden = true
+        noFeedBodyLabel.hidden = true
 
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(MainViewController.streamRefreshed), forControlEvents: .ValueChanged)
         streamTV.addSubview(refreshControl)
+        
+        if PFUser.currentUser() != nil{
+            loadCharms()
+        }
 
     }
     
@@ -206,7 +221,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             presentViewController(onboardingVC, animated: true, completion: nil)
         }
         else{
-            loadCharms()
         }
 
     }
@@ -216,6 +230,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let newMomentVC = NewMomentViewController()
         let newMomentNC = UINavigationController(rootViewController: newMomentVC)
         newMomentNC.view.tintColor = Colors.primary
+        newMomentVC.mainVC = self
         presentViewController(newMomentNC, animated: true, completion: nil)
     }
     
@@ -227,25 +242,73 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func addParticipantButtonTapped() {
         print("add participant button tapped")
-        let streamSettingsVC = StreamSettingsViewController()
-        streamSettingsVC.stream = streams[streamGallerySelectedIndexPath.item]
-        let streamSettingsNC = UINavigationController(rootViewController: streamSettingsVC)
-        streamSettingsNC.view.tintColor = Colors.primary
-        presentViewController(streamSettingsNC, animated: true, completion: {
-            streamSettingsVC.transitionToParticipants()
-        })
+        if streamSummaryLoaded{
+            let streamSettingsVC = StreamSettingsViewController()
+            streamSettingsVC.stream = streams[streamGallerySelectedIndexPath.item]
+            let streamSettingsNC = UINavigationController(rootViewController: streamSettingsVC)
+            streamSettingsNC.view.tintColor = Colors.primary
+            presentViewController(streamSettingsNC, animated: true, completion: {
+                streamSettingsVC.transitionToParticipants()
+            })
+        }
         
     }
     
     func streamSettingsButtonTapped() {
         print("stream settings button tapped")
-        
-        let streamSettingsVC = StreamSettingsViewController()
-        streamSettingsVC.stream = streams[streamGallerySelectedIndexPath.item]
-        let streamSettingsNC = UINavigationController(rootViewController: streamSettingsVC)
-        streamSettingsNC.view.tintColor = Colors.primary
-        presentViewController(streamSettingsNC, animated: true, completion: nil)
+        if streamSummaryLoaded{
+            let streamSettingsVC = StreamSettingsViewController()
+            streamSettingsVC.stream = streams[streamGallerySelectedIndexPath.item]
+            let streamSettingsNC = UINavigationController(rootViewController: streamSettingsVC)
+            streamSettingsNC.view.tintColor = Colors.primary
+            presentViewController(streamSettingsNC, animated: true, completion: nil)
+        }
     }
+    
+    func commentButtonTapped(sender:UIButton) {
+        print("comment button tapped")
+        let momentDetailVC = MomentDetailViewController()
+        momentDetailVC.scrollToComments = true
+        let indexPath = streamTV.indexPathForRowAtPoint(sender.convertPoint(CGPointZero, toView: streamTV))!
+        momentDetailVC.moment = momentsInFocus[indexPath.row]
+        momentDetailVC.view.tintColor = Colors.primary
+        let momentDetailNC = UINavigationController(rootViewController: momentDetailVC)
+        momentDetailNC.navigationBar.tintColor = Colors.primary
+        presentViewController(momentDetailNC, animated: true, completion: nil)
+    }
+    
+    func directionsButtonTapped(sender:UIButton) {
+        print("directions button tapped")
+        let indexPath = streamTV.indexPathForRowAtPoint(sender.convertPoint(CGPointZero, toView: streamTV))!
+        let moment = lockedMomentsInFocus[indexPath.row]
+        let coordinate = CLLocationCoordinate2DMake(moment.unlockLocation.latitude,moment.unlockLocation.longitude)
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+        mapItem.name = "Unlock Location"
+        mapItem.openInMapsWithLaunchOptions([MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking])
+    }
+
+    func moreButtonTapped(sender:UIButton) {
+        let indexPath = streamTV.indexPathForRowAtPoint(sender.convertPoint(CGPointZero, toView: streamTV))!
+        let moment:Moment
+        if indexPath.section == 1{
+            moment = lockedMomentsInFocus[indexPath.row]
+        }
+        else if indexPath.section == 2{
+            moment = momentsInFocus[indexPath.row]
+        }
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let reportAction = UIAlertAction(title: "Report", style: .Default) { (action) in
+            print("report tapped")
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+            print("cancel tapped")
+        }
+        
+        alertController.addAction(reportAction)
+        alertController.addAction(cancelAction)
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     
     // MARK: Table View Data Source
     
@@ -291,7 +354,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             // else dequeue stream summary header
             else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("StreamSummaryTableViewCell") as! StreamSummaryTableViewCell
-                print("streamGallerySelectedIndexPath.item is \(streamGallerySelectedIndexPath.item)")
                 cell.titleLabel.text = streams[streamGallerySelectedIndexPath.item].title
 
                 if !streamSummaryLoaded{
@@ -360,6 +422,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         cell.numberOfMedias = 0
                         cell.currentMediaNumber = 0
                     }
+                    cell.actionButton.addTarget(self, action: #selector(MainViewController.commentButtonTapped(_:)), forControlEvents: .TouchUpInside)
+                    cell.moreButton.addTarget(self, action: #selector(MainViewController.moreButtonTapped(_:)), forControlEvents: .TouchUpInside)
                     return cell
                 }
                 else{
@@ -371,6 +435,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=500&height=500")
                         cell.userButton.sd_setImageWithURL(url, forState: .Normal)
                     }
+                    cell.actionButton.addTarget(self, action: #selector(MainViewController.commentButtonTapped(_:)), forControlEvents: .TouchUpInside)
+                    cell.moreButton.addTarget(self, action: #selector(MainViewController.moreButtonTapped(_:)), forControlEvents: .TouchUpInside)
                     return cell
                 }
             }
@@ -384,6 +450,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=500&height=500")
                     cell.userButton.sd_setImageWithURL(url, forState: .Normal)
                 }
+                cell.moreButton.addTarget(self, action: #selector(MainViewController.moreButtonTapped(_:)), forControlEvents: .TouchUpInside)
                 return cell
             }
             else{
@@ -398,6 +465,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=500&height=500")
                     cell.userButton.sd_setImageWithURL(url, forState: .Normal)
                 }
+                cell.actionButton.addTarget(self, action: #selector(MainViewController.directionsButtonTapped(_:)), forControlEvents: .TouchUpInside)
+                cell.moreButton.addTarget(self, action: #selector(MainViewController.moreButtonTapped(_:)), forControlEvents: .TouchUpInside)
                 return cell
             }
         }
@@ -420,6 +489,61 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)!
+        if cell.isMemberOfClass(MomentTableViewCell){
+            UIView.animateWithDuration(0.15, animations: { 
+                (cell as! MomentTableViewCell).cardView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            })
+        }
+        else if cell.isMemberOfClass(NoMediaMomentTableViewCell){
+            UIView.animateWithDuration(0.15, animations: {
+                (cell as! NoMediaMomentTableViewCell).cardView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            })
+        }
+        else if cell.isMemberOfClass(GeoLockedMomentTableViewCell){
+            UIView.animateWithDuration(0.15, animations: {
+                (cell as! GeoLockedMomentTableViewCell).cardView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            })
+        }
+        else if cell.isMemberOfClass(TimeLockedMomentTableViewCell){
+            UIView.animateWithDuration(0.15, animations: {
+                (cell as! TimeLockedMomentTableViewCell).cardView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            })
+        }
+        else{
+        
+        }
+    }
+    
+    func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)!
+        if cell.isMemberOfClass(MomentTableViewCell){
+            UIView.animateWithDuration(0.15, animations: {
+                (cell as! MomentTableViewCell).cardView.backgroundColor = UIColor(white: 1, alpha: 1)
+            })
+        }
+        else if cell.isMemberOfClass(NoMediaMomentTableViewCell){
+            UIView.animateWithDuration(0.15, animations: {
+                (cell as! NoMediaMomentTableViewCell).cardView.backgroundColor = UIColor(white: 1, alpha: 1)
+            })
+        }
+        else if cell.isMemberOfClass(GeoLockedMomentTableViewCell){
+            UIView.animateWithDuration(0.15, animations: {
+                (cell as! GeoLockedMomentTableViewCell).cardView.backgroundColor = UIColor(white: 1, alpha: 1)
+            })
+        }
+        else if cell.isMemberOfClass(TimeLockedMomentTableViewCell){
+            UIView.animateWithDuration(0.15, animations: {
+                (cell as! TimeLockedMomentTableViewCell).cardView.backgroundColor = UIColor(white: 1, alpha: 1)
+            })
+        }
+        else{
+            
+        }
+
+    }
+    
     func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if cell.isMemberOfClass(MomentTableViewCell){
             (cell as! MomentTableViewCell).timer.invalidate()
@@ -429,7 +553,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section != 0{
             let view = UIView(frame: CGRectMake(0,0,UIScreen.mainScreen().bounds.width, 44 + 36))
-            view.backgroundColor = UIColor.whiteColor()
+            view.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.75)
             
             let leftLineView = UIView(frame: CGRectZero)
             let rightLineView = UIView(frame: CGRectZero)
@@ -566,16 +690,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 else{
                     // current user not author of stream
-                    cell.streamProfileImageView.backgroundColor = Colors.offWhite
+                    cell.streamProfileImageView.backgroundColor = UIColor(hexString: "9B9B9B")
                     cell.streamProfileImageView.image = nil
                 }
                 if indexPath != streamGallerySelectedIndexPath{
                     cell.alpha = 0.3
-                    cell.streamProfileImageView.backgroundColor = Colors.offWhite
+                    cell.streamProfileImageView.backgroundColor = UIColor(hexString: "9B9B9B")
                 }
                 else{
                     cell.alpha = 1
-                    cell.streamProfileImageView.backgroundColor = Colors.primary
+                    cell.streamProfileImageView.backgroundColor = UIColor(hexString: "9B9B9B")
                 }
             }
             return cell
@@ -596,13 +720,35 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         else{
-            // open scanner
+            
             print("add stream button tapped")
-            let scanVC = ProductScannerViewController()
-            scanVC.mainVC = self
-            let scanNC = UINavigationController(rootViewController: scanVC)
-            scanNC.view.tintColor = Colors.primary
-            presentViewController(scanNC, animated: true, completion: nil)
+            
+            let alertController = UIAlertController(title: "Add Charm", message: "Have a Charm to add to your account?", preferredStyle: .ActionSheet)
+            let pairCharmAction = UIAlertAction(title: "I Have a Charm", style: .Default, handler: { (action) in
+                // open scanner
+                let scanVC = ProductScannerViewController()
+                scanVC.mainVC = self
+                let scanNC = UINavigationController(rootViewController: scanVC)
+                scanNC.view.tintColor = Colors.primary
+                self.presentViewController(scanNC, animated: true, completion: nil)
+            })
+            let purchaseCharmAction = UIAlertAction(title: "Shop Luma Store", style: .Default, handler: { (action) in
+                let storeVC = LumaStoreViewController()
+                let storeNC = UINavigationController(rootViewController: storeVC)
+                storeNC.navigationBar.tintColor = Colors.primary
+                self.presentViewController(storeNC, animated: true, completion: nil)
+            })
+            let notNowAction = UIAlertAction(title: "Not Now", style: .Cancel, handler: { (action) in
+                print("not now selected")
+            })
+            
+            alertController.addAction(pairCharmAction)
+            alertController.addAction(purchaseCharmAction)
+            alertController.addAction(notNowAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+            
+            
         }
     }
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
@@ -616,7 +762,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
         UIView.animateWithDuration(0.15, animations: {
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! StreamGalleryCollectionViewCell
-            cell.streamProfileImageView.backgroundColor = Colors.offWhite
+            cell.streamProfileImageView.backgroundColor = cell.streamProfileImageView.backgroundColor?.lighterColor()
         })
         
     }
@@ -649,6 +795,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func loadCharms() {
         loading = true
         streamSummaryLoaded = false
+        streamTV.alpha = 0.5
+        streamTV.userInteractionEnabled = false
         let loadCharmsQuery = PFQuery(className: "Charm")
         loadCharmsQuery.whereKey("owner", equalTo: PFUser.currentUser()!)
         loadCharmsQuery.includeKeys(["gifter", "model", "owner", "stream"])
@@ -668,6 +816,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let loadParticipatingStreamsQuery = PFQuery(className: "Stream")
                 loadParticipatingStreamsQuery.whereKey("author", notEqualTo: PFUser.currentUser()!)
                 loadParticipatingStreamsQuery.whereKey("participants", equalTo: PFUser.currentUser()!)
+                loadParticipatingStreamsQuery.includeKey("author")
                 loadParticipatingStreamsQuery.findObjectsInBackgroundWithBlock({ (streams, error) in
                     if error != nil{
                         print(error)
@@ -714,8 +863,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                                                 self.streamGallerySelectedIndexPath = NSIndexPath(forItem: 0, inSection: 1)
                                                 self.focusOnLatest = false
                                             }
+                                            self.activityIndicatorView.stopAnimating()
                                             self.streamGalleryCV.reloadData()
                                             self.streamTV.reloadData()
+                                            self.streamTV.alpha = 1
+                                            self.streamTV.userInteractionEnabled = true
                                             self.loading = false
                                         }
                                     })
@@ -724,8 +876,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         }
                         else{
                             self.refreshControl.endRefreshing()
+                            self.activityIndicatorView.stopAnimating()
                             self.streamGalleryCV.reloadData()
                             self.streamTV.reloadData()
+                            self.streamTV.alpha = 1
+                            self.streamTV.userInteractionEnabled = true
                             self.loading = false
                             self.toggleVisibility()
                         }

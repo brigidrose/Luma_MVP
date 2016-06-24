@@ -25,7 +25,7 @@ class CommentTableViewCell: UITableViewCell {
         
         commentCardView = UIView(frame: CGRectZero)
         commentCardView.translatesAutoresizingMaskIntoConstraints = false
-        commentCardView.backgroundColor = UIColor(hexString: "979797")
+        commentCardView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         commentCardView.layer.cornerRadius = 5
         commentCardView.clipsToBounds = true
         contentView.addSubview(commentCardView)
@@ -35,7 +35,6 @@ class CommentTableViewCell: UITableViewCell {
         commentLabel.textAlignment = .Left
         commentLabel.font = UIFont.systemFontOfSize(17).italic()
         commentLabel.text = "Title Label Title Label Title Label Title Label Title Label Title Label Title Label"
-        commentLabel.textColor = Colors.white
         commentLabel.numberOfLines = 0
         commentCardView.addSubview(commentLabel)
         
@@ -48,11 +47,11 @@ class CommentTableViewCell: UITableViewCell {
         contentView.addSubview(authorButton)
         
         let viewsDictionary = ["commentCardView":commentCardView, "commentLabel":commentLabel, "authorButton":authorButton]
-        let metricsDictionary = ["cardLeftPadding":31.5, "cardRightPadding":7.5, "cardTopPadding":36, "cardBottomPadding":25]
+        let metricsDictionary = ["cardLeftPadding":31.5, "cardRightPadding":7.5, "cardTopPadding":26, "cardBottomPadding":25]
         
-        let cardHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-cardLeftPadding-[commentCardView]-cardRightPadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
+        let cardHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-cardLeftPadding-[commentCardView]->=cardRightPadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         
-        let cardVConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-cardTopPadding-[commentCardView]-cardBottomPadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
+        let cardVConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-cardTopPadding-[commentCardView]-10-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         
         contentView.addConstraints(cardHConstraints)
         contentView.addConstraints(cardVConstraints)
@@ -67,7 +66,7 @@ class CommentTableViewCell: UITableViewCell {
         
         contentView.addConstraints([authorButtonWidth, authorButtonHeight, authorButtonCenterX, authorButtonCenterY])
         
-        let commentLabelHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-34-[commentLabel]-12-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
+        let commentLabelHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-34-[commentLabel]-17-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         
         let commentLabelVConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-12-[commentLabel]-12-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         

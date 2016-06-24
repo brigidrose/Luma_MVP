@@ -15,6 +15,8 @@ class StreamSelectionViewController: UIViewController, UITableViewDataSource, UI
     var activeStreams:[Stream] = []
     var archivedStreams:[Stream] = []
     var newMomentVC:NewMomentViewController!
+    var activityIndicatorView:UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,6 +36,14 @@ class StreamSelectionViewController: UIViewController, UITableViewDataSource, UI
         streamsTV.dataSource = self
         streamsTV.registerClass(StreamWithParticipantsTableViewCell.self, forCellReuseIdentifier: "StreamWithParticipantsTableViewCell")
         view.addSubview(streamsTV)
+        
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activityIndicatorView.frame = CGRectMake(0, 0, 50, 50)
+        activityIndicatorView.center = view.center
+        activityIndicatorView.startAnimating()
+        activityIndicatorView.hidesWhenStopped = true
+        view.addSubview(activityIndicatorView)
+
         
     }
 
@@ -132,6 +142,7 @@ class StreamSelectionViewController: UIViewController, UITableViewDataSource, UI
                         for stream in streams as! [Stream]{
                             self.activeStreams.append(stream)
                         }
+                        self.activityIndicatorView.stopAnimating()
                         self.streamsTV.reloadData()
                     }
                 })

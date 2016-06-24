@@ -17,6 +17,7 @@ class ProductScannerViewController: LBXScanViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "Pair Charm"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"CloseBarButtonItem" ), style: .Plain, target: self, action: #selector(ProductScannerViewController.closeButtonTapped))
         self.scanStyle?.centerUpOffset = 40
         self.scanStyle?.colorAngle = Colors.primary
@@ -45,7 +46,20 @@ class ProductScannerViewController: LBXScanViewController {
         switch result.strScanned! {
         case "lumaDemoCharm1":
             // check if current user is already owner or participant of stream
+            // sororities
             self.currentUserIsMemberOfStream("R94I88keSy")
+        case "lumaDemoCharm2":
+            // nyc trip
+            self.currentUserIsMemberOfStream("GZd5i0dcut")
+        case "lumaDemoCharm3":
+            // liam <3
+            self.currentUserIsMemberOfStream("R119gIcCrg")
+        case "lumaDemoCharm4":
+            // Family time
+            self.currentUserIsMemberOfStream("r5WYtMknrz")
+        case "lumaDemoCharm5":
+            // squad
+            self.currentUserIsMemberOfStream("i6un02JFax")
         default:
             let alertController = UIAlertController(title: "Not Recognized", message: "This QR is not recognized", preferredStyle: .Alert)
             let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) in

@@ -23,6 +23,7 @@ class StreamSummaryTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .None
+        backgroundColor = UIColor.clearColor()
         
         titleLabel = UILabel(frame: CGRectZero)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

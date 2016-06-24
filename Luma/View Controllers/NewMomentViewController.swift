@@ -27,6 +27,7 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
     var unlockTypeLabel:UILabel!
     var unlockParameterLabel:UILabel!
     var unlockMoreButton:UIButton!
+    var mainVC:MainViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +43,9 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
         cameraVC.view.tintColor = Colors.primary
         
         navigationItem.title = "Moment"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .Done, target: self, action: #selector(NewMomentViewController.createButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "createBarButtonItem"), style: .Plain, target: self, action: #selector(NewMomentViewController.createButtonTapped(_:)))
         navigationItem.rightBarButtonItem?.enabled = false
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(NewMomentViewController.cancelButtonTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "cancelBarButtonItem"), style: .Plain, target: self, action: #selector(NewMomentViewController.cancelButtonTapped))
         
         toolBarBottom = UIToolbar(frame: CGRectZero)
         toolBarBottom.translatesAutoresizingMaskIntoConstraints = false
@@ -311,9 +312,11 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
                                     self.inStream.moments.addObject(newMoment)
                                     self.inStream.saveInBackgroundWithBlock({ (success, error) in
                                         if success{
-                                            self.resignFirstResponder()
-                                            self.dismissViewControllerAnimated(true, completion: {
-                                                (UIApplication.sharedApplication().delegate as! AppDelegate).setUpMomentUnlockNotifications()
+                                                self.resignFirstResponder()
+                                                self.dismissViewControllerAnimated(true, completion: {
+                                                    (UIApplication.sharedApplication().delegate as! AppDelegate).setUpMomentUnlockNotifications()
+                                                self.mainVC.loadCharms()
+                                                
                                             })
                                         }
                                         else{
@@ -338,7 +341,9 @@ class NewMomentViewController: UIViewController, UITableViewDelegate, UITableVie
                     self.inStream.saveInBackgroundWithBlock({ (success, error) in
                         if success{
                             self.resignFirstResponder()
-                            self.dismissViewControllerAnimated(true, completion: nil)
+                            self.dismissViewControllerAnimated(true, completion: {
+                                self.mainVC.loadCharms()
+                            })
                         }
                         else{
                             print(error)

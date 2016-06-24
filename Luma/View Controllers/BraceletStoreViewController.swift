@@ -12,7 +12,8 @@ import BBBadgeBarButtonItem
 
 class BraceletStoreViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
-    var tableVC:UITableViewController!
+    var tableView:UITableView!
+    
     var actionButton:UIButton!
     
     var braceletFeatures:[(String, String)] = [("Feature Highlight 1", "Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum"), ("Feature Highlight 2", "Descriptions something Luma Bracelet is dada something something Luma Bracelet is dada something something Lum")]
@@ -26,28 +27,25 @@ class BraceletStoreViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableVC = UITableViewController()
-        addChildViewController(tableVC)
-        tableVC.tableView = UITableView()
-        tableVC.automaticallyAdjustsScrollViewInsets = false
-        tableVC.tableView.frame = view.frame
-        tableVC.tableView.backgroundColor = UIColor.whiteColor()
-        tableVC.tableView.clipsToBounds = false
-        tableVC.tableView.contentInset.top = 44
-        tableVC.tableView.contentInset.bottom = 64 + 92
-        tableVC.tableView.delegate = self
-        tableVC.tableView.dataSource = self
-        tableVC.tableView.registerClass(ProductHeadlineTableViewCell.self, forCellReuseIdentifier: "ProductHeadlineTableViewCell")
-        tableVC.tableView.registerClass(ProductFeatureTableViewCell.self, forCellReuseIdentifier: "ProductFeatureTableViewCell")
-        tableVC.tableView.registerClass(ProductReviewTableViewCell.self, forCellReuseIdentifier: "ProductReviewTableViewCell")
-        tableVC.tableView.registerClass(AddressFormTableViewCell.self, forCellReuseIdentifier: "AddressFormTableViewCell")
-        tableVC.tableView.registerClass(SingleLineTextFieldTableViewCell.self, forCellReuseIdentifier: "SingleLineTextFieldTableViewCell")
-        tableVC.tableView.registerClass(MultilineTextViewTableViewCell.self, forCellReuseIdentifier: "MultilineTextViewTableViewCell")
-        tableVC.tableView.registerClass(TitleSeparatorTableViewCell.self, forCellReuseIdentifier: "TitleSeparatorTableViewCell")
-        tableVC.tableView.rowHeight = UITableViewAutomaticDimension
-        tableVC.tableView.estimatedRowHeight = 140
-        tableVC.tableView.separatorStyle = .None
-        view.addSubview(tableVC.tableView)
+        tableView = UITableView()
+        tableView.frame = view.frame
+        tableView.backgroundColor = UIColor.whiteColor()
+        tableView.clipsToBounds = false
+        tableView.contentInset.top = 44
+        tableView.contentInset.bottom = 64 + 92
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.registerClass(ProductHeadlineTableViewCell.self, forCellReuseIdentifier: "ProductHeadlineTableViewCell")
+        tableView.registerClass(ProductFeatureTableViewCell.self, forCellReuseIdentifier: "ProductFeatureTableViewCell")
+        tableView.registerClass(ProductReviewTableViewCell.self, forCellReuseIdentifier: "ProductReviewTableViewCell")
+        tableView.registerClass(AddressFormTableViewCell.self, forCellReuseIdentifier: "AddressFormTableViewCell")
+        tableView.registerClass(SingleLineTextFieldTableViewCell.self, forCellReuseIdentifier: "SingleLineTextFieldTableViewCell")
+        tableView.registerClass(MultilineTextViewTableViewCell.self, forCellReuseIdentifier: "MultilineTextViewTableViewCell")
+        tableView.registerClass(TitleSeparatorTableViewCell.self, forCellReuseIdentifier: "TitleSeparatorTableViewCell")
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
+        tableView.separatorStyle = .None
+        view.addSubview(tableView)
         
         actionButton = UIButton(frame: CGRectZero)
         actionButton.translatesAutoresizingMaskIntoConstraints = false
@@ -77,10 +75,10 @@ class BraceletStoreViewController: UIViewController, UITableViewDataSource, UITa
         if !purchaseFormShown{
             purchaseFormShown = true
             // show purchase form section
-            tableVC.tableView.beginUpdates()
-            tableVC.tableView.insertSections(NSMutableIndexSet(indexesInRange: NSRange(3...4)), withRowAnimation: .Bottom)
-            tableVC.tableView.endUpdates()
-            tableVC.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 3), atScrollPosition: .Top, animated: true)
+            tableView.beginUpdates()
+            tableView.insertSections(NSMutableIndexSet(indexesInRange: NSRange(3...4)), withRowAnimation: .Bottom)
+            tableView.endUpdates()
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 3), atScrollPosition: .Top, animated: true)
             // set actionButton title to "Add to Bag" and enable = false
             actionButton.setTitle("Add to Bag", forState: .Normal)
             actionButton.enabled = false
@@ -300,7 +298,7 @@ class BraceletStoreViewController: UIViewController, UITableViewDataSource, UITa
     
     func isGiftChanged(sender:UISegmentedControl) {
         if sender.selectedSegmentIndex == 0{
-            tableVC.tableView.beginUpdates()
+            tableView.beginUpdates()
             var oldIndexes:[NSIndexPath] = []
             for i in 0...0{
                 oldIndexes.append(NSIndexPath(forRow: i, inSection: 3))
@@ -310,12 +308,12 @@ class BraceletStoreViewController: UIViewController, UITableViewDataSource, UITa
             for i in 0...0{
                 newIndexes.append(NSIndexPath(forRow: i, inSection: 3))
             }
-            tableVC.tableView.deleteRowsAtIndexPaths(oldIndexes, withRowAnimation: .Right)
-            tableVC.tableView.insertRowsAtIndexPaths(newIndexes, withRowAnimation: .Left)
-            tableVC.tableView.endUpdates()
+            tableView.deleteRowsAtIndexPaths(oldIndexes, withRowAnimation: .Right)
+            tableView.insertRowsAtIndexPaths(newIndexes, withRowAnimation: .Left)
+            tableView.endUpdates()
         }
         else{
-            tableVC.tableView.beginUpdates()
+            tableView.beginUpdates()
             var oldIndexes:[NSIndexPath] = []
             for i in 0...0{
                 oldIndexes.append(NSIndexPath(forRow: i, inSection: 3))
@@ -325,11 +323,11 @@ class BraceletStoreViewController: UIViewController, UITableViewDataSource, UITa
             for i in 0...0{
                 newIndexes.append(NSIndexPath(forRow: i, inSection: 3))
             }
-            tableVC.tableView.deleteRowsAtIndexPaths(oldIndexes, withRowAnimation: .Left)
-            tableVC.tableView.insertRowsAtIndexPaths(newIndexes, withRowAnimation: .Right)
-            tableVC.tableView.endUpdates()
+            tableView.deleteRowsAtIndexPaths(oldIndexes, withRowAnimation: .Left)
+            tableView.insertRowsAtIndexPaths(newIndexes, withRowAnimation: .Right)
+            tableView.endUpdates()
         }
-        tableVC.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 3), atScrollPosition: .Top, animated: true)
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 3), atScrollPosition: .Top, animated: true)
 
     }
 }

@@ -26,7 +26,7 @@ class MomentDetailSummaryTableViewCell: UITableViewCell {
         
         titleCardView = UIView(frame: CGRectZero)
         titleCardView.translatesAutoresizingMaskIntoConstraints = false
-        titleCardView.backgroundColor = UIColor(hexString: "979797")
+        titleCardView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         titleCardView.layer.cornerRadius = 5
         titleCardView.clipsToBounds = true
         contentView.addSubview(titleCardView)
@@ -36,7 +36,6 @@ class MomentDetailSummaryTableViewCell: UITableViewCell {
         titleLabel.textAlignment = .Left
         titleLabel.font = UIFont.systemFontOfSize(17).italic()
         titleLabel.text = "Title Label Title Label Title Label Title Label Title Label Title Label Title Label"
-        titleLabel.textColor = Colors.white
         titleLabel.numberOfLines = 0
         titleCardView.addSubview(titleLabel)
         
@@ -51,7 +50,7 @@ class MomentDetailSummaryTableViewCell: UITableViewCell {
         let viewsDictionary = ["titleCardView":titleCardView, "titleLabel":titleLabel, "userButton":userButton]
         let metricsDictionary = ["cardLeftPadding":31.5, "cardRightPadding":7.5, "cardTopPadding":36, "cardBottomPadding":25]
         
-        let cardHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-cardLeftPadding-[titleCardView]-cardRightPadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
+        let cardHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-cardLeftPadding-[titleCardView]->=cardRightPadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         
         let cardVConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-cardTopPadding-[titleCardView]-cardBottomPadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         
@@ -68,7 +67,7 @@ class MomentDetailSummaryTableViewCell: UITableViewCell {
         
         contentView.addConstraints([userButtonWidth, userButtonHeight, userButtonCenterX, userButtonCenterY])
         
-        let titleLabelHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-34-[titleLabel]-12-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
+        let titleLabelHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-34-[titleLabel]-17-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         
         let titleLabelVConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-12-[titleLabel]-12-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         

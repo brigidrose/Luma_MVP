@@ -135,6 +135,7 @@ class LumaStoreViewController: UIViewController, UIPageViewControllerDataSource,
     }
     
     func closeBarButtonItemTapped(sender:UIBarButtonItem) {
+        view.endEditing(true)
         dismissViewControllerAnimated(true, completion: nil)
     }
     

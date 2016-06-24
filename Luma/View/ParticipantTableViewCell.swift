@@ -12,7 +12,7 @@ class ParticipantTableViewCell: UITableViewCell {
 
     var thumbnailImageView:UIImageView!
     var participantNameLabel:UILabel!
-    var joinedDateLabel:UILabel!
+//    var joinedDateLabel:UILabel!
     var separatorView:UIView!
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,30 +38,30 @@ class ParticipantTableViewCell: UITableViewCell {
         participantNameLabel.font = UIFont.systemFontOfSize(16, weight: UIFontWeightMedium)
         contentView.addSubview(participantNameLabel)
         
-        joinedDateLabel = UILabel(frame: CGRectZero)
-        joinedDateLabel.translatesAutoresizingMaskIntoConstraints = false
-        joinedDateLabel.text = "Joined Date"
-        joinedDateLabel.textAlignment = .Left
-        joinedDateLabel.font = UIFont.systemFontOfSize(14)
-        contentView.addSubview(joinedDateLabel)
+//        joinedDateLabel = UILabel(frame: CGRectZero)
+//        joinedDateLabel.translatesAutoresizingMaskIntoConstraints = false
+//        joinedDateLabel.text = "Joined Date"
+//        joinedDateLabel.textAlignment = .Left
+//        joinedDateLabel.font = UIFont.systemFontOfSize(14)
+//        contentView.addSubview(joinedDateLabel)
         
         separatorView = UIView(frame: CGRectZero)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         separatorView.backgroundColor = Colors.separatorGray
         contentView.addSubview(separatorView)
         
-        let viewsDictionary = ["thumbnailImageView":thumbnailImageView, "participantNameLabel":participantNameLabel, "joinedDateLabel":joinedDateLabel, "separatorView":separatorView]
+        let viewsDictionary = ["thumbnailImageView":thumbnailImageView, "participantNameLabel":participantNameLabel, "separatorView":separatorView]
         let metricsDictionary = ["sidePadding":10]
         
         let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-sidePadding-[thumbnailImageView(44)]-sidePadding-[participantNameLabel]-sidePadding-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         let vImageViewConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-sidePadding-[thumbnailImageView(44)]-9.5-[separatorView(0.5)]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
-        let vLabelsV = NSLayoutConstraint.constraintsWithVisualFormat("V:[participantNameLabel][joinedDateLabel]", options: [.AlignAllLeft, .AlignAllRight], metrics: metricsDictionary, views: viewsDictionary)
-        let participantNameLabelBottom = NSLayoutConstraint(item: participantNameLabel, attribute: .Bottom, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: 1, constant: 0)
+//        let vLabelsV = NSLayoutConstraint.constraintsWithVisualFormat("V:[participantNameLabel][joinedDateLabel]", options: [.AlignAllLeft, .AlignAllRight], metrics: metricsDictionary, views: viewsDictionary)
+        let participantNameLabelBottom = NSLayoutConstraint(item: participantNameLabel, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: 1, constant: 0)
         let separatorH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[separatorView]|", options: NSLayoutFormatOptions(rawValue:0), metrics: metricsDictionary, views: viewsDictionary)
         
         contentView.addConstraints(hConstraints)
         contentView.addConstraints(vImageViewConstraints)
-        contentView.addConstraints(vLabelsV)
+//        contentView.addConstraints(vLabelsV)
         contentView.addConstraint(participantNameLabelBottom)
         contentView.addConstraints(separatorH)
         

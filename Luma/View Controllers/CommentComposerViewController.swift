@@ -17,9 +17,9 @@ class CommentComposerViewController: TextComposerViewController, UITextViewDeleg
         super.viewDidLoad()
 
         navigationItem.title = "Comment"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(CommentComposerViewController.cancelButtonTapped))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .Done, target: self, action: #selector(CommentComposerViewController.doneButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "createBarButtonItem"), style: .Plain, target: self, action: #selector(CommentComposerViewController.doneButtonTapped(_:)))
         navigationItem.rightBarButtonItem?.enabled = false
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "cancelBarButtonItem"), style: .Plain, target: self, action: #selector(CommentComposerViewController.cancelButtonTapped))
         textView.placeholder = "Write a Comment..."
         textView.delegate = self
         textView.returnKeyType = .Done
@@ -31,12 +31,13 @@ class CommentComposerViewController: TextComposerViewController, UITextViewDeleg
     }
     
     func cancelButtonTapped() {
+        textView.resignFirstResponder()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func doneButtonTapped() {
+    func doneButtonTapped(sender:UIButton) {
         print("done button tapped")
-        
+        sender.enabled = false
         let newComment = Comment()
         newComment.author = PFUser.currentUser()!
         newComment.content = textView.text
@@ -47,17 +48,20 @@ class CommentComposerViewController: TextComposerViewController, UITextViewDeleg
                 moment.comments.addObject(newComment)
                 moment.saveInBackgroundWithBlock({ (success, error) in
                     if success{
+                        self.textView.resignFirstResponder()
                         self.dismissViewControllerAnimated(true, completion: {
                             self.momentDetailVC.loadComments()
                         })
                     }
                     else{
                         print(error)
+                        sender.enabled = true
                     }
                 })
             }
             else{
                 print(error)
+                sender.enabled = true
             }
         }
         

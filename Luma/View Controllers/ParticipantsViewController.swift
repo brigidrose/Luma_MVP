@@ -17,6 +17,7 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
     var participants:[PFUser] = []
     var facebookFriends:[(String, String)] = []
     var streamSettingsVC:StreamSettingsViewController!
+    var activityIndicatorView:UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,14 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
         tableVC.tableView.estimatedRowHeight = 64
         tableVC.tableView.separatorStyle = .None
         view.addSubview(tableVC.tableView)
+        
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activityIndicatorView.frame = CGRectMake(0, 0, 50, 50)
+        activityIndicatorView.center = view.center
+        activityIndicatorView.startAnimating()
+        activityIndicatorView.hidesWhenStopped = true
+        view.addSubview(activityIndicatorView)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -140,6 +149,7 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
                         }
                     }
                 }
+                self.activityIndicatorView.stopAnimating()
                 self.tableVC.tableView.reloadData()
                 
             } else {

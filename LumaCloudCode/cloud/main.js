@@ -13,6 +13,7 @@ Parse.Cloud.afterSave("Moment", function (request) {
                           var locked = request.object.get("locked");
                           var unlockLocation = request.object.get("unlockLocation");
                           var unlockDate = request.object.get("unlockDate");
+                          notificationType = "newMoment"
                           if (locked == true) {
                           console.log("moment is locked");
                               if (unlockDate == null){
@@ -21,8 +22,7 @@ Parse.Cloud.afterSave("Moment", function (request) {
                               else{
                                   notificationType = "newTimeLockedMoment";
                               }
-                          } else {
-                          notificationType = "newMoment"
+                          }
                           narrative = request.object.get("narrative");
                           var authorQuery = new Parse.Query("_User");
                           authorQuery.get(authorReference.id, {
@@ -33,7 +33,13 @@ Parse.Cloud.afterSave("Moment", function (request) {
                                           streamQuery.get(streamReference.id, {
                                                           success: function (foundStream) {
                                                           stream = foundStream;
-                                                          var pushText = author.get("firstName") + " " + author.get("lastName") + " added a moment to " + stream.get("title") + ".";
+                                                          var pushText = author.get("firstName") + " " + author.get("lastName") + " added a moment to " + stream.get("title");
+                                                          if (notificationType == "newLocationLockedMoment"){
+                                                          pushText += ("to be unlocked near latitude: " + unlockLocation.latitude + ", longitude: " + unlockLocation.longitude);
+                                                          }
+                                                          if (notificationType == "newTimeLockedMoment"){
+                                                          pushText += ("to be unlocked on " + unlockDate.toLocaleString());
+                                                          }
                                                           var participantsRelation = stream.relation("participants");
                                                           console.log(participantsRelation);
                                                           participantsRelation.query().find({
@@ -102,7 +108,6 @@ Parse.Cloud.afterSave("Moment", function (request) {
                                           
                                               }
                                           });
-                                  }
                           }
                       });
 
