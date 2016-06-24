@@ -9,6 +9,7 @@ Parse.Cloud.afterSave("Moment", function (request) {
                           console.log(momentId);
                           var authorReference = request.object.get("author");
                           var streamReference = request.object.get("inStream");
+                          var streamAuthor = null
                           var notificationType = ""
                           var locked = request.object.get("locked");
                           var unlockLocation = request.object.get("unlockLocation");
@@ -33,6 +34,7 @@ Parse.Cloud.afterSave("Moment", function (request) {
                                           streamQuery.get(streamReference.id, {
                                                           success: function (foundStream) {
                                                           stream = foundStream;
+                                                          streamAuthor = foundStream.get("author");
                                                           var pushText = author.get("firstName") + " " + author.get("lastName") + " added a moment to " + stream.get("title");
                                                           if (notificationType == "newLocationLockedMoment"){
                                                           pushText += ("to be unlocked near latitude: " + unlockLocation.latitude + ", longitude: " + unlockLocation.longitude);
@@ -72,10 +74,10 @@ Parse.Cloud.afterSave("Moment", function (request) {
                                                                                                                     });
                                                                                                     }
                                                                                                 }
-                                                                                                if (author.id != request.user.id) {
+                                                                                                if (streamAuthor.id != request.user.id) {
                                                                                             console.log("new moment notif sent to " + author.get("firstName"));
                                                                                                     var pushQuery = new Parse.Query(Parse.Installation);
-                                                                                                    pushQuery.equalTo("currentUser", author);
+                                                                                                    pushQuery.equalTo("currentUser", streamAuthor);
                                                                                                     Parse.Push.send({
                                                                                                                     where: pushQuery, // Set our Installation query
                                                                                                                     data: {
@@ -117,7 +119,7 @@ Parse.Cloud.afterSave("Comment", function (request) {
                       var moment = null;
                       var authorReference = request.object.get("author");
                       var momentReference = request.object.get("inMoment");
-                      
+                      var streamAuthor = null;
                       var authorQuery = new Parse.Query("_User");
                       authorQuery.get(authorReference.id, {
                                       success: function (foundAuthor) {
@@ -132,6 +134,7 @@ Parse.Cloud.afterSave("Comment", function (request) {
                                                   streamQuery.get(streamReference.id, {
                                                           success: function (foundStream) {
                                                           stream = foundStream;
+                                                          streamAuthor = stream.get("author");
                                                           var pushText = author.get("firstName") + " " + author.get("lastName") + " commented in " + moment.get("narrative") + " in " + stream.get("title") + ".";
                                                           var participantsRelation = stream.relation("participants");
                                                           participantsRelation.query().find({
@@ -164,10 +167,10 @@ Parse.Cloud.afterSave("Comment", function (request) {
                                                                                 });
                                                                 }
                                                                 }
-                                                                if (author.id != request.user.id) {
+                                                                if (streamAuthor.id != request.user.id) {
                                                                 console.log("new comment notif sent to " + author.get("firstName"));
                                                                 var pushQuery = new Parse.Query(Parse.Installation);
-                                                                pushQuery.equalTo("currentUser", author);
+                                                                pushQuery.equalTo("currentUser", streamAuthor);
                                                                 Parse.Push.send({
                                                                                 where: pushQuery, // Set our Installation query
                                                                                 data: {
