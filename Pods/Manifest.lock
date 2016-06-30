@@ -10,19 +10,19 @@ PODS:
   - ColorArt (0.1.1)
   - CountdownLabel (1.1.2):
     - LTMorphingLabel (~> 0.1.1)
-  - Crashlytics (3.7.1):
+  - Crashlytics (3.7.2):
     - Fabric (~> 1.6.3)
   - CSStickyHeaderFlowLayout (0.2.10)
   - DateTools (1.7.0)
   - DynamicColor (2.4.0)
   - Fabric (1.6.7)
-  - FBSDKCoreKit (4.13.0):
+  - FBSDKCoreKit (4.13.1):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.13.0):
+  - FBSDKLoginKit (4.13.1):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.13.0):
+  - FBSDKShareKit (4.13.1):
     - FBSDKCoreKit
-  - IQKeyboardManagerSwift (4.0.3)
+  - IQKeyboardManagerSwift (4.0.4)
   - JVFloatLabeledTextField (1.1.0)
   - KDEDateLabel (1.2.0)
   - KRLCollectionViewGridLayout (0.4.1)
@@ -90,15 +90,15 @@ SPEC CHECKSUMS:
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   ColorArt: de0ffb63da4acdde8e234ded62e200236ca3e7e4
   CountdownLabel: 06f96abd1f6e3a2dc6795ffb321c742ab5959b74
-  Crashlytics: 3cdd4c9655be68032a0cf0379e0fb5ef6af22cad
+  Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   DynamicColor: 2f3fd61053684667bad9f03045dcf9a2a5a007ea
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
-  FBSDKCoreKit: 322234a989549a4594ddf02fdcf60bef80f97341
-  FBSDKLoginKit: 7a0ee41905a3e008a1b89aa26cd21717a45b9b9c
-  FBSDKShareKit: 4b714a6f381168908b2e7c0d302641897c69dcd6
-  IQKeyboardManagerSwift: b6883b720b0e76473692fdc80828442566e1075f
+  FBSDKCoreKit: 2807fe0da2ddb49a1469da6d6ff597f99912980f
+  FBSDKLoginKit: 6d350cb6a22d6956e9d078885de6ee8a0ebc51b4
+  FBSDKShareKit: c9438df7573b33780ac8c3451201c5ebb260ffca
+  IQKeyboardManagerSwift: e0964d04d6a29b71016fd346dca13ecb80a2823a
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   KDEDateLabel: f37824a632879ef72f3cabaf847bf95743d93882
   KRLCollectionViewGridLayout: 6363dc7e3d91cf1f97e19ed20846764566659596

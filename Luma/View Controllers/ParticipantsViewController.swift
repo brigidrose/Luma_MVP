@@ -183,7 +183,16 @@ class ParticipantsViewController: UIViewController, UITableViewDelegate, UITable
                     self.streamSettingsVC.stream.saveInBackgroundWithBlock({ (success, error) in
                         if success{
                             print("stream saved")
-                            self.loadParticipants()
+                            self.loadParticipants()                            
+                            PFCloud.callFunctionInBackground("sendAddedAsParticipantNotif", withParameters: ["recipientId":user.objectId!, "message":"\(PFUser.currentUser()!["firstName"]) \(PFUser.currentUser()!["lastName"]) added you as a participant to \(self.streamSettingsVC.stream.title)"], block: { (successString, error) in
+                                if error != nil{
+                                    print(error)
+                                }
+                                else{
+                                    print("success")
+                                }
+                            })
+
                         }
                         else{
                             print(error)

@@ -125,6 +125,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         streamGalleryCV.dataSource = self
         streamGalleryCV.scrollsToTop = false
         streamGalleryCV.registerClass(StreamGalleryCollectionViewCell.self, forCellWithReuseIdentifier: "StreamGalleryCollectionViewCell")
+        streamGalleryCV.showsHorizontalScrollIndicator = false
         view.addSubview(streamGalleryCV)
         
         streamGallerySeparatorView = UIView(frame:CGRectZero)
@@ -687,19 +688,27 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if indexPath.item < charms.count{
                     let model = charms[indexPath.item].model
                     cell.streamProfileImageView.sd_setImageWithURL(NSURL(string:model.heroImage.url!))
+                    if indexPath != streamGallerySelectedIndexPath{
+                        cell.alpha = 0.3
+                        cell.streamProfileImageView.backgroundColor = UIColor.clearColor()
+                    }
+                    else{
+                        cell.alpha = 1
+                        cell.streamProfileImageView.backgroundColor = UIColor.clearColor()
+                    }
                 }
                 else{
                     // current user not author of stream
                     cell.streamProfileImageView.backgroundColor = UIColor(hexString: "9B9B9B")
                     cell.streamProfileImageView.image = nil
-                }
-                if indexPath != streamGallerySelectedIndexPath{
-                    cell.alpha = 0.3
-                    cell.streamProfileImageView.backgroundColor = UIColor(hexString: "9B9B9B")
-                }
-                else{
-                    cell.alpha = 1
-                    cell.streamProfileImageView.backgroundColor = UIColor(hexString: "9B9B9B")
+                    if indexPath != streamGallerySelectedIndexPath{
+                        cell.alpha = 0.3
+                        cell.streamProfileImageView.backgroundColor = UIColor(hexString: "9B9B9B")
+                    }
+                    else{
+                        cell.alpha = 1
+                        cell.streamProfileImageView.backgroundColor = UIColor(hexString: "9B9B9B")
+                    }
                 }
             }
             return cell
@@ -855,7 +864,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                                             self.toggleVisibility()
                                             
                                             if !self.focusOnLatest{
-//                                            self.streamGallerySelectedIndexPath = NSIndexPath(forItem:sortedStreams.indexOf(self.streams[self.streamGallerySelectedIndexPath.item])!,inSection:1)
                                             }
                                             else{
                                                 let sortedStreams = self.streams.sort({ $0.updatedAt?.timeIntervalSince1970 > $1.updatedAt?.timeIntervalSince1970 })

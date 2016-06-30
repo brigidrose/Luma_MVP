@@ -67,65 +67,70 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
         UIApplication.sharedApplication().registerForRemoteNotifications()
         
-        let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let initialViewController : MainViewController = mainStoryboard.instantiateViewControllerWithIdentifier("mainVC") as! MainViewController
-        let initialNC = UINavigationController(rootViewController: initialViewController)
-        initialNC.view.tintColor = Colors.primary
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = initialNC
-        self.window?.makeKeyAndVisible()
-
-        if (launchOptions != nil) {
-
-            // For remote Notification
-            if let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as! [NSObject : AnyObject]? {
-                
-                switch userInfo["notificationType"] as! String {
-                case "newMoment":
-                    let momentId = userInfo["momentObjectId"] as! String
-                    let momentDetailVC = MomentDetailViewController()
-                    let momentQuery = PFQuery(className: "Moment")
-                    momentQuery.getObjectInBackgroundWithId(momentId, block: { (moment, error) in
-                        if error != nil{
-                            print(error)
-                        }
-                        else{
-                            momentDetailVC.moment = moment as! Moment
-                            momentDetailVC.view.tintColor = Colors.primary
-                            let momentDetailNC = UINavigationController(rootViewController: momentDetailVC)
-                            momentDetailNC.navigationBar.tintColor = Colors.primary
-                            self.window?.rootViewController!.presentViewController(momentDetailNC, animated: true, completion: nil)
-                        }
-                    })
-                case "newComment":
-                    print("new comment notification")
-                    let momentId = userInfo["momentObjectId"] as! String
-                    let momentDetailVC = MomentDetailViewController()
-                    let momentQuery = PFQuery(className: "Moment")
-                    momentQuery.getObjectInBackgroundWithId(momentId, block: { (moment, error) in
-                        if error != nil{
-                            print(error)
-                        }
-                        else{
-                            momentDetailVC.moment = moment as! Moment
-                            momentDetailVC.view.tintColor = Colors.primary
-                            momentDetailVC.scrollToComments = true
-                            let momentDetailNC = UINavigationController(rootViewController: momentDetailVC)
-                            momentDetailNC.navigationBar.tintColor = Colors.primary
-                            self.window?.rootViewController!.presentViewController(momentDetailNC, animated: true, completion: nil)
-                        }
-                    })
-                case "newLocationLockedMoment":
-                    print("new location locked moment notification")
-                case "newTimeLockedMoment":
-                    print("new time locked moment notification")
-                default:
-                    print("default")
-                }
-            }
-            
-        }
-
+//        let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let initialViewController : MainViewController = mainStoryboard.instantiateViewControllerWithIdentifier("mainVC") as! MainViewController
+//        let initialNC = UINavigationController(rootViewController: initialViewController)
+//        initialNC.view.tintColor = Colors.primary
+//        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//        self.window?.rootViewController = initialNC
+//
+//        if (launchOptions != nil) {
+//
+//            // For remote Notification
+//            if let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as! [NSObject : AnyObject]? {
+//                let notificationType = userInfo["notificationType"] as! String
+//                switch notificationType{
+//                case "newMoment":
+//                    let momentId = userInfo["momentObjectId"] as! String
+//                    let momentDetailVC = MomentDetailViewController()
+//                    let momentQuery = PFQuery(className: "Moment")
+//                    momentQuery.getObjectInBackgroundWithId(momentId, block: { (moment, error) in
+//                        if error != nil{
+//                            print(error)
+//                        }
+//                        else{
+//                            momentDetailVC.moment = moment as! Moment
+//                            momentDetailVC.view.tintColor = Colors.primary
+//                            let momentDetailNC = UINavigationController(rootViewController: momentDetailVC)
+//                            momentDetailNC.navigationBar.tintColor = Colors.primary
+////                            let alertController = UIAlertController(title: nil, message:"crashing before presentation",preferredStyle: .Alert)
+////                            alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: { (action) in
+////                                print("ok")
+////                            }))
+//                            self.window?.rootViewController!.presentViewController(momentDetailNC, animated: true, completion: nil)
+//                        }
+//                    })
+//                case "newComment":
+//                    print("new comment notification")
+//                    let momentId = userInfo["momentObjectId"] as! String
+//                    let momentDetailVC = MomentDetailViewController()
+//                    let momentQuery = PFQuery(className: "Moment")
+//                    momentQuery.getObjectInBackgroundWithId(momentId, block: { (moment, error) in
+//                        if error != nil{
+//                            print(error)
+//                        }
+//                        else{
+//                            momentDetailVC.moment = moment as! Moment
+//                            momentDetailVC.view.tintColor = Colors.primary
+//                            momentDetailVC.scrollToComments = true
+//                            let momentDetailNC = UINavigationController(rootViewController: momentDetailVC)
+//                            momentDetailNC.navigationBar.tintColor = Colors.primary
+//                            self.window?.rootViewController!.presentViewController(momentDetailNC, animated: true, completion: nil)
+//                        }
+//                    })
+//                case "newLocationLockedMoment":
+//                    print("new location locked moment notification")
+//                case "newTimeLockedMoment":
+//                    print("new time locked moment notification")
+//                case "addedAsParticipant":
+//                    print("new time locked moment notification")
+//                default:
+//                    print("default")
+//                }
+//            }
+//            
+//        }
+//
         
         return true
     }
@@ -233,6 +238,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     print("new location locked moment notification")
                 case "newTimeLockedMoment":
                     print("new time locked moment notification")
+                case "addedAsParticipant":
+                    print("new time locked moment notification")
                 default:
                     print("default")
                 }
@@ -297,7 +304,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                                             self.locationManager.startMonitoringForRegion(region)
                                         }
                                     }
-                                    print("started monitoring for regions \(self.locationManager.monitoredRegions)")
                                 }
                             })
 
@@ -332,7 +338,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
         print("did enter region \(region.identifier)")
-//        unlockMomentWithMonitoredRegion(region as! CLCircularRegion)
+        unlockMomentWithMonitoredRegion(region as! CLCircularRegion)
         
     }
     

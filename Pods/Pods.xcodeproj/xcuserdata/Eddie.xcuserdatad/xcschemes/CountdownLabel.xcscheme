@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'EE2D9331D72426A0799B77DC'
+               BlueprintIdentifier = 'A6E6E90614B6A93235A98BD9'
                BlueprintName = 'CountdownLabel'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'CountdownLabel.framework'>

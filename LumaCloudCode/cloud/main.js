@@ -214,3 +214,31 @@ Parse.Cloud.afterSave("Comment", function (request) {
                                           });
                           
                       });
+
+Parse.Cloud.define("sendAddedAsParticipantNotif", function(request, response) {
+                   var senderUser = request.user;
+                   var recipientUserId = request.params.recipientId;
+                   var message = request.params.message;
+                   
+                   
+                   // Send the push.
+                   // Find devices associated with the recipient user
+                   var recipientUser = new Parse.User();
+                   recipientUser.id = recipientUserId;
+                   var pushQuery = new Parse.Query(Parse.Installation);
+                   pushQuery.equalTo("currentUser", recipientUser);
+                   
+                   // Send the push notification to results of the query
+                   Parse.Push.send({
+                                   where: pushQuery,
+                                   data: {
+                                   alert: message,
+                                   "content-available": "1",
+                                   "notificationType": "addedAsParticipant"
+                                   }
+                                   }).then(function() {
+                                           response.success("Push was sent successfully.")
+                                           }, function(error) {
+                                           response.error("Push failed to send with error: " + error.message);
+                                           });
+                   });
